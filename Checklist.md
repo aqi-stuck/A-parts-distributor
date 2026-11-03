@@ -1,4 +1,4 @@
-this is checklist i got notion ai to write for me this includes roles 1 being ml 2 dev roles you guys can decide which one fits better for you use ai to the extreme lol
+this is checklist i got notion ai to write this for me this includes roles 1 being ml 2 dev roles you guys can decide which one fits better for you use ai to the extreme the things you guys dont know figure it out if you cant disscuss here we will figure something out
 # Parts Distributor Search: Hackathon Checklist
 
 **How to use:** tick a box with `- [x]` in the same commit as the work. Reference IDs in commit messages (e.g. `done B2, B3`). Don't reword or renumber items; add new ones at the end of a section so diffs stay readable.
