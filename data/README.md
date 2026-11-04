@@ -21,3 +21,14 @@ changes, missing attributes, and noise:
 ```powershell
 .\.venv\Scripts\python.exe data\generate_queries.py
 ```
+
+`generate_gold_set.py` creates the frozen 400-query evaluation set from the
+generated labeled queries. It balances all six transformation types and
+verifies every target SKU exists in `catalog.csv`:
+
+```powershell
+.\.venv\Scripts\python.exe data\generate_gold_set.py
+```
+
+Do not tune retrieval behavior against `gold_queries.csv`; use it only for
+final evaluation.

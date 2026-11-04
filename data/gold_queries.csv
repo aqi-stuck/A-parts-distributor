@@ -1,0 +1,401 @@
+gold_id,query_id,query,target_sku,transformation
+G0001,1,zinc steel bolt m6 20 mm,BOL-M6-020-0001,abbreviation
+G0002,2,zinc part steel bolt m8 25 mm,BOL-M8-025-0008,noise
+G0003,3,zinc steel bolt m10 30 mm,BOL-M10-030-0015,typo
+G0004,4,zinc bolt m12 40 mm,BOL-M12-040-0022,missing_attribute
+G0005,5,zinc 1/4-20 50 mm steel bolt,BOL-1420-050-0029,word_order
+G0006,6,zinc steel 3/8-16 60 mm,BOL-3816-060-0036,missing_attribute
+G0007,7,zinc steel nut m8 20 mm,NUT-M8-020-0043,abbreviation
+G0008,8,zinc steel nut m10 25 mm,NUT-M10-025-0050,abbreviation
+G0009,9,zinc steel nut m12 30 mm,NUT-M12-030-0057,typo
+G0010,10,zinc steel nut 1/4-20 40mm,NUT-1420-040-0064,unit_or_fraction
+G0011,11,zinc steel nut 3/8-16 2 inch,NUT-3816-050-0071,unit_or_fraction
+G0012,12,zinc steel washer m6 60 mm,WAS-M6-060-0078,typo
+G0013,13,zinc steel washer m10 20 mm,WAS-M10-020-0085,typo
+G0014,14,zinc washer m12 25 mm,WAS-M12-025-0092,missing_attribute
+G0015,15,washer 30 mm zinc 1/4-20 steel,WAS-1420-030-0099,word_order
+G0016,16,zinc steel washer 3/8-16 40mm,WAS-3816-040-0106,unit_or_fraction
+G0017,17,zinc steel screw 50 mm,SCR-M6-050-0113,missing_attribute
+G0018,18,zinc steel screw m8 60 m,SCR-M8-060-0120,typo
+G0019,19,20 mm screw steel m12 zinc,SCR-M12-020-0127,word_order
+G0020,20,zinc steel 1/4-20 25 mm,SCR-1420-025-0134,missing_attribute
+G0021,21,zinc screw 3/8-16 30 mm,SCR-3816-030-0141,missing_attribute
+G0022,22,zinc steel brg m6 40 mm,BEA-M6-040-0148,abbreviation
+G0023,23,zinc teel bearing m8 50 mm,BEA-M8-050-0155,typo
+G0024,24,zinc steel bearing m10 part 60 mm,BEA-M10-060-0162,noise
+G0025,25,zinc stee bearing 1/4-20 20 mm,BEA-1420-020-0169,typo
+G0026,26,zinc steel bearing 3/-16 25 mm,BEA-3816-025-0176,typo
+G0027,27,30 mm seal m6 steel zinc,SEA-M6-030-0183,word_order
+G0028,28,zinc steel m8 40 mm,SEA-M8-040-0190,missing_attribute
+G0029,29,zinc steel seal m10 2 inch,SEA-M10-050-0197,unit_or_fraction
+G0030,30,zinc steel m12 60 mm,SEA-M12-060-0204,missing_attribute
+G0031,31,steel 3/8-16 20 mm zinc seal,SEA-3816-020-0211,word_order
+G0032,32,zin steel bracket m6 25 mm,BRA-M6-025-0218,typo
+G0033,33,zinc seel bracket m8 30 mm,BRA-M8-030-0225,typo
+G0034,34,zinc steel bracket m10 40mm,BRA-M10-040-0232,typo
+G0035,35,zinc 50 mm m12 steel bracket,BRA-M12-050-0239,word_order
+G0036,36,znc steel bracket 1/4-20 60 mm,BRA-1420-060-0246,typo
+G0037,37,zinc steel please connector m6 20 mm,CON-M6-020-0253,noise
+G0038,38,zinc steel connector m8 25 mm,CON-M8-025-0260,typo
+G0039,39,zinc steel connectr m10 30 mm,CON-M10-030-0267,typo
+G0040,40,steel m12 zinc connector 40 mm,CON-M12-040-0274,word_order
+G0041,41,steel connector 50 mm zinc 1/4-20,CON-1420-050-0281,word_order
+G0042,42,zinc steel connector 3/8-16,CON-3816-060-0288,missing_attribute
+G0043,43,black oxide steel bolt m8 20mm,BOL-M8-020-0295,unit_or_fraction
+G0044,44,black oxide steel bolt m10 25 mm,BOL-M10-025-0302,abbreviation
+G0045,45,black oxide steel bolt replacement m12 30 mm,BOL-M12-030-0309,noise
+G0046,46,black oxide steel 1/4-20 40 mm,BOL-1420-040-0316,missing_attribute
+G0047,47,black oxide steel 3/8-16 50 mm bolt,BOL-3816-050-0323,word_order
+G0048,48,black oxide nut 60 mm steel m6,NUT-M6-060-0330,word_order
+G0049,49,lack oxide steel nut m10 20 mm,NUT-M10-020-0337,typo
+G0050,50,black oxide nut m12 25 mm,NUT-M12-025-0344,missing_attribute
+G0051,51,black oxide steel 1/4-20 nut 30 mm,NUT-1420-030-0351,word_order
+G0052,52,black oxide steel nut 3/8-16,NUT-3816-040-0358,missing_attribute
+G0053,53,steel m6 50 mm black oxide washer,WAS-M6-050-0365,word_order
+G0054,54,black oxide steel washer m8,WAS-M8-060-0372,missing_attribute
+G0055,55,black oxide steel washer m12 20mm,WAS-M12-020-0379,unit_or_fraction
+G0056,56,black oxide steel washer 1/4-20 replacement 25 mm,WAS-1420-025-0386,noise
+G0057,57,black oxide steel washer 3/8-16 30mm,WAS-3816-030-0393,unit_or_fraction
+G0058,58,black oxide please steel screw m6 40 mm,SCR-M6-040-0400,noise
+G0059,59,black oxide steel screw m8 2 inch,SCR-M8-050-0407,unit_or_fraction
+G0060,60,black oxide screw m10 60 mm,SCR-M10-060-0414,missing_attribute
+G0061,61,black oxide steel part screw 1/4-20 20 mm,SCR-1420-020-0421,noise
+G0062,62,black oxide steel screw 3/816 25 mm,SCR-3816-025-0428,abbreviation
+G0063,63,black oxide steel bearing m6 30 mm please,BEA-M6-030-0435,noise
+G0064,64,black oxide steel bearing m8 40 m,BEA-M8-040-0442,typo
+G0065,65,black oxide steel brg m10 50 mm,BEA-M10-050-0449,abbreviation
+G0066,66,black oxide steel brg m12 60 mm,BEA-M12-060-0456,abbreviation
+G0067,67,black oxide steel bearing 3/8-16 20mm,BEA-3816-020-0463,unit_or_fraction
+G0068,68,black oxide steel seal m6 25 mm,SEA-M6-025-0470,typo
+G0069,69,black oxide steel seal m8 30 m,SEA-M8-030-0477,typo
+G0070,70,black oxide steel seal m10 40 mm,SEA-M10-040-0484,abbreviation
+G0071,71,black oxide steel seal m12 50 mm,SEA-M12-050-0491,abbreviation
+G0072,72,black oxide steel seal 1/4-20 60mm,SEA-1420-060-0498,unit_or_fraction
+G0073,73,black oxide steel bracket m6 20mm,BRA-M6-020-0505,unit_or_fraction
+G0074,74,black oxide steel bracket m8 1 inch,BRA-M8-025-0512,unit_or_fraction
+G0075,75,black oxide steel bracket m10 30mm,BRA-M10-030-0519,unit_or_fraction
+G0076,76,black oxide steel bracket m12 40mm,BRA-M12-040-0526,unit_or_fraction
+G0077,77,black oxide 1/4-20 steel 50 mm bracket,BRA-1420-050-0533,word_order
+G0078,78,black oxide steel bracket 3/8-16 60mm,BRA-3816-060-0540,typo
+G0079,79,black oxide steel conn m8 20 mm,CON-M8-020-0547,abbreviation
+G0080,80,black oxide steel connector m10 1 inch,CON-M10-025-0554,unit_or_fraction
+G0081,81,black oxide steel connector m12,CON-M12-030-0561,missing_attribute
+G0082,82,black oxide steel item connector 1/4-20 40 mm,CON-1420-040-0568,noise
+G0083,83,black oxide steel connector 50 mm,CON-3816-050-0575,missing_attribute
+G0084,84,plain steel bolt m6 60 mm,BOL-M6-060-0582,abbreviation
+G0085,85,m10 steel bolt plain 20 mm,BOL-M10-020-0589,word_order
+G0086,86,plain steel bolt m12 25 mm part,BOL-M12-025-0596,noise
+G0087,87,plain steel bolt 1/420 30 mm,BOL-1420-030-0603,abbreviation
+G0088,88,plain steel bolt 3/8-16 40mm,BOL-3816-040-0610,unit_or_fraction
+G0089,89,plain steel nut m6 50 mm,NUT-M6-050-0617,abbreviation
+G0090,90,plain steel m8 60 mm,NUT-M8-060-0624,missing_attribute
+G0091,91,plain nut steel 20 mm m12,NUT-M12-020-0631,word_order
+G0092,92,plain 25 mm 1/4-20 nut steel,NUT-1420-025-0638,word_order
+G0093,93,plain steel nut 3/8-16 30mm,NUT-3816-030-0645,unit_or_fraction
+G0094,94,plain steel wshr m6 40 mm,WAS-M6-040-0652,abbreviation
+G0095,95,plain steel washer m8 2 inch,WAS-M8-050-0659,unit_or_fraction
+G0096,96,plain steel wshr m10 60 mm,WAS-M10-060-0666,abbreviation
+G0097,97,plain steel washer 1/4-20 need 20 mm,WAS-1420-020-0673,noise
+G0098,98,plain steel wshr 3/816 25 mm,WAS-3816-025-0680,abbreviation
+G0099,99,plain steel screw m6 30 mm,SCR-M6-030-0687,abbreviation
+G0100,100,plain steel screw m8 40 mm,SCR-M8-040-0694,abbreviation
+G0101,101,plain steel screw m10,SCR-M10-050-0701,missing_attribute
+G0102,102,plain screw m12 60 mm,SCR-M12-060-0708,missing_attribute
+G0103,103,plain steel screw 20 mm,SCR-3816-020-0715,missing_attribute
+G0104,104,plain stel bearing m6 25 mm,BEA-M6-025-0722,typo
+G0105,105,plain stel bearing m8 30 mm,BEA-M8-030-0729,typo
+G0106,106,plain bearing m10 40 mm,BEA-M10-040-0736,missing_attribute
+G0107,107,steel m12 50 mm plain bearing,BEA-M12-050-0743,word_order
+G0108,108,plain steel brg 1/420 60 mm,BEA-1420-060-0750,abbreviation
+G0109,109,plain steel seal m6 20 mm,SEA-M6-020-0757,abbreviation
+G0110,110,plain steel seal m8 5 mm,SEA-M8-025-0764,typo
+G0111,111,plain steel eal m10 30 mm,SEA-M10-030-0771,typo
+G0112,112,seal steel 40 mm m12 plain,SEA-M12-040-0778,word_order
+G0113,113,plain steel seal 1/4-20 2 inch,SEA-1420-050-0785,unit_or_fraction
+G0114,114,plain steel seal 3/8-16,SEA-3816-060-0792,missing_attribute
+G0115,115,plain steel brkt m8 20 mm,BRA-M8-020-0799,abbreviation
+G0116,116,plain part steel bracket m10 25 mm,BRA-M10-025-0806,noise
+G0117,117,plain steel brkt m12 30 mm,BRA-M12-030-0813,abbreviation
+G0118,118,plain steel bracket 40 mm,BRA-1420-040-0820,missing_attribute
+G0119,119,plain steel replacement bracket 3/8-16 50 mm,BRA-3816-050-0827,noise
+G0120,120,connector plain 60 mm m6 steel,CON-M6-060-0834,word_order
+G0121,121,plain steel conector m10 20 mm,CON-M10-020-0841,typo
+G0122,122,plain steel connector m12 part 25 mm,CON-M12-025-0848,noise
+G0123,123,plain steel connector 1/420 30 mm,CON-1420-030-0855,typo
+G0124,124,plain connector 3/8-16 40 mm,CON-3816-040-0862,missing_attribute
+G0125,125,nickel bolt m6 50 mm,BOL-M6-050-0869,missing_attribute
+G0126,126,nickel steel bolt m8 60 mm,BOL-M8-060-0876,abbreviation
+G0127,127,nickel steel bolt m12 20 mm,BOL-M12-020-0883,abbreviation
+G0128,128,nickel steel bolt 25 mm,BOL-1420-025-0890,missing_attribute
+G0129,129,3/8-16 bolt 30 mm nickel steel,BOL-3816-030-0897,word_order
+G0130,130,nickel steel nut m6 40mm,NUT-M6-040-0904,unit_or_fraction
+G0131,131,steel nut m8 50 mm,NUT-M8-050-0911,missing_attribute
+G0132,132,nickel steel nut m10 60 mm,NUT-M10-060-0918,abbreviation
+G0133,133,nickel steel nut 1/420 20 mm,NUT-1420-020-0925,abbreviation
+G0134,134,nickel steel nut 3/816 25 mm,NUT-3816-025-0932,abbreviation
+G0135,135,nickel steel washer m6 item 30 mm,WAS-M6-030-0939,noise
+G0136,136,steel washer m8 40 mm,WAS-M8-040-0946,missing_attribute
+G0137,137,nickel replacement steel washer m10 50 mm,WAS-M10-050-0953,noise
+G0138,138,60 mm washer nickel m12 steel,WAS-M12-060-0960,word_order
+G0139,139,nickel steel washer 20 mm,WAS-3816-020-0967,missing_attribute
+G0140,140,nickel steel screw m6 25 mm replacement,SCR-M6-025-0974,noise
+G0141,141,nickel item steel screw m8 30 mm,SCR-M8-030-0981,noise
+G0142,142,nickel screw m10 40 mm,SCR-M10-040-0988,missing_attribute
+G0143,143,screw m12 50 mm nickel steel,SCR-M12-050-0995,word_order
+G0144,144,60 mm 1/4-20 nickel screw steel,SCR-1420-060-1002,word_order
+G0145,145,nickel steel brg m6 20 mm,BEA-M6-020-1009,abbreviation
+G0146,146,nickel bearing 25 mm m8 steel,BEA-M8-025-1016,word_order
+G0147,147,nickel bearing m10 steel 30 mm,BEA-M10-030-1023,word_order
+G0148,148,nickel steel brg m12 40 mm,BEA-M12-040-1030,abbreviation
+G0149,149,steel bearing 1/4-20 50 mm,BEA-1420-050-1037,missing_attribute
+G0150,150,nickel bearing 3/8-16 60 mm,BEA-3816-060-1044,missing_attribute
+G0151,151,steel seal m8 20 mm,SEA-M8-020-1051,missing_attribute
+G0152,152,nickel steel m10 25 mm,SEA-M10-025-1058,missing_attribute
+G0153,153,nickel steel seal m12 30 mm,SEA-M12-030-1065,typo
+G0154,154,nickel please steel seal 1/4-20 40 mm,SEA-1420-040-1072,noise
+G0155,155,nickel steel seal 3/816 50 mm,SEA-3816-050-1079,abbreviation
+G0156,156,nickel steel bracket part m6 60 mm,BRA-M6-060-1086,noise
+G0157,157,nickel steel brkt m10 20 mm,BRA-M10-020-1093,abbreviation
+G0158,158,nickel steel bracket m12,BRA-M12-025-1100,missing_attribute
+G0159,159,nickel steel brkt 1/420 30 mm,BRA-1420-030-1107,abbreviation
+G0160,160,nickel steel brkt 3/816 40 mm,BRA-3816-040-1114,abbreviation
+G0161,161,nickel steel connector m6 50 mm,CON-M6-050-1121,typo
+G0162,162,nickel steel connector m8 60mm,CON-M8-060-1128,unit_or_fraction
+G0163,163,20 mm connector m12 nickel steel,CON-M12-020-1135,word_order
+G0164,164,nickel steel connector 1/4-20 1 inch,CON-1420-025-1142,unit_or_fraction
+G0165,165,nickel steel conn 3/816 30 mm,CON-3816-030-1149,abbreviation
+G0166,166,zinc ss bolt m6 40 mm,BOL-M6-040-1156,abbreviation
+G0167,167,zinc stainless steel bolt m8 50 mm,BOL-M8-050-1163,typo
+G0168,168,zinc stainless steel bolt need m10 60 mm,BOL-M10-060-1170,noise
+G0169,169,zinc ss bolt 1/420 20 mm,BOL-1420-020-1177,abbreviation
+G0170,170,25 mm bolt zinc 3/8-16 stainless steel,BOL-3816-025-1184,word_order
+G0171,171,inc stainless steel nut m6 30 mm,NUT-M6-030-1191,typo
+G0172,172,zinc stainless steel nut 40 mm,NUT-M8-040-1198,missing_attribute
+G0173,173,zinc part stainless steel nut m10 50 mm,NUT-M10-050-1205,noise
+G0174,174,zinc ss nut m12 60 mm,NUT-M12-060-1212,abbreviation
+G0175,175,need zinc stainless steel nut 3/8-16 20 mm,NUT-3816-020-1219,noise
+G0176,176,zinc stainless steel wsher m6 25 mm,WAS-M6-025-1226,typo
+G0177,177,zinc stainless steel washer m8 30 mm,WAS-M8-030-1233,typo
+G0178,178,stainless steel washer zinc 40 mm m10,WAS-M10-040-1240,word_order
+G0179,179,zinc stainless steel m12 50 mm,WAS-M12-050-1247,missing_attribute
+G0180,180,zinc stainless steel washer 60 mm,WAS-1420-060-1254,missing_attribute
+G0181,181,zinc stainless seel screw m6 20 mm,SCR-M6-020-1261,typo
+G0182,182,m8 screw stainless steel 25 mm zinc,SCR-M8-025-1268,word_order
+G0183,183,m10 screw stainless steel 30 mm zinc,SCR-M10-030-1275,word_order
+G0184,184,zinc ss screw m12 40 mm,SCR-M12-040-1282,abbreviation
+G0185,185,zinc ss screw 1/420 50 mm,SCR-1420-050-1289,abbreviation
+G0186,186,screw 60 mm 3/8-16 zinc stainless steel,SCR-3816-060-1296,word_order
+G0187,187,zinc stainless steel bearing replacement m8 20 mm,BEA-M8-020-1303,noise
+G0188,188,zinc stainless steel bearing m10 part 25 mm,BEA-M10-025-1310,noise
+G0189,189,zinc stainless seel bearing m12 30 mm,BEA-M12-030-1317,typo
+G0190,190,zinc stainless steel bearing 1/4-20 40mm,BEA-1420-040-1324,unit_or_fraction
+G0191,191,50 mm bearing stainless steel zinc 3/8-16,BEA-3816-050-1331,word_order
+G0192,192,zinc stainless steel seal m6 60mm,SEA-M6-060-1338,unit_or_fraction
+G0193,193,zinc ss seal m10 20 mm,SEA-M10-020-1345,abbreviation
+G0194,194,zinc stainless steel seal m12 25 mm,SEA-M12-025-1352,typo
+G0195,195,zinc stainless steel sal 1/4-20 30 mm,SEA-1420-030-1359,typo
+G0196,196,zinc stainless steel seal 3/8-16 40mm,SEA-3816-040-1366,unit_or_fraction
+G0197,197,zinc ss brkt m6 50 mm,BRA-M6-050-1373,abbreviation
+G0198,198,zinc bracket m8 60 mm,BRA-M8-060-1380,missing_attribute
+G0199,199,m12 zinc bracket stainless steel 20 mm,BRA-M12-020-1387,word_order
+G0200,200,zinc ss brkt 1/420 25 mm,BRA-1420-025-1394,abbreviation
+G0201,201,zinc 3/8-16 30 mm bracket stainless steel,BRA-3816-030-1401,word_order
+G0202,202,zinc stainless steel connector m6 item 40 mm,CON-M6-040-1408,noise
+G0203,203,stainless steel m8 zinc 50 mm connector,CON-M8-050-1415,word_order
+G0204,204,zinc stainless steel connector m10 need 60 mm,CON-M10-060-1422,noise
+G0205,205,stainless steel 20 mm 1/4-20 zinc connector,CON-1420-020-1429,word_order
+G0206,206,zinc stainless steel connector 3/-16 25 mm,CON-3816-025-1436,typo
+G0207,207,black oxide m6 30 mm bolt stainless steel,BOL-M6-030-1443,word_order
+G0208,208,black oxide stainless steel olt m8 40 mm,BOL-M8-040-1450,typo
+G0209,209,black oxide stainless steel bolt m10 2 inch,BOL-M10-050-1457,unit_or_fraction
+G0210,210,black oxide stainless steel bolt m12 60mm,BOL-M12-060-1464,unit_or_fraction
+G0211,211,stainless steel bolt 3/8-16 20 mm,BOL-3816-020-1471,missing_attribute
+G0212,212,black oxide ss nut m6 25 mm,NUT-M6-025-1478,abbreviation
+G0213,213,m8 nut stainless steel 30 mm black oxide,NUT-M8-030-1485,word_order
+G0214,214,black oxide stainless steel m10 40 mm,NUT-M10-040-1492,missing_attribute
+G0215,215,black oxide stainless steel nut need m12 50 mm,NUT-M12-050-1499,noise
+G0216,216,black oxide nut 1/4-20 60 mm,NUT-1420-060-1506,missing_attribute
+G0217,217,20 mm stainless steel washer m6 black oxide,WAS-M6-020-1513,word_order
+G0218,218,black oxide washer m8 25 mm,WAS-M8-025-1520,missing_attribute
+G0219,219,black oxide ss wshr m10 30 mm,WAS-M10-030-1527,abbreviation
+G0220,220,stainless steel washer m12 40 mm,WAS-M12-040-1534,missing_attribute
+G0221,221,black oxide ss wshr 1/420 50 mm,WAS-1420-050-1541,abbreviation
+G0222,222,black oxide stainlss steel washer 3/8-16 60 mm,WAS-3816-060-1548,typo
+G0223,223,black oxide stainless steel screw m8 20mm,SCR-M8-020-1555,unit_or_fraction
+G0224,224,black oxide ss screw m10 25 mm,SCR-M10-025-1562,abbreviation
+G0225,225,m12 stainless steel 30 mm screw black oxide,SCR-M12-030-1569,word_order
+G0226,226,black oxide stainless steel 1/4-20 40 mm,SCR-1420-040-1576,missing_attribute
+G0227,227,black oxide stainless steel screw 3/8-16,SCR-3816-050-1583,missing_attribute
+G0228,228,black oxide ss brg m6 60 mm,BEA-M6-060-1590,abbreviation
+G0229,229,black oxide stainless steel bearing m10 2 mm,BEA-M10-020-1597,typo
+G0230,230,black oxide stainless steel bearing m12 1 inch,BEA-M12-025-1604,unit_or_fraction
+G0231,231,black oxide stainless steel 1/4-20 30 mm,BEA-1420-030-1611,missing_attribute
+G0232,232,black oxide stainless steel bearing warehouse 3/8-16 40 mm,BEA-3816-040-1618,noise
+G0233,233,black oxide stainless steel seal m6 2 inch,SEA-M6-050-1625,unit_or_fraction
+G0234,234,black oxide stainless steel seal m8 60mm,SEA-M8-060-1632,unit_or_fraction
+G0235,235,blak oxide stainless steel seal m12 20 mm,SEA-M12-020-1639,typo
+G0236,236,black oxide stainless steel seal 1/4-20 25 m,SEA-1420-025-1646,typo
+G0237,237,black oxide stainless steel seal 3/8-16 30mm,SEA-3816-030-1653,unit_or_fraction
+G0238,238,stainless steel black oxide m6 40 mm bracket,BRA-M6-040-1660,word_order
+G0239,239,black oxide stainless steel bracket 50 mm,BRA-M8-050-1667,missing_attribute
+G0240,240,black oxide ss brkt m10 60 mm,BRA-M10-060-1674,abbreviation
+G0241,241,black oxide stainless steel bracket 1/4-20 20mm,BRA-1420-020-1681,unit_or_fraction
+G0242,242,bracket 25 mm black oxide stainless steel 3/8-16,BRA-3816-025-1688,word_order
+G0243,243,connector black oxide stainless steel m6 30 mm,CON-M6-030-1695,word_order
+G0244,244,black oxde stainless steel connector m8 40 mm,CON-M8-040-1702,typo
+G0245,245,black oxide stainless steel connector m10 2 inch,CON-M10-050-1709,unit_or_fraction
+G0246,246,black oxide stainless steel part connector m12 60 mm,CON-M12-060-1716,noise
+G0247,247,connector black oxide 3/8-16 20 mm stainless steel,CON-3816-020-1723,word_order
+G0248,248,plain ss bolt m6 25 mm,BOL-M6-025-1730,abbreviation
+G0249,249,plain ss bolt m8 30 mm,BOL-M8-030-1737,abbreviation
+G0250,250,plain bolt m10 40 mm,BOL-M10-040-1744,missing_attribute
+G0251,251,plain ss bolt m12 50 mm,BOL-M12-050-1751,abbreviation
+G0252,252,plain ss bolt 1/420 60 mm,BOL-1420-060-1758,abbreviation
+G0253,253,plain stainless steel nut m6 20 mm,NUT-M6-020-1765,typo
+G0254,254,plain stainless steel m8 25 mm,NUT-M8-025-1772,missing_attribute
+G0255,255,plain stainless steel nut replacement m10 30 mm,NUT-M10-030-1779,noise
+G0256,256,plain stainless steel nut m12 40 mm part,NUT-M12-040-1786,noise
+G0257,257,nut 50 mm 1/4-20 plain stainless steel,NUT-1420-050-1793,word_order
+G0258,258,plain stainless steel nut 3/8-16 60mm,NUT-3816-060-1800,unit_or_fraction
+G0259,259,plain stainless steel replacement washer m8 20 mm,WAS-M8-020-1807,noise
+G0260,260,plain stainles steel washer m10 25 mm,WAS-M10-025-1814,typo
+G0261,261,lain stainless steel washer m12 30 mm,WAS-M12-030-1821,typo
+G0262,262,washer 1/4-20 plain 40 mm stainless steel,WAS-1420-040-1828,word_order
+G0263,263,washer stainless steel plain 3/8-16 50 mm,WAS-3816-050-1835,word_order
+G0264,264,plain stainless steel screw m6 60mm,SCR-M6-060-1842,unit_or_fraction
+G0265,265,plain stainless steel screw 20 mm,SCR-M10-020-1849,missing_attribute
+G0266,266,plain need stainless steel screw m12 25 mm,SCR-M12-025-1856,noise
+G0267,267,plain ss screw 1/420 30 mm,SCR-1420-030-1863,abbreviation
+G0268,268,pain stainless steel screw 3/8-16 40 mm,SCR-3816-040-1870,typo
+G0269,269,plain bearing m6 50 mm,BEA-M6-050-1877,missing_attribute
+G0270,270,plain stainless steel bearin m8 60 mm,BEA-M8-060-1884,typo
+G0271,271,plain stainless steel bearing 20 mm,BEA-M12-020-1891,missing_attribute
+G0272,272,plain ss brg 1/420 25 mm,BEA-1420-025-1898,abbreviation
+G0273,273,plain bearing stainless steel 30 mm 3/8-16,BEA-3816-030-1905,word_order
+G0274,274,plain stainless steel seal m6 40mm,SEA-M6-040-1912,unit_or_fraction
+G0275,275,plain ss seal m8 50 mm,SEA-M8-050-1919,abbreviation
+G0276,276,plain ss seal m10 60 mm,SEA-M10-060-1926,abbreviation
+G0277,277,1/4-20 stainless steel 20 mm seal plain,SEA-1420-020-1933,word_order
+G0278,278,plain stainless steel seal 3/8-1 25 mm,SEA-3816-025-1940,typo
+G0279,279,plain stainless steel bracket m6 30mm,BRA-M6-030-1947,unit_or_fraction
+G0280,280,plain ss brkt m8 40 mm,BRA-M8-040-1954,abbreviation
+G0281,281,plain stainless steel bracket please m10 50 mm,BRA-M10-050-1961,noise
+G0282,282,plain ss brkt m12 60 mm,BRA-M12-060-1968,abbreviation
+G0283,283,plain stainless steel bracket 3/8-16 20mm,BRA-3816-020-1975,unit_or_fraction
+G0284,284,plain stainless steel connector m6 25 mm,CON-M6-025-1982,typo
+G0285,285,plain stainless steel connector m8 30 m,CON-M8-030-1989,typo
+G0286,286,plain stainless steel replacement connector m10 40 mm,CON-M10-040-1996,noise
+G0287,287,50 mm plain connector m12 stainless steel,CON-M12-050-2003,word_order
+G0288,288,plain stainless steel connector 1/4-20 60 mm item,CON-1420-060-2010,noise
+G0289,289,nickel stainless steel bolt m6 20mm,BOL-M6-020-2017,unit_or_fraction
+G0290,290,nickel stainless steel bolt item m8 25 mm,BOL-M8-025-2024,noise
+G0291,291,nickel stainless steel bolt m10 30mm,BOL-M10-030-2031,unit_or_fraction
+G0292,292,nickel stainless steel bolt m12 40mm,BOL-M12-040-2038,unit_or_fraction
+G0293,293,nickel ss bolt 1/420 50 mm,BOL-1420-050-2045,abbreviation
+G0294,294,nickel stainless steel bolt 3/8-16 60mm,BOL-3816-060-2052,unit_or_fraction
+G0295,295,nickel stainless steel replacement nut m8 20 mm,NUT-M8-020-2059,noise
+G0296,296,nikel stainless steel nut m10 25 mm,NUT-M10-025-2066,typo
+G0297,297,stainless steel nut nickel 30 mm m12,NUT-M12-030-2073,word_order
+G0298,298,stainless steel nut 1/4-20 nickel 40 mm,NUT-1420-040-2080,word_order
+G0299,299,warehouse nickel stainless steel nut 3/8-16 50 mm,NUT-3816-050-2087,noise
+G0300,300,nickel stainless steel washer m6 60mm,WAS-M6-060-2094,unit_or_fraction
+G0301,301,nickel stainless steel washer m10 need 20 mm,WAS-M10-020-2101,noise
+G0302,302,nickel part stainless steel washer m12 25 mm,WAS-M12-025-2108,noise
+G0303,303,nickel warehouse stainless steel washer 1/4-20 30 mm,WAS-1420-030-2115,noise
+G0304,304,nickel stainless steel washer 3/8-16 40 mm please,WAS-3816-040-2122,noise
+G0305,305,screw 50 mm m6 nickel stainless steel,SCR-M6-050-2129,word_order
+G0306,306,m8 stainless steel nickel screw 60 mm,SCR-M8-060-2136,word_order
+G0307,307,nickel stainless steel part screw m12 20 mm,SCR-M12-020-2143,noise
+G0308,308,nickel stainless steel scew 1/4-20 25 mm,SCR-1420-025-2150,typo
+G0309,309,nickel stainless steel screw 3/8-6 30 mm,SCR-3816-030-2157,typo
+G0310,310,nickel stainless steel bearing m6 40 mm part,BEA-M6-040-2164,noise
+G0311,311,nickel ss brg m8 50 mm,BEA-M8-050-2171,abbreviation
+G0312,312,nickel ss brg m10 60 mm,BEA-M10-060-2178,abbreviation
+G0313,313,nickel stainless steel bearing 14-20 20 mm,BEA-1420-020-2185,typo
+G0314,314,nickel please stainless steel bearing 3/8-16 25 mm,BEA-3816-025-2192,noise
+G0315,315,nickel ss seal m6 30 mm,SEA-M6-030-2199,abbreviation
+G0316,316,nickel ss seal m8 40 mm,SEA-M8-040-2206,abbreviation
+G0317,317,nickel stainless steel replacement seal m10 50 mm,SEA-M10-050-2213,noise
+G0318,318,nickel ss seal m12 60 mm,SEA-M12-060-2220,abbreviation
+G0319,319,nickel stainless steel seal 3/8-16 20 mm part,SEA-3816-020-2227,noise
+G0320,320,nickel stainless steel need bracket m6 25 mm,BRA-M6-025-2234,noise
+G0321,321,nickel stainless steel warehouse bracket m8 30 mm,BRA-M8-030-2241,noise
+G0322,322,nickel stainless steel bracket m10 40mm,BRA-M10-040-2248,unit_or_fraction
+G0323,323,nickel ss brkt m12 50 mm,BRA-M12-050-2255,abbreviation
+G0324,324,stainless steel bracket 1/4-20 60 mm,BRA-1420-060-2262,missing_attribute
+G0325,325,nickel part stainless steel connector m6 20 mm,CON-M6-020-2269,noise
+G0326,326,nickel replacement stainless steel connector m8 25 mm,CON-M8-025-2276,noise
+G0327,327,nickel stainless steel connector m10 30 mm please,CON-M10-030-2283,noise
+G0328,328,nickel ss conn m12 40 mm,CON-M12-040-2290,abbreviation
+G0329,329,nickel stainless steel 1/4-20 50 mm,CON-1420-050-2297,missing_attribute
+G0330,331,zinc aluminum bolt m8 20 mm,BOL-M8-020-2311,typo
+G0331,332,zinc aluminum bolt 25 mm,BOL-M10-025-2318,missing_attribute
+G0332,335,zinc aluminum bolt 3/816 50 mm,BOL-3816-050-2339,typo
+G0333,336,zinc aluminum replacement nut m6 60 mm,NUT-M6-060-2346,noise
+G0334,337,m10 zinc aluminum nut 20 mm,NUT-M10-020-2353,word_order
+G0335,338,zinc m12 nut aluminum 25 mm,NUT-M12-025-2360,word_order
+G0336,339,zinc nut 1/4-20 30 mm,NUT-1420-030-2367,missing_attribute
+G0337,340,warehouse zinc aluminum nut 3/8-16 40 mm,NUT-3816-040-2374,noise
+G0338,341,aluminum washer m6 50 mm,WAS-M6-050-2381,missing_attribute
+G0339,345,aluminum washer 3/8-16 30 mm,WAS-3816-030-2409,missing_attribute
+G0340,347,zic aluminum screw m8 50 mm,SCR-M8-050-2423,typo
+G0341,348,60 mm screw zinc aluminum m10,SCR-M10-060-2430,word_order
+G0342,349,zinc aluminum screw 1/4-20 20mm,SCR-1420-020-2437,unit_or_fraction
+G0343,350,zinc aluminum screw 3/8-16 1 inch,SCR-3816-025-2444,unit_or_fraction
+G0344,352,zinc aluminum bearing m8 part 40 mm,BEA-M8-040-2458,noise
+G0345,353,zinc aluminu bearing m10 50 mm,BEA-M10-050-2465,typo
+G0346,354,aluminum bearing m12 60 mm,BEA-M12-060-2472,missing_attribute
+G0347,355,20 mm bearing aluminum zinc 3/8-16,BEA-3816-020-2479,word_order
+G0348,356,zinc alumnum seal m6 25 mm,SEA-M6-025-2486,typo
+G0349,358,seal aluminum m10 zinc 40 mm,SEA-M10-040-2500,word_order
+G0350,359,zinc aluminum seal m12 2 inch,SEA-M12-050-2507,unit_or_fraction
+G0351,360,zinc aluminum seal 1/4-2 60 mm,SEA-1420-060-2514,typo
+G0352,361,zinc aluminum replacement bracket m6 20 mm,BRA-M6-020-2521,noise
+G0353,362,bracket zinc 25 mm m8 aluminum,BRA-M8-025-2528,word_order
+G0354,363,bracket 30 mm zinc m10 aluminum,BRA-M10-030-2535,word_order
+G0355,364,zinc replacement aluminum bracket m12 40 mm,BRA-M12-040-2542,noise
+G0356,365,zinc aluminum item bracket 1/4-20 50 mm,BRA-1420-050-2549,noise
+G0357,367,zinc part aluminum connector m8 20 mm,CON-M8-020-2563,noise
+G0358,368,zinc aluminum connector m10 25 mm,CON-M10-025-2570,typo
+G0359,369,zinc aluminum connector m12 30mm,CON-M12-030-2577,unit_or_fraction
+G0360,370,zinc alumnum connector 1/4-20 40 mm,CON-1420-040-2584,typo
+G0361,371,zinc aluminum connector 50 mm,CON-3816-050-2591,missing_attribute
+G0362,372,black oxide please aluminum bolt m6 60 mm,BOL-M6-060-2598,noise
+G0363,373,black oxide aluminum bolt m10 20 mm,BOL-M10-020-2605,typo
+G0364,374,warehouse black oxide aluminum bolt m12 25 mm,BOL-M12-025-2612,noise
+G0365,375,black oxide aluminum bolt 1/4-20,BOL-1420-030-2619,missing_attribute
+G0366,376,aluminum bolt 3/8-16 40 mm,BOL-3816-040-2626,missing_attribute
+G0367,377,black oxide m6 50 mm nut aluminum,NUT-M6-050-2633,word_order
+G0368,378,black oxide need aluminum nut m8 60 mm,NUT-M8-060-2640,noise
+G0369,379,m12 black oxide nut aluminum 20 mm,NUT-M12-020-2647,word_order
+G0370,380,black oxide nut 1/4-20 25 mm,NUT-1420-025-2654,missing_attribute
+G0371,382,black oxide aluminum washer m6 40mm,WAS-M6-040-2668,unit_or_fraction
+G0372,383,black oxide aluminum washer item m8 50 mm,WAS-M8-050-2675,noise
+G0373,384,black oxide aluminum washer m10 60 mm replacement,WAS-M10-060-2682,noise
+G0374,385,black oxide aluminum washer 1/4-20 20mm,WAS-1420-020-2689,unit_or_fraction
+G0375,386,aluminum black oxide 25 mm washer 3/8-16,WAS-3816-025-2696,word_order
+G0376,387,black oxide aluminum screw m6 30 mm need,SCR-M6-030-2703,noise
+G0377,388,black oxide aluminum screw m8 40 mm,SCR-M8-040-2710,typo
+G0378,390,aluminum screw m12 60 mm,SCR-M12-060-2724,missing_attribute
+G0379,392,black oxide aluminum m6 25 mm,BEA-M6-025-2738,missing_attribute
+G0380,393,black oxide aluminum bearing m8 30mm,BEA-M8-030-2745,unit_or_fraction
+G0381,394,black oxide aluminum bearing m10 40mm,BEA-M10-040-2752,unit_or_fraction
+G0382,396,black oxide aluminum bearing 1/4-20 60mm,BEA-1420-060-2766,unit_or_fraction
+G0383,399,black oxide aluminum seal 30 mm,SEA-M10-030-2787,missing_attribute
+G0384,403,black oxide aluminum bracket m8 20mm,BRA-M8-020-2815,unit_or_fraction
+G0385,405,black oxide bracket 30 mm m12 aluminum,BRA-M12-030-2829,word_order
+G0386,407,3/8-16 bracket 50 mm black oxide aluminum,BRA-3816-050-2843,word_order
+G0387,408,black oxide aluminum connector m6 60 m,CON-M6-060-2850,typo
+G0388,411,blck oxide aluminum connector 1/4-20 30 mm,CON-1420-030-2871,typo
+G0389,415,plain aluminum bolt m12 20mm,BOL-M12-020-2899,unit_or_fraction
+G0390,416,plain aluminum bolt /4-20 25 mm,BOL-1420-025-2906,typo
+G0391,419,plain aluminum nut m8 2 inch,NUT-M8-050-2927,unit_or_fraction
+G0392,420,plain aluminum nut m10 60mm,NUT-M10-060-2934,unit_or_fraction
+G0393,421,plain aluminum nut 1/4-20 20mm,NUT-1420-020-2941,unit_or_fraction
+G0394,442,plain aluminum seal 1/4-20 40mm,SEA-1420-040-3088,unit_or_fraction
+G0395,453,plain aluminum connector 3/8-16 30mm,CON-3816-030-3165,unit_or_fraction
+G0396,461,nickel aluminum nut m10 2 inch,NUT-M10-050-3221,unit_or_fraction
+G0397,462,nickel aluminum nut m12 60mm,NUT-M12-060-3228,unit_or_fraction
+G0398,463,nickel aluminum nut 3/8-16 20mm,NUT-3816-020-3235,unit_or_fraction
+G0399,466,nickel aluminum washer m10 40mm,WAS-M10-040-3256,unit_or_fraction
+G0400,474,nickel aluminum screw 3/8-16 60mm,SCR-3816-060-3312,unit_or_fraction

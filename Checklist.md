@@ -22,7 +22,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 - [x] B1 (ML) Build the clean catalog (SKU, description, brand, dimensions, material, category)
 - [x] B2 (ML) Messy-query generator: typos, abbreviations, unit/fraction variants, word order, missing attributes, noise
-- [ ] B3 (ML) Create the gold test set (300-500 queries) with verified SKUs
+- [x] B3 (ML) Create the gold test set (400 queries) with verified SKUs
 - [ ] B4 (ML) Freeze the gold set; never tune on it
 - [ ] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD
 - [ ] B6 (ALL) Contribute adversarial cases: near-duplicate SKUs (M8 vs M10, left vs right), lookalike part numbers
