@@ -21,7 +21,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 ## B. Data and hard-case test set
 
 - [x] B1 (ML) Build the clean catalog (SKU, description, brand, dimensions, material, category)
-- [ ] B2 (ML) Messy-query generator: typos, abbreviations, unit/fraction variants, word order, missing attributes, noise
+- [x] B2 (ML) Messy-query generator: typos, abbreviations, unit/fraction variants, word order, missing attributes, noise
 - [ ] B3 (ML) Create the gold test set (300-500 queries) with verified SKUs
 - [ ] B4 (ML) Freeze the gold set; never tune on it
 - [ ] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD

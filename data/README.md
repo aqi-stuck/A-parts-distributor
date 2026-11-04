@@ -13,3 +13,11 @@ The catalog is generated locally by:
 
 It has no external data license or personal data dependency. The generator is
 the source of truth; do not hand-edit `catalog.csv`.
+
+`generate_queries.py` creates deterministic messy queries linked to catalog
+SKUs. It covers typos, abbreviations, unit and fraction variants, word-order
+changes, missing attributes, and noise:
+
+```powershell
+.\.venv\Scripts\python.exe data\generate_queries.py
+```
