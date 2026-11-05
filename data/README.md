@@ -32,3 +32,21 @@ verifies every target SKU exists in `catalog.csv`:
 
 Do not tune retrieval behavior against `gold_queries.csv`; use it only for
 final evaluation.
+
+The gold set is frozen with a SHA-256 manifest. Verify it before evaluation:
+
+```powershell
+.\.venv\Scripts\python.exe data\freeze_gold_set.py
+```
+
+If verification fails, do not overwrite the manifest. Investigate the change
+and create a new explicitly versioned gold set instead.
+
+`tag_gold_queries.py` adds evaluation slices to every gold query. Gold queries
+are all in-distribution because their target SKUs exist in the catalog.
+Adversarial, ambiguous, rare, and easy tags are recorded as slices; OOD
+queries belong in a separate future set rather than being mislabeled here.
+
+```powershell
+.\.venv\Scripts\python.exe data\tag_gold_queries.py
+```

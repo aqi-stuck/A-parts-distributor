@@ -1,0 +1,6 @@
+{
+  "file": "gold_queries.csv",
+  "sha256": "5a2871b4b2272b71df29e089a802d1e6451c51fac0ef30793e597cd952200702",
+  "status": "frozen",
+  "rule": "Do not tune retrieval behavior against this file."
+}
