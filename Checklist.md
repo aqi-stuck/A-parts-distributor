@@ -27,7 +27,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD
 - [ ] B6 (ALL) Contribute adversarial cases: near-duplicate SKUs (M8 vs M10, left vs right), lookalike part numbers
 - [ ] B7 (ALL) Contribute prompt-injection queries and nonexistent-part queries
-- [ ] B8 (ML) Train / validation / test split with no leakage
+- [x] B8 (ML) Train / validation / test split with no leakage
 
 ## C. Documented baseline
 

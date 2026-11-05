@@ -42,6 +42,15 @@ The gold set is frozen with a SHA-256 manifest. Verify it before evaluation:
 If verification fails, do not overwrite the manifest. Investigate the change
 and create a new explicitly versioned gold set instead.
 
+`split_queries.py` creates deterministic 70/15/15 train, validation, and test
+splits from the non-gold queries. The gold query IDs are excluded before
+splitting, and each generated query has a unique target SKU, preventing query
+and SKU leakage across development splits.
+
+```powershell
+.\.venv\Scripts\python.exe data\split_queries.py
+```
+
 `tag_gold_queries.py` adds evaluation slices to every gold query. Gold queries
 are all in-distribution because their target SKUs exist in the catalog.
 Adversarial, ambiguous, rare, and easy tags are recorded as slices; OOD
