@@ -1,0 +1,84 @@
+﻿import json, pathlib
+
+catalog = [
+    {"sku": "BLT-0012", "description": "Hex bolt 1/4 in steel", "brand": "Acme", "size": "1/4 in", "material": "steel", "category": "bolt"},
+    {"sku": "BLT-0023", "description": "Hex bolt 1/2 in zinc", "brand": "Acme", "size": "1/2 in", "material": "zinc", "category": "bolt"},
+    {"sku": "BLT-0042", "description": "Hex bolt 1/2 in zinc", "brand": "Acme", "size": "1/2 in", "material": "zinc", "category": "bolt"},
+    {"sku": "BLT-0071", "description": "Carriage bolt 3/8 in galvanized", "brand": "BoltCo", "size": "3/8 in", "material": "galvanized", "category": "bolt"},
+    {"sku": "BLT-0099", "description": "Flange bolt M8 stainless", "brand": "FastenIt", "size": "M8", "material": "stainless", "category": "bolt"},
+    {"sku": "NUT-0015", "description": "Hex nut 1/4 in steel", "brand": "Acme", "size": "1/4 in", "material": "steel", "category": "nut"},
+    {"sku": "NUT-0033", "description": "Lock nut 1/2 in nylon", "brand": "NutPro", "size": "1/2 in", "material": "nylon", "category": "nut"},
+    {"sku": "NUT-0055", "description": "Wing nut M6 zinc", "brand": "FastenIt", "size": "M6", "material": "zinc", "category": "nut"},
+    {"sku": "NUT-0088", "description": "Flange nut 3/8 in stainless", "brand": "BoltCo", "size": "3/8 in", "material": "stainless", "category": "nut"},
+    {"sku": "SCR-0011", "description": "Phillips screw 4-40 in stainless", "brand": "ScrewMax", "size": "4-40", "material": "stainless", "category": "screw"},
+    {"sku": "SCR-0022", "description": "Flat head screw 1/4 in zinc", "brand": "Acme", "size": "1/4 in", "material": "zinc", "category": "screw"},
+    {"sku": "SCR-0044", "description": "Self tapping screw 6-32 steel", "brand": "ScrewMax", "size": "6-32", "material": "steel", "category": "screw"},
+    {"sku": "SCR-0066", "description": "Machine screw M4 nylon", "brand": "FastenIt", "size": "M4", "material": "nylon", "category": "screw"},
+    {"sku": "SCR-0090", "description": "Torx screw 5/16 in galvanized", "brand": "BoltCo", "size": "5/16 in", "material": "galvanized", "category": "screw"},
+    {"sku": "WAS-0010", "description": "Flat washer 1/2 in zinc", "brand": "Acme", "size": "1/2 in", "material": "zinc", "category": "washer"},
+    {"sku": "WAS-0025", "description": "Lock washer M8 stainless", "brand": "FastenIt", "size": "M8", "material": "stainless", "category": "washer"},
+    {"sku": "WAS-0033", "description": "Spring washer 3/8 in steel", "brand": "BoltCo", "size": "3/8 in", "material": "steel", "category": "washer"},
+    {"sku": "PIP-0101", "description": "Elbow fitting 1/2 in PVC", "brand": "PipeWorks", "size": "1/2 in", "material": "PVC", "category": "pipe fitting"},
+    {"sku": "PIP-0122", "description": "Coupling fitting 3/4 in brass", "brand": "PipeWorks", "size": "3/4 in", "material": "brass", "category": "pipe fitting"},
+    {"sku": "PIP-0155", "description": "Tee fitting 1 in steel", "brand": "FlowTech", "size": "1 in", "material": "steel", "category": "pipe fitting"}
+]
+
+base = pathlib.Path('.')
+data_dir = base / 'data'
+data_dir.mkdir(exist_ok=True)
+(data_dir / 'catalog.json').write_text(json.dumps(catalog, indent=2), encoding='utf-8')
+
+engine_code = '''# Simple search engine for parts catalog
+
+import json
+from typing import List
+
+
+class Engine:
+    """Loads catalog and performs simple word-match search."""
+
+    def __init__(self, catalog_path: str):
+        """Load JSON catalog into memory."""
+        with open(catalog_path, 'r', encoding='utf-8') as f:
+            self.catalog = json.load(f)
+
+    def search(self, query: str) -> list[dict]:
+        """Return up to 5 matching parts ranked by word match score."""
+        if not query or not query.strip():
+            return []
+        words = query.lower().split()
+        if not words:
+            return []
+        results = []
+        n_words = len(words)
+        for part in self.catalog:
+            text = ' '.join([
+                part.get('description',''),
+                part.get('brand',''),
+                part.get('size',''),
+                part.get('material',''),
+                part.get('category','')
+            ]).lower()
+            matched = []
+            for w in words:
+                if w in text:
+                    matched.append(w)
+            match_count = len(matched)
+            if match_count == 0:
+                continue
+            score = match_count / n_words
+            evidence = [f"matched: {w}" for w in matched]
+            results.append({
+                "sku": part['sku'],
+                "description": part['description'],
+                "score": round(score, 4),
+                "evidence": evidence
+            })
+        results.sort(key=lambda x: x['score'], reverse=True)
+        return results[:5]
+'''
+
+ml_dir = base / 'ml'
+ml_dir.mkdir(exist_ok=True)
+(ml_dir / 'engine.py').write_text(engine_code, encoding='utf-8')
+print('files written')

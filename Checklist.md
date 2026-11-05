@@ -13,21 +13,21 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] A1 (ALL) Write the one-sentence task: messy query -> ranked SKUs + confidence + evidence, or escalate
 - [ ] A2 (ALL) Define "high-impact output" (low confidence, safety-critical part, high-value item, OOD query)
 - [ ] A3 (ALL) Fix success metrics: top-1, top-5, hard-case accuracy, hallucination rate, escalation precision, p50/p95 latency
-- [ ] A4 (ML) Choose dataset: public catalog or synthetic (2k-5k parts)
+- [x] A4 (ML) Choose dataset: deterministic synthetic catalog (3,000 parts)
 - [ ] A5 (DEV1) Create repo, folder layout, Dockerfile skeleton, CI that runs tests
 - [ ] A6 (ALL) Agree the API contract (see `docs/contract.md`) and commit it
 - [ ] A7 (DEV1) API stub returning fake data so the frontend is never blocked
 
 ## B. Data and hard-case test set
 
-- [ ] B1 (ML) Build the clean catalog (SKU, description, brand, dimensions, material, category)
-- [ ] B2 (ML) Messy-query generator: typos, abbreviations, unit/fraction variants, word order, missing attributes, noise
-- [ ] B3 (ML) Create the gold test set (300-500 queries) with verified SKUs
-- [ ] B4 (ML) Freeze the gold set; never tune on it
-- [ ] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD
+- [x] B1 (ML) Build the clean catalog (SKU, description, brand, dimensions, material, category)
+- [x] B2 (ML) Messy-query generator: typos, abbreviations, unit/fraction variants, word order, missing attributes, noise
+- [x] B3 (ML) Create the gold test set (400 queries) with verified SKUs
+- [x] B4 (ML) Freeze the gold set; never tune on it
+- [x] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD
 - [ ] B6 (ALL) Contribute adversarial cases: near-duplicate SKUs (M8 vs M10, left vs right), lookalike part numbers
 - [ ] B7 (ALL) Contribute prompt-injection queries and nonexistent-part queries
-- [ ] B8 (ML) Train / validation / test split with no leakage
+- [x] B8 (ML) Train / validation / test split with no leakage
 
 ## C. Documented baseline
 
