@@ -31,9 +31,9 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 ## C. Documented baseline
 
-- [ ] C1 (ML) Implement baseline: BM25 / TF-IDF + fuzzy matching
-- [ ] C2 (ML) Run baseline on frozen gold set, per slice
-- [ ] C3 (ML) Save results to `results/baseline_v1.json`
+- [x] C1 (ML) Implement baseline: BM25 / TF-IDF + fuzzy matching
+- [x] C2 (ML) Run baseline on frozen gold set, per slice
+- [x] C3 (ML) Save results to `results/baseline_v1.json`
 - [ ] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
 - [ ] C5 (DEV1) Serve the baseline through the real API as the first working backend
 

@@ -1,0 +1,443 @@
+{
+  "benchmark": "gold_queries_tagged.csv",
+  "catalog": "catalog.csv",
+  "model": "BM25 + TF-IDF + RapidFuzz",
+  "evaluated_at": "2026-11-06T19:50:53.065875+00:00",
+  "metrics": {
+    "overall": {
+      "queries": 400,
+      "top_1_accuracy": 0.7875,
+      "top_5_accuracy": 0.9525,
+      "top_1_correct": 315,
+      "top_5_correct": 381,
+      "top_5_failures": [
+        {
+          "gold_id": "G0169",
+          "query": "zinc ss bolt 1/420 20 mm",
+          "expected_sku": "BOL-1420-020-1177",
+          "predicted_sku": "BOL-1420-020-9241"
+        },
+        {
+          "gold_id": "G0185",
+          "query": "zinc ss screw 1/420 50 mm",
+          "expected_sku": "SCR-1420-050-1289",
+          "predicted_sku": "SCR-1420-050-9353"
+        },
+        {
+          "gold_id": "G0197",
+          "query": "zinc ss brkt m6 50 mm",
+          "expected_sku": "BRA-M6-050-1373",
+          "predicted_sku": "BRA-M6-050-9437"
+        },
+        {
+          "gold_id": "G0200",
+          "query": "zinc ss brkt 1/420 25 mm",
+          "expected_sku": "BRA-1420-025-1394",
+          "predicted_sku": "BRA-1420-025-9458"
+        },
+        {
+          "gold_id": "G0219",
+          "query": "black oxide ss wshr m10 30 mm",
+          "expected_sku": "WAS-M10-030-1527",
+          "predicted_sku": "WAS-M10-030-9591"
+        },
+        {
+          "gold_id": "G0221",
+          "query": "black oxide ss wshr 1/420 50 mm",
+          "expected_sku": "WAS-1420-050-1541",
+          "predicted_sku": "WAS-1420-050-9605"
+        },
+        {
+          "gold_id": "G0228",
+          "query": "black oxide ss brg m6 60 mm",
+          "expected_sku": "BEA-M6-060-1590",
+          "predicted_sku": "BEA-M6-060-9654"
+        },
+        {
+          "gold_id": "G0240",
+          "query": "black oxide ss brkt m10 60 mm",
+          "expected_sku": "BRA-M10-060-1674",
+          "predicted_sku": "BRA-M10-060-9738"
+        },
+        {
+          "gold_id": "G0252",
+          "query": "plain ss bolt 1/420 60 mm",
+          "expected_sku": "BOL-1420-060-1758",
+          "predicted_sku": "BOL-1420-060-9822"
+        },
+        {
+          "gold_id": "G0267",
+          "query": "plain ss screw 1/420 30 mm",
+          "expected_sku": "SCR-1420-030-1863",
+          "predicted_sku": "SCR-1420-030-9927"
+        },
+        {
+          "gold_id": "G0272",
+          "query": "plain ss brg 1/420 25 mm",
+          "expected_sku": "BEA-1420-025-1898",
+          "predicted_sku": "BEA-1420-025-9962"
+        },
+        {
+          "gold_id": "G0280",
+          "query": "plain ss brkt m8 40 mm",
+          "expected_sku": "BRA-M8-040-1954",
+          "predicted_sku": "BRA-M8-040-10018"
+        },
+        {
+          "gold_id": "G0282",
+          "query": "plain ss brkt m12 60 mm",
+          "expected_sku": "BRA-M12-060-1968",
+          "predicted_sku": "BRA-M12-060-10032"
+        },
+        {
+          "gold_id": "G0293",
+          "query": "nickel ss bolt 1/420 50 mm",
+          "expected_sku": "BOL-1420-050-2045",
+          "predicted_sku": "BOL-1420-050-10109"
+        },
+        {
+          "gold_id": "G0311",
+          "query": "nickel ss brg m8 50 mm",
+          "expected_sku": "BEA-M8-050-2171",
+          "predicted_sku": "BEA-M8-050-10235"
+        },
+        {
+          "gold_id": "G0312",
+          "query": "nickel ss brg m10 60 mm",
+          "expected_sku": "BEA-M10-060-2178",
+          "predicted_sku": "BEA-M10-060-10242"
+        },
+        {
+          "gold_id": "G0323",
+          "query": "nickel ss brkt m12 50 mm",
+          "expected_sku": "BRA-M12-050-2255",
+          "predicted_sku": "BRA-M12-050-10319"
+        },
+        {
+          "gold_id": "G0328",
+          "query": "nickel ss conn m12 40 mm",
+          "expected_sku": "CON-M12-040-2290",
+          "predicted_sku": "CON-M12-040-10354"
+        },
+        {
+          "gold_id": "G0329",
+          "query": "nickel stainless steel 1/4-20 50 mm",
+          "expected_sku": "CON-1420-050-2297",
+          "predicted_sku": "NUT-1420-050-15905"
+        }
+      ]
+    },
+    "transformation:abbreviation": {
+      "queries": 67,
+      "top_1_accuracy": 0.5224,
+      "top_5_accuracy": 0.7313,
+      "top_1_correct": 35,
+      "top_5_correct": 49,
+      "top_5_failures": [
+        {
+          "gold_id": "G0169",
+          "query": "zinc ss bolt 1/420 20 mm",
+          "expected_sku": "BOL-1420-020-1177",
+          "predicted_sku": "BOL-1420-020-9241"
+        },
+        {
+          "gold_id": "G0185",
+          "query": "zinc ss screw 1/420 50 mm",
+          "expected_sku": "SCR-1420-050-1289",
+          "predicted_sku": "SCR-1420-050-9353"
+        },
+        {
+          "gold_id": "G0197",
+          "query": "zinc ss brkt m6 50 mm",
+          "expected_sku": "BRA-M6-050-1373",
+          "predicted_sku": "BRA-M6-050-9437"
+        },
+        {
+          "gold_id": "G0200",
+          "query": "zinc ss brkt 1/420 25 mm",
+          "expected_sku": "BRA-1420-025-1394",
+          "predicted_sku": "BRA-1420-025-9458"
+        },
+        {
+          "gold_id": "G0219",
+          "query": "black oxide ss wshr m10 30 mm",
+          "expected_sku": "WAS-M10-030-1527",
+          "predicted_sku": "WAS-M10-030-9591"
+        },
+        {
+          "gold_id": "G0221",
+          "query": "black oxide ss wshr 1/420 50 mm",
+          "expected_sku": "WAS-1420-050-1541",
+          "predicted_sku": "WAS-1420-050-9605"
+        },
+        {
+          "gold_id": "G0228",
+          "query": "black oxide ss brg m6 60 mm",
+          "expected_sku": "BEA-M6-060-1590",
+          "predicted_sku": "BEA-M6-060-9654"
+        },
+        {
+          "gold_id": "G0240",
+          "query": "black oxide ss brkt m10 60 mm",
+          "expected_sku": "BRA-M10-060-1674",
+          "predicted_sku": "BRA-M10-060-9738"
+        },
+        {
+          "gold_id": "G0252",
+          "query": "plain ss bolt 1/420 60 mm",
+          "expected_sku": "BOL-1420-060-1758",
+          "predicted_sku": "BOL-1420-060-9822"
+        },
+        {
+          "gold_id": "G0267",
+          "query": "plain ss screw 1/420 30 mm",
+          "expected_sku": "SCR-1420-030-1863",
+          "predicted_sku": "SCR-1420-030-9927"
+        },
+        {
+          "gold_id": "G0272",
+          "query": "plain ss brg 1/420 25 mm",
+          "expected_sku": "BEA-1420-025-1898",
+          "predicted_sku": "BEA-1420-025-9962"
+        },
+        {
+          "gold_id": "G0280",
+          "query": "plain ss brkt m8 40 mm",
+          "expected_sku": "BRA-M8-040-1954",
+          "predicted_sku": "BRA-M8-040-10018"
+        },
+        {
+          "gold_id": "G0282",
+          "query": "plain ss brkt m12 60 mm",
+          "expected_sku": "BRA-M12-060-1968",
+          "predicted_sku": "BRA-M12-060-10032"
+        },
+        {
+          "gold_id": "G0293",
+          "query": "nickel ss bolt 1/420 50 mm",
+          "expected_sku": "BOL-1420-050-2045",
+          "predicted_sku": "BOL-1420-050-10109"
+        },
+        {
+          "gold_id": "G0311",
+          "query": "nickel ss brg m8 50 mm",
+          "expected_sku": "BEA-M8-050-2171",
+          "predicted_sku": "BEA-M8-050-10235"
+        },
+        {
+          "gold_id": "G0312",
+          "query": "nickel ss brg m10 60 mm",
+          "expected_sku": "BEA-M10-060-2178",
+          "predicted_sku": "BEA-M10-060-10242"
+        },
+        {
+          "gold_id": "G0323",
+          "query": "nickel ss brkt m12 50 mm",
+          "expected_sku": "BRA-M12-050-2255",
+          "predicted_sku": "BRA-M12-050-10319"
+        },
+        {
+          "gold_id": "G0328",
+          "query": "nickel ss conn m12 40 mm",
+          "expected_sku": "CON-M12-040-2290",
+          "predicted_sku": "CON-M12-040-10354"
+        }
+      ]
+    },
+    "primary_tag:adversarial": {
+      "queries": 134,
+      "top_1_accuracy": 0.7388,
+      "top_5_accuracy": 0.8657,
+      "top_1_correct": 99,
+      "top_5_correct": 116,
+      "top_5_failures": [
+        {
+          "gold_id": "G0169",
+          "query": "zinc ss bolt 1/420 20 mm",
+          "expected_sku": "BOL-1420-020-1177",
+          "predicted_sku": "BOL-1420-020-9241"
+        },
+        {
+          "gold_id": "G0185",
+          "query": "zinc ss screw 1/420 50 mm",
+          "expected_sku": "SCR-1420-050-1289",
+          "predicted_sku": "SCR-1420-050-9353"
+        },
+        {
+          "gold_id": "G0197",
+          "query": "zinc ss brkt m6 50 mm",
+          "expected_sku": "BRA-M6-050-1373",
+          "predicted_sku": "BRA-M6-050-9437"
+        },
+        {
+          "gold_id": "G0200",
+          "query": "zinc ss brkt 1/420 25 mm",
+          "expected_sku": "BRA-1420-025-1394",
+          "predicted_sku": "BRA-1420-025-9458"
+        },
+        {
+          "gold_id": "G0219",
+          "query": "black oxide ss wshr m10 30 mm",
+          "expected_sku": "WAS-M10-030-1527",
+          "predicted_sku": "WAS-M10-030-9591"
+        },
+        {
+          "gold_id": "G0221",
+          "query": "black oxide ss wshr 1/420 50 mm",
+          "expected_sku": "WAS-1420-050-1541",
+          "predicted_sku": "WAS-1420-050-9605"
+        },
+        {
+          "gold_id": "G0228",
+          "query": "black oxide ss brg m6 60 mm",
+          "expected_sku": "BEA-M6-060-1590",
+          "predicted_sku": "BEA-M6-060-9654"
+        },
+        {
+          "gold_id": "G0240",
+          "query": "black oxide ss brkt m10 60 mm",
+          "expected_sku": "BRA-M10-060-1674",
+          "predicted_sku": "BRA-M10-060-9738"
+        },
+        {
+          "gold_id": "G0252",
+          "query": "plain ss bolt 1/420 60 mm",
+          "expected_sku": "BOL-1420-060-1758",
+          "predicted_sku": "BOL-1420-060-9822"
+        },
+        {
+          "gold_id": "G0267",
+          "query": "plain ss screw 1/420 30 mm",
+          "expected_sku": "SCR-1420-030-1863",
+          "predicted_sku": "SCR-1420-030-9927"
+        },
+        {
+          "gold_id": "G0272",
+          "query": "plain ss brg 1/420 25 mm",
+          "expected_sku": "BEA-1420-025-1898",
+          "predicted_sku": "BEA-1420-025-9962"
+        },
+        {
+          "gold_id": "G0280",
+          "query": "plain ss brkt m8 40 mm",
+          "expected_sku": "BRA-M8-040-1954",
+          "predicted_sku": "BRA-M8-040-10018"
+        },
+        {
+          "gold_id": "G0282",
+          "query": "plain ss brkt m12 60 mm",
+          "expected_sku": "BRA-M12-060-1968",
+          "predicted_sku": "BRA-M12-060-10032"
+        },
+        {
+          "gold_id": "G0293",
+          "query": "nickel ss bolt 1/420 50 mm",
+          "expected_sku": "BOL-1420-050-2045",
+          "predicted_sku": "BOL-1420-050-10109"
+        },
+        {
+          "gold_id": "G0311",
+          "query": "nickel ss brg m8 50 mm",
+          "expected_sku": "BEA-M8-050-2171",
+          "predicted_sku": "BEA-M8-050-10235"
+        },
+        {
+          "gold_id": "G0312",
+          "query": "nickel ss brg m10 60 mm",
+          "expected_sku": "BEA-M10-060-2178",
+          "predicted_sku": "BEA-M10-060-10242"
+        },
+        {
+          "gold_id": "G0323",
+          "query": "nickel ss brkt m12 50 mm",
+          "expected_sku": "BRA-M12-050-2255",
+          "predicted_sku": "BRA-M12-050-10319"
+        },
+        {
+          "gold_id": "G0328",
+          "query": "nickel ss conn m12 40 mm",
+          "expected_sku": "CON-M12-040-2290",
+          "predicted_sku": "CON-M12-040-10354"
+        }
+      ]
+    },
+    "transformation:noise": {
+      "queries": 67,
+      "top_1_accuracy": 1.0,
+      "top_5_accuracy": 1.0,
+      "top_1_correct": 67,
+      "top_5_correct": 67,
+      "top_5_failures": []
+    },
+    "primary_tag:easy": {
+      "queries": 105,
+      "top_1_accuracy": 0.9333,
+      "top_5_accuracy": 1.0,
+      "top_1_correct": 98,
+      "top_5_correct": 105,
+      "top_5_failures": []
+    },
+    "transformation:typo": {
+      "queries": 67,
+      "top_1_accuracy": 0.9552,
+      "top_5_accuracy": 1.0,
+      "top_1_correct": 64,
+      "top_5_correct": 67,
+      "top_5_failures": []
+    },
+    "transformation:missing_attribute": {
+      "queries": 67,
+      "top_1_accuracy": 0.4776,
+      "top_5_accuracy": 0.9851,
+      "top_1_correct": 32,
+      "top_5_correct": 66,
+      "top_5_failures": [
+        {
+          "gold_id": "G0329",
+          "query": "nickel stainless steel 1/4-20 50 mm",
+          "expected_sku": "CON-1420-050-2297",
+          "predicted_sku": "NUT-1420-050-15905"
+        }
+      ]
+    },
+    "primary_tag:ambiguous": {
+      "queries": 67,
+      "top_1_accuracy": 0.4776,
+      "top_5_accuracy": 0.9851,
+      "top_1_correct": 32,
+      "top_5_correct": 66,
+      "top_5_failures": [
+        {
+          "gold_id": "G0329",
+          "query": "nickel stainless steel 1/4-20 50 mm",
+          "expected_sku": "CON-1420-050-2297",
+          "predicted_sku": "NUT-1420-050-15905"
+        }
+      ]
+    },
+    "transformation:word_order": {
+      "queries": 66,
+      "top_1_accuracy": 1.0,
+      "top_5_accuracy": 1.0,
+      "top_1_correct": 66,
+      "top_5_correct": 66,
+      "top_5_failures": []
+    },
+    "transformation:unit_or_fraction": {
+      "queries": 66,
+      "top_1_accuracy": 0.7727,
+      "top_5_accuracy": 1.0,
+      "top_1_correct": 51,
+      "top_5_correct": 66,
+      "top_5_failures": []
+    },
+    "primary_tag:rare": {
+      "queries": 94,
+      "top_1_accuracy": 0.9149,
+      "top_5_accuracy": 1.0,
+      "top_1_correct": 86,
+      "top_5_correct": 94,
+      "top_5_failures": []
+    }
+  }
+}

@@ -7,7 +7,6 @@ __pycache__/
 # Local data
 data/raw/
 data/processed/
-results/*.json
 results/*.csv
 results/*.png
 
