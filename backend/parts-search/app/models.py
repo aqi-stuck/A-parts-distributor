@@ -1,32 +1,26 @@
-# Models for parts search API
-
-from typing import List, Optional, Literal
+﻿from typing import List, Literal, Optional
 from pydantic import BaseModel, Field
 
-
+# What the website sends to /search
 class SearchRequest(BaseModel):
-    """Incoming search query from warehouse staff."""
     query: str = Field(min_length=1, max_length=500)
 
-
+# One matching part in the results
 class Candidate(BaseModel):
-    """A candidate part returned by the search."""
     sku: str
     description: str
-    score: float = Field(ge=0, le=1)
+    score: float
     evidence: List[str]
 
-
+# What /search sends back
 class SearchResponse(BaseModel):
-    """Response with ranked candidates or escalation routing."""
     route: Literal["auto", "review"]
     reason: Optional[str] = None
     results: List[Candidate]
     latency_ms: float
 
-
+# What the website sends to /feedback
 class FeedbackRequest(BaseModel):
-    """Human reviewer feedback on a search result."""
     query: str
     sku: str
     decision: Literal["approve", "reject"]
