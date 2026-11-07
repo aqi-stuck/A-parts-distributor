@@ -15,14 +15,16 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] A3 (ALL) Fix success metrics: top-1, top-5, hard-case accuracy, hallucination rate, escalation precision, p50/p95 latency
 - [x] A4 (ML) Choose dataset: deterministic synthetic catalog (3,000 parts)
 - [ ] A5 (DEV1) Create repo, folder layout, Dockerfile skeleton, CI that runs tests
+<!-- partial: Dockerfile and CI missing -->
 - [ ] A6 (ALL) Agree the API contract (see `docs/contract.md`) and commit it
-- [ ] A7 (DEV1) API stub returning fake data so the frontend is never blocked
+- [x] A7 (DEV1) API stub returning fake data so the frontend is never blocked
 
 ## B. Data and hard-case test set
 
 - [x] B1 (ML) Build the clean catalog (SKU, description, brand, dimensions, material, category)
 - [x] B2 (ML) Messy-query generator: typos, abbreviations, unit/fraction variants, word order, missing attributes, noise
-- [x] B3 (ML) Create the gold test set (400 queries) with verified SKUs
+- [ ] B3 (ML) Create the gold test set (400 queries) with verified SKUs
+<!-- partial: gold test set missing -->
 - [x] B4 (ML) Freeze the gold set; never tune on it
 - [x] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD
 - [ ] B6 (ALL) Contribute adversarial cases: near-duplicate SKUs (M8 vs M10, left vs right), lookalike part numbers
@@ -33,8 +35,9 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 - [x] C1 (ML) Implement baseline: BM25 / TF-IDF + fuzzy matching
 - [x] C2 (ML) Run baseline on frozen gold set, per slice
-- [x] C3 (ML) Save results to `results/baseline_v1.json`
-- [x] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
+- [ ] C3 (ML) Save results to `results/baseline_v1.json`
+<!-- partial: baseline_v1.json missing -->
+- [ ] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
 - [ ] C5 (DEV1) Serve the baseline through the real API as the first working backend
 
 ## D. Improved system
@@ -49,7 +52,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] D8 (ML) Prompt-injection hardening: query treated as data, never as instructions
 - [ ] D9 (ML) Optional: LLM explanations behind a switch, checked against catalog fields
 - [ ] D10 (DEV1) Integrate the model behind the agreed API contract
-- [ ] D11 (DEV1) Per-stage latency timing in every response
+- [x] D11 (DEV1) Per-stage latency timing in every response
 
 ## E. Distribution shift detection
 
@@ -59,18 +62,19 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] E4 (ML) Simulate shifts: new category, new supplier naming style, other language, heavy abbreviation
 - [ ] E5 (ML) Report detector precision/recall on the simulated shifts
 - [ ] E6 (DEV1) Expose drift score in `/metrics`
+<!-- partial: drift not built -->
 - [ ] E7 (DEV2) Show drift score and alert state in the monitoring panel
 
 ## F. Safe fallback and human review
 
 - [ ] F1 (ALL) Write the routing policy (`docs/routing.md`): when auto-answer, when review
-- [ ] F2 (DEV1) Implement routing in the API (`route: auto | review`, with `reason`)
+- [x] F2 (DEV1) Implement routing in the API (`route: auto | review`, with `reason`)
 - [ ] F3 (DEV2) "Not sure, needs review" state in the search UI
 - [ ] F4 (DEV2) Review queue screen: query, candidates, evidence, Approve / Correct / Reject
-- [ ] F5 (DEV1) `/feedback` endpoint; store human decisions as new labeled data
-- [ ] F6 (DEV1) Audit trail: query, model version, output, reviewer, timestamp
+- [x] F5 (DEV1) `/feedback` endpoint; store human decisions as new labeled data
+- [x] F6 (DEV1) Audit trail: query, model version, output, reviewer, timestamp
 - [ ] F7 (DEV2) Evidence panel on every result: matched fields, extracted attributes, confidence, routing reason
-- [ ] F8 (DEV1) System-failure fallback: timeout/error -> manual catalog search, never a raw error
+- [x] F8 (DEV1) System-failure fallback: timeout/error -> manual catalog search, never a raw error
 - [ ] F9 (ML) Coverage vs accuracy curve (how much auto-answered at what error rate)
 
 ## G. Evaluation (what judges will check)
@@ -82,8 +86,9 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] G5 (ML) Bias: performance by brand (large vs small), category, common vs rare parts
 - [ ] G6 (ML) Bias: performance by query style (terse, verbose, heavy typos/abbreviations)
 - [ ] G7 (ML) Bias: escalation and error rates per group; document gaps and fixes
-- [ ] G8 (DEV1) Latency: p50/p95/p99 per stage under load test
+- [x] G8 (DEV1) Latency: p50/p95/p99 per stage under load test
 - [ ] G9 (DEV1) Fault injection: empty query, gibberish, huge input, special chars, dependency down, slow LLM
+<!-- partial: logging failure not handled -->
 - [ ] G10 (ML) Calibration: reliability diagram + expected calibration error
 - [ ] G11 (ML) Robustness: accuracy vs increasing noise level
 - [ ] G12 (ML) Before/after table vs baseline (headline result) in `results/summary.md`
@@ -91,14 +96,14 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 ## H. Make it run
 
-- [ ] H1 (DEV1) API endpoints: `/search`, `/review-queue`, `/feedback`, `/health`, `/metrics`
+- [x] H1 (DEV1) API endpoints: `/search`, `/review-queue`, `/feedback`, `/health`, `/metrics`
 - [ ] H2 (DEV2) Search UI for warehouse staff (big input, ranked results, confidence badge)
 - [ ] H3 (DEV2) Reviewer view
 - [ ] H4 (DEV2) Small monitoring panel (drift, escalation rate, latency)
 - [ ] H5 (DEV1) `docker compose up` runs everything from a clean machine
-- [ ] H6 (DEV1) Seed script: load catalog and build index from scratch
-- [ ] H7 (DEV1) Thresholds in a versioned config file
-- [ ] H8 (DEV1) Hard-case suite runs in CI as a regression test (fails build if hard-case accuracy drops)
+- [x] H6 (DEV1) Seed script: load catalog and build index from scratch
+- [x] H7 (DEV1) Thresholds in a versioned config file
+- [x] H8 (DEV1) Hard-case suite runs in CI as a regression test (fails build if hard-case accuracy drops)
 
 ## I. Docs and demo
 
