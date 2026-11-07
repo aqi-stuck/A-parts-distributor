@@ -34,15 +34,15 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] C1 (ML) Implement baseline: BM25 / TF-IDF + fuzzy matching
 - [x] C2 (ML) Run baseline on frozen gold set, per slice
 - [x] C3 (ML) Save results to `results/baseline_v1.json`
-- [ ] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
+- [x] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
 - [ ] C5 (DEV1) Serve the baseline through the real API as the first working backend
 
 ## D. Improved system
 
-- [ ] D1 (ML) Query normalization: units, fractions, abbreviations, typo correction
-- [ ] D2 (ML) Hybrid retrieval (BM25 + embeddings)
-- [ ] D3 (ML) Reranker
-- [ ] D4 (ML) Attribute extraction (size, material, thread, finish, brand) and check against candidates
+- [x] D1 (ML) Query normalization: units, fractions, abbreviations, typo correction
+- [x] D2 (ML) Hybrid retrieval (BM25 + embeddings)
+- [x] D3 (ML) Reranker
+- [x] D4 (ML) Attribute extraction (size, material, thread, finish, brand) and check against candidates
 - [ ] D5 (ML) Confidence score: score margin + attribute agreement
 - [ ] D6 (ML) Calibrate confidence on validation set
 - [ ] D7 (ML) Grounded output only: return SKUs that exist in the catalog; no invented specs
