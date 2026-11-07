@@ -1,7 +1,9 @@
-﻿import logging
+﻿import json
+import logging
 import time
 from ml.engine import Engine
 from app.routing import decide_route
+from app.fallback import keyword_fallback
 
 
 class SearchService:
@@ -9,22 +11,40 @@ class SearchService:
 
     def __init__(self, catalog_path: str):
         self.engine = Engine(catalog_path)
+        with open(catalog_path, 'r', encoding='utf-8') as f:
+            self.catalog = json.load(f)
 
     def search(self, query: str) -> dict:
         """Run search, decide route, and return results with latency."""
         start = time.perf_counter()
+        engine_ms = 0.0
+        routing_ms = 0.0
         try:
-            results = self.engine.search(query)[:5]
+            engine_start = time.perf_counter()
+            results_raw = self.engine.search(query)
+            engine_end = time.perf_counter()
+            engine_ms = round((engine_end - engine_start) * 1000, 2)
+            results = results_raw[:5]
+            routing_start = time.perf_counter()
             route, reason = decide_route(results)
+            routing_end = time.perf_counter()
+            routing_ms = round((routing_end - routing_start) * 1000, 2)
         except Exception:
             logging.exception("search failed")
-            results = []
+            try:
+                results = keyword_fallback(self.catalog, query, limit=5)
+            except Exception:
+                results = []
             route = "review"
             reason = "system error"
-        latency_ms = round((time.perf_counter() - start) * 1000, 2)
+            engine_ms = 0.0
+            routing_ms = 0.0
+        total_ms = round((time.perf_counter() - start) * 1000, 2)
+        latency_ms = total_ms
         return {
             "route": route,
             "reason": reason,
             "results": results,
-            "latency_ms": latency_ms
+            "latency_ms": latency_ms,
+            "timing_ms": {"engine": engine_ms, "routing": routing_ms, "total": total_ms}
         }

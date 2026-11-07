@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.models import SearchRequest, SearchResponse, FeedbackRequest
 from app.search import SearchService
+from app.config import MODEL_VERSION
 import app.storage as storage
 
 service = SearchService("data/catalog.json")
@@ -38,14 +39,14 @@ def search(req: SearchRequest):
     result = service.search(req.query)
     results = result.get("results", [])
     top_sku = results[0]["sku"] if results else None
-    storage.log_query(req.query, result["route"], top_sku, result["latency_ms"])
+    storage.log_query(req.query, result["route"], top_sku, result["latency_ms"], MODEL_VERSION, results)
     return result
 
 
 @app.post("/feedback")
 def feedback(req: FeedbackRequest):
     """Save human feedback for a query."""
-    storage.save_feedback(req.query, req.sku, req.decision)
+    storage.save_feedback(req.query, req.sku, req.decision, req.reviewer)
     return {"saved": True}
 
 
