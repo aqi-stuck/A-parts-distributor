@@ -37,7 +37,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] C2 (ML) Run baseline on frozen gold set, per slice
 - [ ] C3 (ML) Save results to `results/baseline_v1.json`
 <!-- partial: baseline_v1.json missing -->
-- [ ] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
+- [x] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
 - [ ] C5 (DEV1) Serve the baseline through the real API as the first working backend
 
 ## D. Improved system
