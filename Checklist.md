@@ -37,7 +37,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] C2 (ML) Run baseline on frozen gold set, per slice
 - [ ] C3 (ML) Save results to `results/baseline_v1.json`
 <!-- partial: baseline_v1.json missing -->
-- [ ] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
+- [x] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
 - [ ] C5 (DEV1) Serve the baseline through the real API as the first working backend
 
 ## D. Improved system
@@ -46,11 +46,11 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] D2 (ML) Hybrid retrieval (BM25 + embeddings)
 - [x] D3 (ML) Reranker
 - [x] D4 (ML) Attribute extraction (size, material, thread, finish, brand) and check against candidates
-- [ ] D5 (ML) Confidence score: score margin + attribute agreement
-- [ ] D6 (ML) Calibrate confidence on validation set
-- [ ] D7 (ML) Grounded output only: return SKUs that exist in the catalog; no invented specs
-- [ ] D8 (ML) Prompt-injection hardening: query treated as data, never as instructions
-- [ ] D9 (ML) Optional: LLM explanations behind a switch, checked against catalog fields
+- [x] D5 (ML) Confidence score: score margin + attribute agreement
+- [x] D6 (ML) Calibrate confidence on validation set
+- [x] D7 (ML) Grounded output only: return SKUs that exist in the catalog; no invented specs
+- [x] D8 (ML) Prompt-injection hardening: query treated as data, never as instructions
+- [x] D9 (ML) Optional: LLM explanations behind a switch, checked against catalog fields
 - [ ] D10 (DEV1) Integrate the model behind the agreed API contract
 - [x] D11 (DEV1) Per-stage latency timing in every response
 

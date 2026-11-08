@@ -1,0 +1,14 @@
+{
+  "method": "isotonic_regression",
+  "validation_queries": 390,
+  "raw_brier": 0.126534,
+  "calibrated_brier": 0.06787,
+  "raw_confidence_range": [
+    0.80166,
+    0.933863
+  ],
+  "calibrated_confidence_range": [
+    0.333333,
+    1.0
+  ]
+}
