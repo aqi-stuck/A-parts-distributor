@@ -49,8 +49,8 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] D5 (ML) Confidence score: score margin + attribute agreement
 - [x] D6 (ML) Calibrate confidence on validation set
 - [x] D7 (ML) Grounded output only: return SKUs that exist in the catalog; no invented specs
-- [ ] D8 (ML) Prompt-injection hardening: query treated as data, never as instructions
-- [ ] D9 (ML) Optional: LLM explanations behind a switch, checked against catalog fields
+- [x] D8 (ML) Prompt-injection hardening: query treated as data, never as instructions
+- [x] D9 (ML) Optional: LLM explanations behind a switch, checked against catalog fields
 - [ ] D10 (DEV1) Integrate the model behind the agreed API contract
 - [x] D11 (DEV1) Per-stage latency timing in every response
 

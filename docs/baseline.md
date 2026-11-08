@@ -28,3 +28,13 @@ queries missed by Top-5 retrieval.
 - It has no confidence calibration or out-of-distribution detection.
 
 The baseline is a measurement anchor, not the final production retriever.
+
+## Improved retrieval safeguards
+
+The improved retriever treats every incoming query as untrusted data. It never
+executes, follows, or sends instruction-like query text to a model; it records
+`prompt_injection_detected` in evidence when such text is present.
+
+Explanations are opt-in with `include_explanation=True` and are generated only
+from fields on the matched catalog row. The default response contains no
+explanation, and grounded SKU verification remains enabled in both modes.

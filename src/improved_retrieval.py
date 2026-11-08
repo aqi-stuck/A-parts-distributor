@@ -35,6 +35,11 @@ VOCABULARY = (
     "m6", "m8", "m10", "m12", "nickel", "plain", "seal", "screw", "steel",
     "stainless", "washer", "zinc",
 )
+INSTRUCTION_PATTERNS = (
+    r"\b(ignore|disregard|forget)\b.{0,40}\b(instruction|prompt|rule)s?\b",
+    r"\b(system|developer|assistant)\s*:",
+    r"\b(reveal|show|print)\b.{0,30}\b(prompt|secret|instruction)s?\b",
+)
 ATTRIBUTE_OPTIONS = {
     "material": ("stainless steel", "aluminum", "steel", "brass"),
     "finish": ("zinc", "black oxide", "plain", "nickel"),
@@ -64,6 +69,11 @@ def correct_vocabulary(query: str) -> str:
         match = process.extractOne(word, VOCABULARY, score_cutoff=78)
         words.append(match[0] if match and len(word) >= 4 else word)
     return " ".join(words)
+
+
+def detect_prompt_injection(query: str) -> bool:
+    """Flag instruction-like text while keeping the entire query data-only."""
+    return any(re.search(pattern, query, flags=re.IGNORECASE) for pattern in INSTRUCTION_PATTERNS)
 
 
 def normalize_query(query: str) -> str:
@@ -198,6 +208,19 @@ class HybridPartsRetriever:
             },
         }
 
+    def _catalog_row(self, sku: str) -> dict[str, str]:
+        return next(row for row in self.catalog if row["sku"] == sku)
+
+    def _explanation(self, sku: str) -> str:
+        row = self._catalog_row(sku)
+        details = (
+            f"{row['description']} by {row['brand']}; "
+            f"category={row['category']}, material={row['material']}, "
+            f"thread={row['thread']}, length_mm={row['length_mm']}, "
+            f"finish={row['finish']}."
+        )
+        return f"Catalog-grounded match for {row['sku']}: {details}"
+
     @staticmethod
     def _add_confidence(results: list[dict[str, Any]]) -> None:
         if not results:
@@ -235,14 +258,22 @@ class HybridPartsRetriever:
             )
 
     def search(
-        self, query: str, limit: int = 5, candidate_limit: int = 50
+        self,
+        query: str,
+        limit: int = 5,
+        candidate_limit: int = 50,
+        include_explanation: bool = False,
     ) -> list[dict[str, Any]]:
         self._validate_search(query, limit)
         results = self._rank(query, limit, candidate_limit)
         catalog_skus = {row["sku"] for row in self.catalog}
         grounded = [result for result in results if result["sku"] in catalog_skus]
+        injection_detected = detect_prompt_injection(query)
         for result in grounded:
             result["evidence"]["catalog_verified"] = True
+            result["evidence"]["prompt_injection_detected"] = injection_detected
+            if include_explanation:
+                result["explanation"] = self._explanation(result["sku"])
         return grounded
 
     @staticmethod
