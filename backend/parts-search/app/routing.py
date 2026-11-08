@@ -1,6 +1,4 @@
-﻿# Thresholds will later move to a config file
-LOW_CONFIDENCE = 0.6
-TOO_CLOSE = 0.05
+﻿from app.config import LOW_CONFIDENCE, TOO_CLOSE
 
 
 def decide_route(results: list[dict]) -> tuple[str, str | None]:

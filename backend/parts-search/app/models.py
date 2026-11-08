@@ -18,9 +18,11 @@ class SearchResponse(BaseModel):
     reason: Optional[str] = None
     results: List[Candidate]
     latency_ms: float
+    timing_ms: Optional[dict] = None
 
 # What the website sends to /feedback
 class FeedbackRequest(BaseModel):
     query: str
     sku: str
     decision: Literal["approve", "reject"]
+    reviewer: Optional[str] = None
