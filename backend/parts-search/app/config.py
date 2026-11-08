@@ -13,7 +13,7 @@ def _load_config():
     except json.JSONDecodeError as e:
         raise ValueError(f"Threshold config is not valid JSON: {e}") from e
 
-    required_keys = ["version", "low_confidence", "too_close_margin", "model_version"]
+    required_keys = ["version", "low_confidence", "too_close_margin", "model_version", "engine"]
     missing = [k for k in required_keys if k not in data]
     if missing:
         raise KeyError(f"Threshold config missing keys: {', '.join(missing)}")
@@ -26,3 +26,4 @@ VERSION = _config["version"]
 LOW_CONFIDENCE = float(_config["low_confidence"])
 TOO_CLOSE = float(_config["too_close_margin"])
 MODEL_VERSION = _config["model_version"]
+ENGINE = _config.get("engine", "baseline")

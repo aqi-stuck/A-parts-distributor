@@ -1,9 +1,14 @@
 ﻿import json
 import logging
 import time
-from ml.engine import Engine
+from app.config import ENGINE
 from app.routing import decide_route
 from app.fallback import keyword_fallback
+
+if ENGINE == "model":
+    from ml.model_engine import Engine
+else:
+    from ml.baseline_engine import Engine
 
 
 class SearchService:
