@@ -43,9 +43,9 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] D2 (ML) Hybrid retrieval (BM25 + embeddings)
 - [x] D3 (ML) Reranker
 - [x] D4 (ML) Attribute extraction (size, material, thread, finish, brand) and check against candidates
-- [ ] D5 (ML) Confidence score: score margin + attribute agreement
-- [ ] D6 (ML) Calibrate confidence on validation set
-- [ ] D7 (ML) Grounded output only: return SKUs that exist in the catalog; no invented specs
+- [x] D5 (ML) Confidence score: score margin + attribute agreement
+- [x] D6 (ML) Calibrate confidence on validation set
+- [x] D7 (ML) Grounded output only: return SKUs that exist in the catalog; no invented specs
 - [ ] D8 (ML) Prompt-injection hardening: query treated as data, never as instructions
 - [ ] D9 (ML) Optional: LLM explanations behind a switch, checked against catalog fields
 - [ ] D10 (DEV1) Integrate the model behind the agreed API contract
