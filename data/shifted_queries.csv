@@ -1,0 +1,401 @@
+query_id,query,shift_type,is_shifted
+910,hydraulic pump plain stainless steel bolt /4-20 40 mm,new_category,true
+910,omnisupply-x plain stainless steel bolt /4-20 40 mm,new_supplier_style,true
+910,perno acero plain stainless steel bolt /4-20 40 mm,other_language,true
+910,plain ss bolt /4-20 40 mm,heavy_abbreviation,true
+2733,hydraulic pump plain steel screw m8 30 mm,new_category,true
+2733,omnisupply-x plain steel screw m8 30 mm,new_supplier_style,true
+2733,perno acero plain steel screw m8 30 mm,other_language,true
+2733,plain steel screw m8 30 mm,heavy_abbreviation,true
+2943,hydraulic pump nickel stainless steel bearing m6 0 mm,new_category,true
+2943,omnisupply-x nickel stainless steel bearing m6 0 mm,new_supplier_style,true
+2943,perno acero nickel stainless steel bearing m6 0 mm,other_language,true
+2943,nickel ss brg m6 0 mm,heavy_abbreviation,true
+1503,hydraulic pump zinc stainless steel earing m6 30 mm,new_category,true
+1503,omnisupply-x zinc stainless steel earing m6 30 mm,new_supplier_style,true
+1503,perno acero zinc stainless steel earing m6 30 mm,other_language,true
+1503,zinc ss earing m6 30 mm,heavy_abbreviation,true
+2533,hydraulic pump black oxide item brass bearing m10 20 mm,new_category,true
+2533,omnisupply-x black oxide item brass bearing m10 20 mm,new_supplier_style,true
+2533,perno acero black oxide item brass bearing m10 20 mm,other_language,true
+2533,bo item brass brg m10 20 mm,heavy_abbreviation,true
+1358,hydraulic pump zinc steel connector 3/8-16 1 inch,new_category,true
+1358,omnisupply-x zinc steel connector 3/8-16 1 inch,new_supplier_style,true
+1358,perno acero zinc steel connector 3/8-16 1 inch,other_language,true
+1358,zinc steel conn 3/8-16 1 inch,heavy_abbreviation,true
+1963,hydraulic pump nickel brass seal m12 20mm,new_category,true
+1963,omnisupply-x nickel brass seal m12 20mm,new_supplier_style,true
+1963,perno acero nickel brass seal m12 20mm,other_language,true
+1963,nickel brass seal m12 20mm,heavy_abbreviation,true
+530,hydraulic pump zinc brss bracket 3/8-16 25 mm,new_category,true
+530,omnisupply-x zinc brss bracket 3/8-16 25 mm,new_supplier_style,true
+530,perno acero zinc brss bracket 3/8-16 25 mm,other_language,true
+530,zinc brss bracket 3/8-16 25 mm,heavy_abbreviation,true
+2944,hydraulic pump nickel stainless steel bearing m8 replacement 40 mm,new_category,true
+2944,omnisupply-x nickel stainless steel bearing m8 replacement 40 mm,new_supplier_style,true
+2944,perno acero nickel stainless steel bearing m8 replacement 40 mm,other_language,true
+2944,nickel ss brg m8 replacement 40 mm,heavy_abbreviation,true
+1997,hydraulic pump zinc steel brg m6 50 mm,new_category,true
+1997,omnisupply-x zinc steel brg m6 50 mm,new_supplier_style,true
+1997,perno acero zinc steel brg m6 50 mm,other_language,true
+1997,zinc steel brg m6 50 mm,heavy_abbreviation,true
+2632,hydraulic pump nickel brass connector m12 40mm,new_category,true
+2632,omnisupply-x nickel brass connector m12 40mm,new_supplier_style,true
+2632,perno acero nickel brass connector m12 40mm,other_language,true
+2632,nickel brass conn m12 40mm,heavy_abbreviation,true
+2169,hydraulic pump zinc stainless steel seal m12 30mm,new_category,true
+2169,omnisupply-x zinc stainless steel seal m12 30mm,new_supplier_style,true
+2169,perno acero zinc stainless steel seal m12 30mm,other_language,true
+2169,zinc ss seal m12 30mm,heavy_abbreviation,true
+2395,hydraulic pump plain aluminum nut m12 20mm,new_category,true
+2395,omnisupply-x plain aluminum nut m12 20mm,new_supplier_style,true
+2395,perno acero plain aluminum nut m12 20mm,other_language,true
+2395,plain aluminum nut m12 20mm,heavy_abbreviation,true
+1904,hydraulic pump lain brass washer m6 25 mm,new_category,true
+1904,omnisupply-x lain brass washer m6 25 mm,new_supplier_style,true
+1904,perno acero lain brass washer m6 25 mm,other_language,true
+1904,lain brass wshr m6 25 mm,heavy_abbreviation,true
+1799,hydraulic pump please nickel aluminum seal m12 50 mm,new_category,true
+1799,omnisupply-x please nickel aluminum seal m12 50 mm,new_supplier_style,true
+1799,perno acero please nickel aluminum seal m12 50 mm,other_language,true
+1799,please nickel aluminum seal m12 50 mm,heavy_abbreviation,true
+1577,hydraulic pump plain stainless steel washer m10 50 m,new_category,true
+1577,omnisupply-x plain stainless steel washer m10 50 m,new_supplier_style,true
+1577,perno acero plain stainless steel washer m10 50 m,other_language,true
+1577,plain ss wshr m10 50 m,heavy_abbreviation,true
+855,hydraulic pump zinc stainless steel bracket item m6 30 mm,new_category,true
+855,omnisupply-x zinc stainless steel bracket item m6 30 mm,new_supplier_style,true
+855,perno acero zinc stainless steel bracket item m6 30 mm,other_language,true
+855,zinc ss bracket item m6 30 mm,heavy_abbreviation,true
+654,hydraulic pump nickel brass brkt 3/816 60 mm,new_category,true
+654,omnisupply-x nickel brass brkt 3/816 60 mm,new_supplier_style,true
+654,perno acero nickel brass brkt 3/816 60 mm,other_language,true
+654,nickel brass brkt 3/816 60 mm,heavy_abbreviation,true
+1891,hydraulic pump black oxide brass connector m12 20mm,new_category,true
+1891,omnisupply-x black oxide brass connector m12 20mm,new_supplier_style,true
+1891,perno acero black oxide brass connector m12 20mm,other_language,true
+1891,bo brass conn m12 20mm,heavy_abbreviation,true
+1816,hydraulic pump zinc brass bolt 3/816 40 mm,new_category,true
+1816,omnisupply-x zinc brass bolt 3/816 40 mm,new_supplier_style,true
+1816,perno acero zinc brass bolt 3/816 40 mm,other_language,true
+1816,zinc brass bolt 3/816 40 mm,heavy_abbreviation,true
+1143,hydraulic pump nickel alu brkt m6 30 mm,new_category,true
+1143,omnisupply-x nickel alu brkt m6 30 mm,new_supplier_style,true
+1143,perno acero nickel alu brkt m6 30 mm,other_language,true
+1143,nickel alu brkt m6 30 mm,heavy_abbreviation,true
+2884,hydraulic pump plain stainless steel need bolt m12 40 mm,new_category,true
+2884,omnisupply-x plain stainless steel need bolt m12 40 mm,new_supplier_style,true
+2884,perno acero plain stainless steel need bolt m12 40 mm,other_language,true
+2884,plain ss need bolt m12 40 mm,heavy_abbreviation,true
+1920,hydraulic pump plain brass seal m6 60mm,new_category,true
+1920,omnisupply-x plain brass seal m6 60mm,new_supplier_style,true
+1920,perno acero plain brass seal m6 60mm,other_language,true
+1920,plain brass seal m6 60mm,heavy_abbreviation,true
+1507,hydraulic pump zinc 3/8-16 bearing stainless steel 20 mm,new_category,true
+1507,omnisupply-x zinc 3/8-16 bearing stainless steel 20 mm,new_supplier_style,true
+1507,perno acero zinc 3/8-16 bearing stainless steel 20 mm,other_language,true
+1507,zinc 3/8-16 brg ss 20 mm,heavy_abbreviation,true
+2803,hydraulic pump stainless steel 20 mm zinc bolt 3/8-16,new_category,true
+2803,omnisupply-x stainless steel 20 mm zinc bolt 3/8-16,new_supplier_style,true
+2803,perno acero stainless steel 20 mm zinc bolt 3/8-16,other_language,true
+2803,ss 20 mm zinc bolt 3/8-16,heavy_abbreviation,true
+869,hydraulic pump stainless steel black oxide 50 mm bolt 1/4-20,new_category,true
+869,omnisupply-x stainless steel black oxide 50 mm bolt 1/4-20,new_supplier_style,true
+869,perno acero stainless steel black oxide 50 mm bolt 1/4-20,other_language,true
+869,ss bo 50 mm bolt 1/4-20,heavy_abbreviation,true
+1984,hydraulic pump zinc steel nut m12 40mm,new_category,true
+1984,omnisupply-x zinc steel nut m12 40mm,new_supplier_style,true
+1984,perno acero zinc steel nut m12 40mm,other_language,true
+1984,zinc steel nut m12 40mm,heavy_abbreviation,true
+2414,hydraulic pump plain seal m8 aluminum 25 mm,new_category,true
+2414,omnisupply-x plain seal m8 aluminum 25 mm,new_supplier_style,true
+2414,perno acero plain seal m8 aluminum 25 mm,other_language,true
+2414,plain seal m8 aluminum 25 mm,heavy_abbreviation,true
+1886,hydraulic pump black oxide brass bracket m12 1 inch,new_category,true
+1886,omnisupply-x black oxide brass bracket m12 1 inch,new_supplier_style,true
+1886,perno acero black oxide brass bracket m12 1 inch,other_language,true
+1886,bo brass bracket m12 1 inch,heavy_abbreviation,true
+2765,hydraulic pump nickel steel nut 50 mm,new_category,true
+2765,omnisupply-x nickel steel nut 50 mm,new_supplier_style,true
+2765,perno acero nickel steel nut 50 mm,other_language,true
+2765,nickel steel nut 50 mm,heavy_abbreviation,true
+2388,hydraulic pump lain aluminum bolt m6 60 mm,new_category,true
+2388,omnisupply-x lain aluminum bolt m6 60 mm,new_supplier_style,true
+2388,perno acero lain aluminum bolt m6 60 mm,other_language,true
+2388,lain aluminum bolt m6 60 mm,heavy_abbreviation,true
+1579,hydraulic pump 20 mm stainless steel 3/8-16 plain washer,new_category,true
+1579,omnisupply-x 20 mm stainless steel 3/8-16 plain washer,new_supplier_style,true
+1579,perno acero 20 mm stainless steel 3/8-16 plain washer,other_language,true
+1579,20 mm ss 3/8-16 plain wshr,heavy_abbreviation,true
+863,hydraulic pump zinc stainless steel connector m12 2 inch,new_category,true
+863,omnisupply-x zinc stainless steel connector m12 2 inch,new_supplier_style,true
+863,perno acero zinc stainless steel connector m12 2 inch,other_language,true
+863,zinc ss conn m12 2 inch,heavy_abbreviation,true
+2496,hydraulic pump zinc brass seal m6 60 mm,new_category,true
+2496,omnisupply-x zinc brass seal m6 60 mm,new_supplier_style,true
+2496,perno acero zinc brass seal m6 60 mm,other_language,true
+2496,zinc brass seal m6 60 mm,heavy_abbreviation,true
+1424,hydraulic pump plain steel brg 1/420 25 mm,new_category,true
+1424,omnisupply-x plain steel brg 1/420 25 mm,new_supplier_style,true
+1424,perno acero plain steel brg 1/420 25 mm,other_language,true
+1424,plain steel brg 1/420 25 mm,heavy_abbreviation,true
+2524,hydraulic pump black oxide washer m12 40 mm,new_category,true
+2524,omnisupply-x black oxide washer m12 40 mm,new_supplier_style,true
+2524,perno acero black oxide washer m12 40 mm,other_language,true
+2524,bo wshr m12 40 mm,heavy_abbreviation,true
+1855,hydraulic pump black oxide bass bolt m12 20 mm,new_category,true
+1855,omnisupply-x black oxide bass bolt m12 20 mm,new_supplier_style,true
+1855,perno acero black oxide bass bolt m12 20 mm,other_language,true
+1855,bo bass bolt m12 20 mm,heavy_abbreviation,true
+898,hydraulic pump blac oxide stainless steel bracket m10 40 mm,new_category,true
+898,omnisupply-x blac oxide stainless steel bracket m10 40 mm,new_supplier_style,true
+898,perno acero blac oxide stainless steel bracket m10 40 mm,other_language,true
+898,blac oxide ss bracket m10 40 mm,heavy_abbreviation,true
+1062,hydraulic pump black oxide alumium bracket m8 60 mm,new_category,true
+1062,omnisupply-x black oxide alumium bracket m8 60 mm,new_supplier_style,true
+1062,perno acero black oxide alumium bracket m8 60 mm,other_language,true
+1062,bo alumium bracket m8 60 mm,heavy_abbreviation,true
+1689,hydraulic pump 30 mm aluminum black oxide m8 bolt,new_category,true
+1689,omnisupply-x 30 mm aluminum black oxide m8 bolt,new_supplier_style,true
+1689,perno acero 30 mm aluminum black oxide m8 bolt,other_language,true
+1689,30 mm aluminum bo m8 bolt,heavy_abbreviation,true
+2923,hydraulic pump nickel stainless steel item bolt m8 20 mm,new_category,true
+2923,omnisupply-x nickel stainless steel item bolt m8 20 mm,new_supplier_style,true
+2923,perno acero nickel stainless steel item bolt m8 20 mm,other_language,true
+2923,nickel ss item bolt m8 20 mm,heavy_abbreviation,true
+1586,hydraulic pump plain stainless steel bearing m8 1 inch,new_category,true
+1586,omnisupply-x plain stainless steel bearing m8 1 inch,new_supplier_style,true
+1586,perno acero plain stainless steel bearing m8 1 inch,other_language,true
+1586,plain ss brg m8 1 inch,heavy_abbreviation,true
+1721,hydraulic pump black oxide m10 50 mm aluminum bracket,new_category,true
+1721,omnisupply-x black oxide m10 50 mm aluminum bracket,new_supplier_style,true
+1721,perno acero black oxide m10 50 mm aluminum bracket,other_language,true
+1721,bo m10 50 mm aluminum bracket,heavy_abbreviation,true
+1862,hydraulic pump black oxide brass nut 3/8-16 25 mm item,new_category,true
+1862,omnisupply-x black oxide brass nut 3/8-16 25 mm item,new_supplier_style,true
+1862,perno acero black oxide brass nut 3/8-16 25 mm item,other_language,true
+1862,bo brass nut 3/8-16 25 mm item,heavy_abbreviation,true
+801,hydraulic pump nickel steel screw m12 30mm,new_category,true
+801,omnisupply-x nickel steel screw m12 30mm,new_supplier_style,true
+801,perno acero nickel steel screw m12 30mm,other_language,true
+801,nickel steel screw m12 30mm,heavy_abbreviation,true
+1053,hydraulic pump black oxide aluminum bearing 30 mm,new_category,true
+1053,omnisupply-x black oxide aluminum bearing 30 mm,new_supplier_style,true
+1053,perno acero black oxide aluminum bearing 30 mm,other_language,true
+1053,bo aluminum brg 30 mm,heavy_abbreviation,true
+1153,hydraulic pump zinc brass bolt m6 20 mm please,new_category,true
+1153,omnisupply-x zinc brass bolt m6 20 mm please,new_supplier_style,true
+1153,perno acero zinc brass bolt m6 20 mm please,other_language,true
+1153,zinc brass bolt m6 20 mm please,heavy_abbreviation,true
+1914,hydraulic pump plain brass screw 3/8-16 please 60 mm,new_category,true
+1914,omnisupply-x plain brass screw 3/8-16 please 60 mm,new_supplier_style,true
+1914,perno acero plain brass screw 3/8-16 please 60 mm,other_language,true
+1914,plain brass screw 3/8-16 please 60 mm,heavy_abbreviation,true
+2006,hydraulic pump zinc steel seal 3/8-16,new_category,true
+2006,omnisupply-x zinc steel seal 3/8-16,new_supplier_style,true
+2006,perno acero zinc steel seal 3/8-16,other_language,true
+2006,zinc steel seal 3/8-16,heavy_abbreviation,true
+809,hydraulic pump nickel stel seal m6 50 mm,new_category,true
+809,omnisupply-x nickel stel seal m6 50 mm,new_supplier_style,true
+809,perno acero nickel stel seal m6 50 mm,other_language,true
+809,nickel stel seal m6 50 mm,heavy_abbreviation,true
+738,hydraulic pump black oxde steel connector m8 60 mm,new_category,true
+738,omnisupply-x black oxde steel connector m8 60 mm,new_supplier_style,true
+738,perno acero black oxde steel connector m8 60 mm,other_language,true
+738,black oxde steel conn m8 60 mm,heavy_abbreviation,true
+1975,hydraulic pump nickel brass connector 3/8-16 20mm,new_category,true
+1975,omnisupply-x nickel brass connector 3/8-16 20mm,new_supplier_style,true
+1975,perno acero nickel brass connector 3/8-16 20mm,other_language,true
+1975,nickel brass conn 3/8-16 20mm,heavy_abbreviation,true
+2342,hydraulic pump zinc aluminum connector m8 please 25 mm,new_category,true
+2342,omnisupply-x zinc aluminum connector m8 please 25 mm,new_supplier_style,true
+2342,perno acero zinc aluminum connector m8 please 25 mm,other_language,true
+2342,zinc aluminum conn m8 please 25 mm,heavy_abbreviation,true
+2671,hydraulic pump steel 20 mm connector zinc m8,new_category,true
+2671,omnisupply-x steel 20 mm connector zinc m8,new_supplier_style,true
+2671,perno acero steel 20 mm connector zinc m8,other_language,true
+2671,steel 20 mm conn zinc m8,heavy_abbreviation,true
+1787,hydraulic pump nickel aluminum screw m8,new_category,true
+1787,omnisupply-x nickel aluminum screw m8,new_supplier_style,true
+1787,perno acero nickel aluminum screw m8,other_language,true
+1787,nickel aluminum screw m8,heavy_abbreviation,true
+2642,hydraulic pump zinc steel nut m12 25 mm,new_category,true
+2642,omnisupply-x zinc steel nut m12 25 mm,new_supplier_style,true
+2642,perno acero zinc steel nut m12 25 mm,other_language,true
+2642,zinc steel nut m12 25 mm,heavy_abbreviation,true
+763,hydraulic pump bearing plain steel m8 20 mm,new_category,true
+763,omnisupply-x bearing plain steel m8 20 mm,new_supplier_style,true
+763,perno acero bearing plain steel m8 20 mm,other_language,true
+763,brg plain steel m8 20 mm,heavy_abbreviation,true
+1422,hydraulic pump pain steel bearing m8 60 mm,new_category,true
+1422,omnisupply-x pain steel bearing m8 60 mm,new_supplier_style,true
+1422,perno acero pain steel bearing m8 60 mm,other_language,true
+1422,pain steel brg m8 60 mm,heavy_abbreviation,true
+2904,hydraulic pump plain ss brg m10 60 mm,new_category,true
+2904,omnisupply-x plain ss brg m10 60 mm,new_supplier_style,true
+2904,perno acero plain ss brg m10 60 mm,other_language,true
+2904,plain ss brg m10 60 mm,heavy_abbreviation,true
+893,hydraulic pump black oxide item stainless steel seal m10 50 mm,new_category,true
+893,omnisupply-x black oxide item stainless steel seal m10 50 mm,new_supplier_style,true
+893,perno acero black oxide item stainless steel seal m10 50 mm,other_language,true
+893,bo item ss seal m10 50 mm,heavy_abbreviation,true
+895,hydraulic pump black oxide stainless steel seal 3/8-16 20mm,new_category,true
+895,omnisupply-x black oxide stainless steel seal 3/8-16 20mm,new_supplier_style,true
+895,perno acero black oxide stainless steel seal 3/8-16 20mm,other_language,true
+895,bo ss seal 3/8-16 20mm,heavy_abbreviation,true
+1451,hydraulic pump nickel steel nut item 3/8-16 50 mm,new_category,true
+1451,omnisupply-x nickel steel nut item 3/8-16 50 mm,new_supplier_style,true
+1451,perno acero nickel steel nut item 3/8-16 50 mm,other_language,true
+1451,nickel steel nut item 3/8-16 50 mm,heavy_abbreviation,true
+1928,hydraulic pump plain brass bracket 1/4-20,new_category,true
+1928,omnisupply-x plain brass bracket 1/4-20,new_supplier_style,true
+1928,perno acero plain brass bracket 1/4-20,other_language,true
+1928,plain brass bracket 1/4-20,heavy_abbreviation,true
+1711,hydraulic pump black oxide aluminum bearing m12 20mm,new_category,true
+1711,omnisupply-x black oxide aluminum bearing m12 20mm,new_supplier_style,true
+1711,perno acero black oxide aluminum bearing m12 20mm,other_language,true
+1711,bo aluminum brg m12 20mm,heavy_abbreviation,true
+1572,hydraulic pump plain stainless steel nut m10 60mm,new_category,true
+1572,omnisupply-x plain stainless steel nut m10 60mm,new_supplier_style,true
+1572,perno acero plain stainless steel nut m10 60mm,other_language,true
+1572,plain ss nut m10 60mm,heavy_abbreviation,true
+2166,hydraulic pump zinc stainless steel 3/8-16 60 mm,new_category,true
+2166,omnisupply-x zinc stainless steel 3/8-16 60 mm,new_supplier_style,true
+2166,perno acero zinc stainless steel 3/8-16 60 mm,other_language,true
+2166,zinc ss 3/8-16 60 mm,heavy_abbreviation,true
+1176,hydraulic pump zinc brass bearing please m10 60 mm,new_category,true
+1176,omnisupply-x zinc brass bearing please m10 60 mm,new_supplier_style,true
+1176,perno acero zinc brass bearing please m10 60 mm,other_language,true
+1176,zinc brass brg please m10 60 mm,heavy_abbreviation,true
+634,hydraulic pump nickel brass screw m6 40mm,new_category,true
+634,omnisupply-x nickel brass screw m6 40mm,new_supplier_style,true
+634,perno acero nickel brass screw m6 40mm,other_language,true
+634,nickel brass screw m6 40mm,heavy_abbreviation,true
+959,hydraulic pump stainless steel washer m8 50 mm,new_category,true
+959,omnisupply-x stainless steel washer m8 50 mm,new_supplier_style,true
+959,perno acero stainless steel washer m8 50 mm,other_language,true
+959,ss wshr m8 50 mm,heavy_abbreviation,true
+1082,hydraulic pump plain aluminum washer m8 1 inch,new_category,true
+1082,omnisupply-x plain aluminum washer m8 1 inch,new_supplier_style,true
+1082,perno acero plain aluminum washer m8 1 inch,other_language,true
+1082,plain aluminum wshr m8 1 inch,heavy_abbreviation,true
+588,hydraulic pump plain brass washer m6 60 mm replacement,new_category,true
+588,omnisupply-x plain brass washer m6 60 mm replacement,new_supplier_style,true
+588,perno acero plain brass washer m6 60 mm replacement,other_language,true
+588,plain brass wshr m6 60 mm replacement,heavy_abbreviation,true
+1488,hydraulic pump zinc nut m6 60 mm,new_category,true
+1488,omnisupply-x zinc nut m6 60 mm,new_supplier_style,true
+1488,perno acero zinc nut m6 60 mm,other_language,true
+1488,zinc nut m6 60 mm,heavy_abbreviation,true
+2768,hydraulic pump nickel steel washer m6 item 25 mm,new_category,true
+2768,omnisupply-x nickel steel washer m6 item 25 mm,new_supplier_style,true
+2768,perno acero nickel steel washer m6 item 25 mm,other_language,true
+2768,nickel steel wshr m6 item 25 mm,heavy_abbreviation,true
+1944,hydraulic pump nickel brass nut 14-20 60 mm,new_category,true
+1944,omnisupply-x nickel brass nut 14-20 60 mm,new_supplier_style,true
+1944,perno acero nickel brass nut 14-20 60 mm,other_language,true
+1944,nickel brass nut 14-20 60 mm,heavy_abbreviation,true
+2266,hydraulic pump nickel ss bolt m10 40 mm,new_category,true
+2266,omnisupply-x nickel ss bolt m10 40 mm,new_supplier_style,true
+2266,perno acero nickel ss bolt m10 40 mm,other_language,true
+2266,nickel ss bolt m10 40 mm,heavy_abbreviation,true
+1767,hydraulic pump 30 mm plain aluminum connector m10,new_category,true
+1767,omnisupply-x 30 mm plain aluminum connector m10,new_supplier_style,true
+1767,perno acero 30 mm plain aluminum connector m10,other_language,true
+1767,30 mm plain aluminum conn m10,heavy_abbreviation,true
+1400,hydraulic pump plain steel bolt m6 1 inch,new_category,true
+1400,omnisupply-x plain steel bolt m6 1 inch,new_supplier_style,true
+1400,perno acero plain steel bolt m6 1 inch,other_language,true
+1400,plain steel bolt m6 1 inch,heavy_abbreviation,true
+489,hydraulic pump nickel aluminum bracket 3/8-16 30mm,new_category,true
+489,omnisupply-x nickel aluminum bracket 3/8-16 30mm,new_supplier_style,true
+489,perno acero nickel aluminum bracket 3/8-16 30mm,other_language,true
+489,nickel aluminum bracket 3/8-16 30mm,heavy_abbreviation,true
+1121,hydraulic pump nickel aluminum nut 1/4-20 5 mm,new_category,true
+1121,omnisupply-x nickel aluminum nut 1/4-20 5 mm,new_supplier_style,true
+1121,perno acero nickel aluminum nut 1/4-20 5 mm,other_language,true
+1121,nickel aluminum nut 1/4-20 5 mm,heavy_abbreviation,true
+1510,hydraulic pump zinc stainless steel seal m10 please 40 mm,new_category,true
+1510,omnisupply-x zinc stainless steel seal m10 please 40 mm,new_supplier_style,true
+1510,perno acero zinc stainless steel seal m10 please 40 mm,other_language,true
+1510,zinc ss seal m10 please 40 mm,heavy_abbreviation,true
+1284,hydraulic pump nickel brass nut m10 60 mm,new_category,true
+1284,omnisupply-x nickel brass nut m10 60 mm,new_supplier_style,true
+1284,perno acero nickel brass nut m10 60 mm,other_language,true
+1284,nickel brass nut m10 60 mm,heavy_abbreviation,true
+1116,hydraulic pump nickel aluminum bolt 1/4-20 60mm,new_category,true
+1116,omnisupply-x nickel aluminum bolt 1/4-20 60mm,new_supplier_style,true
+1116,perno acero nickel aluminum bolt 1/4-20 60mm,other_language,true
+1116,nickel aluminum bolt 1/4-20 60mm,heavy_abbreviation,true
+2680,hydraulic pump black oxide steel bolt 3/816 40 mm,new_category,true
+2680,omnisupply-x black oxide steel bolt 3/816 40 mm,new_supplier_style,true
+2680,perno acero black oxide steel bolt 3/816 40 mm,other_language,true
+2680,bo steel bolt 3/816 40 mm,heavy_abbreviation,true
+525,hydraulic pump znc brass seal 3/8-16 30 mm,new_category,true
+525,omnisupply-x znc brass seal 3/8-16 30 mm,new_supplier_style,true
+525,perno acero znc brass seal 3/8-16 30 mm,other_language,true
+525,znc brass seal 3/8-16 30 mm,heavy_abbreviation,true
+498,hydraulic pump zinc brass bolt m12 60mm,new_category,true
+498,omnisupply-x zinc brass bolt m12 60mm,new_supplier_style,true
+498,perno acero zinc brass bolt m12 60mm,other_language,true
+498,zinc brass bolt m12 60mm,heavy_abbreviation,true
+858,hydraulic pump zinc stainless steel bracket m12 60 m,new_category,true
+858,omnisupply-x zinc stainless steel bracket m12 60 m,new_supplier_style,true
+858,perno acero zinc stainless steel bracket m12 60 m,other_language,true
+858,zinc ss bracket m12 60 m,heavy_abbreviation,true
+1270,hydraulic pump plain brass bracket 1/4-20 40mm,new_category,true
+1270,omnisupply-x plain brass bracket 1/4-20 40mm,new_supplier_style,true
+1270,perno acero plain brass bracket 1/4-20 40mm,other_language,true
+1270,plain brass bracket 1/4-20 40mm,heavy_abbreviation,true
+493,hydraulic pump aluminum 20 mm nickel 1/4-20 connector,new_category,true
+493,omnisupply-x aluminum 20 mm nickel 1/4-20 connector,new_supplier_style,true
+493,perno acero aluminum 20 mm nickel 1/4-20 connector,other_language,true
+493,aluminum 20 mm nickel 1/4-20 conn,heavy_abbreviation,true
+1789,hydraulic pump nickel alu screw 1/420 20 mm,new_category,true
+1789,omnisupply-x nickel alu screw 1/420 20 mm,new_supplier_style,true
+1789,perno acero nickel alu screw 1/420 20 mm,other_language,true
+1789,nickel alu screw 1/420 20 mm,heavy_abbreviation,true
+2996,hydraulic pump zinc alu brkt m10 25 mm,new_category,true
+2996,omnisupply-x zinc alu brkt m10 25 mm,new_supplier_style,true
+2996,perno acero zinc alu brkt m10 25 mm,other_language,true
+2996,zinc alu brkt m10 25 mm,heavy_abbreviation,true
+1839,hydraulic pump zinc brass seal m10 30mm,new_category,true
+1839,omnisupply-x zinc brass seal m10 30mm,new_supplier_style,true
+1839,perno acero zinc brass seal m10 30mm,other_language,true
+1839,zinc brass seal m10 30mm,heavy_abbreviation,true
+1272,hydraulic pump plain brass connector m6 60mm,new_category,true
+1272,omnisupply-x plain brass connector m6 60mm,new_supplier_style,true
+1272,perno acero plain brass connector m6 60mm,other_language,true
+1272,plain brass conn m6 60mm,heavy_abbreviation,true
+675,hydraulic pump zinc steel screw m6 30 mm,new_category,true
+675,omnisupply-x zinc steel screw m6 30 mm,new_supplier_style,true
+675,perno acero zinc steel screw m6 30 mm,other_language,true
+675,zinc steel screw m6 30 mm,heavy_abbreviation,true
+1867,hydraulic pump black oxide brass washer 3/8-16 20mm,new_category,true
+1867,omnisupply-x black oxide brass washer 3/8-16 20mm,new_supplier_style,true
+1867,perno acero black oxide brass washer 3/8-16 20mm,other_language,true
+1867,bo brass wshr 3/8-16 20mm,heavy_abbreviation,true
+1574,hydraulic pump plain stainless steel nut 3/8-16,new_category,true
+1574,omnisupply-x plain stainless steel nut 3/8-16,new_supplier_style,true
+1574,perno acero plain stainless steel nut 3/8-16,other_language,true
+1574,plain ss nut 3/8-16,heavy_abbreviation,true
+2222,hydraulic pump black oxide stainless steel 3/8-16 25 mm,new_category,true
+2222,omnisupply-x black oxide stainless steel 3/8-16 25 mm,new_supplier_style,true
+2222,perno acero black oxide stainless steel 3/8-16 25 mm,other_language,true
+2222,bo ss 3/8-16 25 mm,heavy_abbreviation,true
+2843,hydraulic pump black oxide ss bolt m12 50 mm,new_category,true
+2843,omnisupply-x black oxide ss bolt m12 50 mm,new_supplier_style,true
+2843,perno acero black oxide ss bolt m12 50 mm,other_language,true
+2843,bo ss bolt m12 50 mm,heavy_abbreviation,true
+1993,hydraulic pump zinc steel screw item m10 20 mm,new_category,true
+1993,omnisupply-x zinc steel screw item m10 20 mm,new_supplier_style,true
+1993,perno acero zinc steel screw item m10 20 mm,other_language,true
+1993,zinc steel screw item m10 20 mm,heavy_abbreviation,true
+2977,hydraulic pump aluminum washer 1/4-20 20 mm,new_category,true
+2977,omnisupply-x aluminum washer 1/4-20 20 mm,new_supplier_style,true
+2977,perno acero aluminum washer 1/4-20 20 mm,other_language,true
+2977,aluminum wshr 1/4-20 20 mm,heavy_abbreviation,true
+772,hydraulic pump plain steel seal 40 mm,new_category,true
+772,omnisupply-x plain steel seal 40 mm,new_supplier_style,true
+772,perno acero plain steel seal 40 mm,other_language,true
+772,plain steel seal 40 mm,heavy_abbreviation,true

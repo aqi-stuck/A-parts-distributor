@@ -1,0 +1,66 @@
+{
+  "reference_queries": 390,
+  "shifted_queries": 400,
+  "threshold": 0.220693,
+  "overall": {
+    "precision": 0.7561,
+    "recall": 0.155,
+    "true_positives": 62,
+    "false_positives": 20,
+    "false_negatives": 338
+  },
+  "by_shift_type": {
+    "in_distribution": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "true_positives": 0,
+      "false_positives": 20,
+      "false_negatives": 0
+    },
+    "new_category": {
+      "precision": 1.0,
+      "recall": 0.23,
+      "true_positives": 23,
+      "false_positives": 0,
+      "false_negatives": 77
+    },
+    "new_supplier_style": {
+      "precision": 1.0,
+      "recall": 0.08,
+      "true_positives": 8,
+      "false_positives": 0,
+      "false_negatives": 92
+    },
+    "other_language": {
+      "precision": 1.0,
+      "recall": 0.23,
+      "true_positives": 23,
+      "false_positives": 0,
+      "false_negatives": 77
+    },
+    "heavy_abbreviation": {
+      "precision": 1.0,
+      "recall": 0.08,
+      "true_positives": 8,
+      "false_positives": 0,
+      "false_negatives": 92
+    }
+  },
+  "window_drift": {
+    "queries": 400,
+    "max_ks_statistic": 0.584487,
+    "ks_statistics": {
+      "embedding_distance": 0.118397,
+      "unseen_token_rate": 0.584487,
+      "query_length": 0.443782
+    },
+    "population_stability_index": 0.052018,
+    "alert": true
+  },
+  "features": [
+    "embedding_distance",
+    "unseen_token_rate",
+    "query_length",
+    "unknown_category"
+  ]
+}
