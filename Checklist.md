@@ -75,7 +75,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] F6 (DEV1) Audit trail: query, model version, output, reviewer, timestamp
 - [ ] F7 (DEV2) Evidence panel on every result: matched fields, extracted attributes, confidence, routing reason
 - [x] F8 (DEV1) System-failure fallback: timeout/error -> manual catalog search, never a raw error
-- [ ] F9 (ML) Coverage vs accuracy curve (how much auto-answered at what error rate)
+- [x] F9 (ML) Coverage vs accuracy curve (how much auto-answered at what error rate)
 
 ## G. Evaluation (what judges will check)
 

@@ -1,0 +1,49 @@
+{
+  "benchmark": "gold_queries_tagged.csv",
+  "queries": 400,
+  "policy": "auto-answer when confidence >= threshold; otherwise review",
+  "curve": [
+    {
+      "threshold": 0.0,
+      "auto_answered": 400,
+      "reviewed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.8525
+    },
+    {
+      "threshold": 0.2,
+      "auto_answered": 400,
+      "reviewed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.8525
+    },
+    {
+      "threshold": 0.4,
+      "auto_answered": 400,
+      "reviewed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.8525
+    },
+    {
+      "threshold": 0.6,
+      "auto_answered": 400,
+      "reviewed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.8525
+    },
+    {
+      "threshold": 0.8,
+      "auto_answered": 400,
+      "reviewed": 0,
+      "coverage": 1.0,
+      "accuracy": 0.8525
+    },
+    {
+      "threshold": 0.9,
+      "auto_answered": 302,
+      "reviewed": 98,
+      "coverage": 0.755,
+      "accuracy": 0.957
+    }
+  ]
+}
