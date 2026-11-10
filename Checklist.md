@@ -79,10 +79,10 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 ## G. Evaluation (what judges will check)
 
-- [ ] G1 (ML) Accuracy per slice, baseline vs improved
-- [ ] G2 (ML) Hard-case results (rare, ambiguous, adversarial, OOD)
-- [ ] G3 (ML) Hallucination: rate of SKUs/specs not in catalog (target 0)
-- [ ] G4 (ML) Hallucination: nonexistent-part queries return "not found"
+- [x] G1 (ML) Accuracy per slice, baseline vs improved
+- [x] G2 (ML) Hard-case results (rare, ambiguous, adversarial, OOD)
+- [x] G3 (ML) Hallucination: rate of SKUs/specs not in catalog (target 0)
+- [x] G4 (ML) Hallucination: nonexistent-part queries return "not found"
 - [ ] G5 (ML) Bias: performance by brand (large vs small), category, common vs rare parts
 - [ ] G6 (ML) Bias: performance by query style (terse, verbose, heavy typos/abbreviations)
 - [ ] G7 (ML) Bias: escalation and error rates per group; document gaps and fixes

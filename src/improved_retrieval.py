@@ -276,6 +276,24 @@ class HybridPartsRetriever:
                 result["explanation"] = self._explanation(result["sku"])
         return grounded
 
+    def search_or_not_found(
+        self,
+        query: str,
+        limit: int = 5,
+        min_confidence: float = 0.9,
+    ) -> dict[str, Any]:
+        """Return grounded results or a safe not-found response."""
+        results = self.search(query, limit=limit)
+        confidence = results[0]["confidence"] if results else 0.0
+        if not results or confidence < min_confidence:
+            return {
+                "status": "not_found",
+                "query": query,
+                "results": [],
+                "reason": "No sufficiently confident catalog match",
+            }
+        return {"status": "found", "query": query, "results": results}
+
     @staticmethod
     def _validate_search(query: str, limit: int) -> None:
         if not query.strip():

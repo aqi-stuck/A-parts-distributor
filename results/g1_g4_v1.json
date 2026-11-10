@@ -1,0 +1,169 @@
+{
+  "g1_accuracy_per_slice": {
+    "baseline_by_transformation": {
+      "abbreviation": {
+        "queries": 67,
+        "top_1_accuracy": 0.5224,
+        "top_5_accuracy": 0.7313
+      },
+      "noise": {
+        "queries": 67,
+        "top_1_accuracy": 1.0,
+        "top_5_accuracy": 1.0
+      },
+      "typo": {
+        "queries": 67,
+        "top_1_accuracy": 0.9552,
+        "top_5_accuracy": 1.0
+      },
+      "missing_attribute": {
+        "queries": 67,
+        "top_1_accuracy": 0.4776,
+        "top_5_accuracy": 0.9851
+      },
+      "word_order": {
+        "queries": 66,
+        "top_1_accuracy": 1.0,
+        "top_5_accuracy": 1.0
+      },
+      "unit_or_fraction": {
+        "queries": 66,
+        "top_1_accuracy": 0.7727,
+        "top_5_accuracy": 1.0
+      }
+    },
+    "improved_by_transformation": {
+      "abbreviation": {
+        "queries": 67,
+        "top_1_accuracy": 1.0,
+        "top_5_accuracy": 1.0
+      },
+      "noise": {
+        "queries": 67,
+        "top_1_accuracy": 1.0,
+        "top_5_accuracy": 1.0
+      },
+      "typo": {
+        "queries": 67,
+        "top_1_accuracy": 0.9701,
+        "top_5_accuracy": 1.0
+      },
+      "missing_attribute": {
+        "queries": 67,
+        "top_1_accuracy": 0.3881,
+        "top_5_accuracy": 1.0
+      },
+      "word_order": {
+        "queries": 66,
+        "top_1_accuracy": 1.0,
+        "top_5_accuracy": 1.0
+      },
+      "unit_or_fraction": {
+        "queries": 66,
+        "top_1_accuracy": 0.7576,
+        "top_5_accuracy": 1.0
+      }
+    },
+    "baseline_by_primary_tag": {
+      "adversarial": {
+        "queries": 134,
+        "top_1_accuracy": 0.7388,
+        "top_5_accuracy": 0.8657
+      },
+      "easy": {
+        "queries": 105,
+        "top_1_accuracy": 0.9333,
+        "top_5_accuracy": 1.0
+      },
+      "ambiguous": {
+        "queries": 67,
+        "top_1_accuracy": 0.4776,
+        "top_5_accuracy": 0.9851
+      },
+      "rare": {
+        "queries": 94,
+        "top_1_accuracy": 0.9149,
+        "top_5_accuracy": 1.0
+      }
+    },
+    "improved_by_primary_tag": {
+      "adversarial": {
+        "queries": 134,
+        "top_1_accuracy": 0.9851,
+        "top_5_accuracy": 1.0
+      },
+      "easy": {
+        "queries": 105,
+        "top_1_accuracy": 0.9333,
+        "top_5_accuracy": 1.0
+      },
+      "ambiguous": {
+        "queries": 67,
+        "top_1_accuracy": 0.3881,
+        "top_5_accuracy": 1.0
+      },
+      "rare": {
+        "queries": 94,
+        "top_1_accuracy": 0.9043,
+        "top_5_accuracy": 1.0
+      }
+    }
+  },
+  "g2_hard_case_results": {
+    "improved_by_primary_tag": {
+      "adversarial": {
+        "queries": 134,
+        "top_1_accuracy": 0.9851,
+        "top_5_accuracy": 1.0
+      },
+      "easy": {
+        "queries": 105,
+        "top_1_accuracy": 0.9333,
+        "top_5_accuracy": 1.0
+      },
+      "ambiguous": {
+        "queries": 67,
+        "top_1_accuracy": 0.3881,
+        "top_5_accuracy": 1.0
+      },
+      "rare": {
+        "queries": 94,
+        "top_1_accuracy": 0.9043,
+        "top_5_accuracy": 1.0
+      }
+    },
+    "ood_shift_detection_rate": 0.155,
+    "ood_queries": 400
+  },
+  "g3_grounding": {
+    "catalog_skus": 3000,
+    "all_returned_skus_in_catalog": true,
+    "hallucinated_sku_rate": 0.0,
+    "catalog_grounded_explanations": true
+  },
+  "g4_nonexistent_parts": {
+    "queries": 3,
+    "not_found_count": 3,
+    "all_returned_not_found": true,
+    "responses": [
+      {
+        "status": "not_found",
+        "query": "titanium rocket engine gasket z99 999 mm",
+        "results": [],
+        "reason": "No sufficiently confident catalog match"
+      },
+      {
+        "status": "not_found",
+        "query": "nonexistent quantum bearing q99 9999 mm",
+        "results": [],
+        "reason": "No sufficiently confident catalog match"
+      },
+      {
+        "status": "not_found",
+        "query": "left hand flux capacitor connector x404",
+        "results": [],
+        "reason": "No sufficiently confident catalog match"
+      }
+    ]
+  }
+}
