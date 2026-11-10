@@ -17,7 +17,12 @@ export function MonitoringPage() {
 
   return (
     <section className="card">
-      <h2>Monitoring</h2>
+      <div className="page-header">
+        <div>
+          <p className="eyebrow">Operations</p>
+          <h2>Monitoring</h2>
+        </div>
+      </div>
       <div className="grid">
         <div className="metric"><div>Total queries</div><div>{data.total_queries}</div></div>
         <div className="metric"><div>Sent to review</div><div>{data.review_count}</div></div>

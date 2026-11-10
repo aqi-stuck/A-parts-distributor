@@ -44,7 +44,12 @@ export function ReviewPage() {
   if (isDesktop) {
     return (
       <section className="card">
-        <h2>Review queue</h2>
+        <div className="page-header">
+          <div>
+            <p className="eyebrow">Human checks</p>
+            <h2>Review queue</h2>
+          </div>
+        </div>
         <p className="helper">Queries that need a human to check.</p>
         <table>
           <thead>
@@ -68,7 +73,12 @@ export function ReviewPage() {
 
   return (
     <section className="card">
-      <h2>Review queue</h2>
+      <div className="page-header">
+        <div>
+          <p className="eyebrow">Human checks</p>
+          <h2>Review queue</h2>
+        </div>
+      </div>
       <p className="helper">Queries that need a human to check.</p>
       {items.map((it, i) => (
         <div key={i} className="stack-card">

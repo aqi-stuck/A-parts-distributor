@@ -19,7 +19,6 @@ export type SearchResponse = {
   results: SearchResult[];
   latency_ms: number;
   timing_ms: TimingMs;
-  engine: string;
 };
 
 export type ReviewItem = {
