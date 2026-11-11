@@ -83,14 +83,14 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] G2 (ML) Hard-case results (rare, ambiguous, adversarial, OOD)
 - [x] G3 (ML) Hallucination: rate of SKUs/specs not in catalog (target 0)
 - [x] G4 (ML) Hallucination: nonexistent-part queries return "not found"
-- [ ] G5 (ML) Bias: performance by brand (large vs small), category, common vs rare parts
-- [ ] G6 (ML) Bias: performance by query style (terse, verbose, heavy typos/abbreviations)
-- [ ] G7 (ML) Bias: escalation and error rates per group; document gaps and fixes
+- [x] G5 (ML) Bias: performance by brand (large vs small), category, common vs rare parts
+- [x] G6 (ML) Bias: performance by query style (terse, verbose, heavy typos/abbreviations)
+- [x] G7 (ML) Bias: escalation and error rates per group; document gaps and fixes
 - [x] G8 (DEV1) Latency: p50/p95/p99 per stage under load test
 - [ ] G9 (DEV1) Fault injection: empty query, gibberish, huge input, special chars, dependency down, slow LLM
 <!-- partial: logging failure not handled -->
-- [ ] G10 (ML) Calibration: reliability diagram + expected calibration error
-- [ ] G11 (ML) Robustness: accuracy vs increasing noise level
+- [x] G10 (ML) Calibration: reliability diagram + expected calibration error
+- [x] G11 (ML) Robustness: accuracy vs increasing noise level
 - [ ] G12 (ML) Before/after table vs baseline (headline result) in `results/summary.md`
 - [ ] G13 (ML) Error analysis: 20 worst failures, causes, what remains unfixed
 
