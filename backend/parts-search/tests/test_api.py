@@ -90,6 +90,35 @@ def test_review_queue_is_list():
         assert isinstance(r.json(), list)
 
 
+def test_review_queue_includes_candidates_and_can_be_resolved():
+    """Review queue returns saved candidates and removes an entry after feedback."""
+    query = "zzqxv review queue example"
+    with TestClient(app) as client:
+        search_response = client.post("/search", json={"query": query})
+        assert search_response.status_code == 200
+        assert search_response.json()["route"] == "review"
+
+        queue_response = client.get("/review-queue")
+        assert queue_response.status_code == 200
+        item = next(entry for entry in queue_response.json() if entry["query"] == query)
+        assert item["results"] == search_response.json()["results"]
+        assert item["id"]
+        assert all("evidence" in candidate for candidate in item["results"])
+
+        feedback_response = client.post(
+            "/feedback",
+            json={
+                "query": query,
+                "sku": "CORRECT-SKU",
+                "decision": "correct",
+                "query_id": item["id"],
+            },
+        )
+        assert feedback_response.status_code == 200
+        remaining = client.get("/review-queue").json()
+        assert all(entry["id"] != item["id"] for entry in remaining)
+
+
 def test_metrics_shape():
     """Metrics endpoint returns required keys."""
     with TestClient(app) as client:
