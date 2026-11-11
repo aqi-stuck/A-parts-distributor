@@ -1,0 +1,207 @@
+{
+  "g5_bias": {
+    "brand_tier_definition": "large_proxy=ForgePro/Northstar; small_proxy=other synthetic brands",
+    "coverage_note": "The frozen gold set contains only large_proxy targets; small_proxy is not estimable from this benchmark.",
+    "by_brand_tier_proxy": {
+      "large_proxy": {
+        "queries": 400,
+        "top_1_accuracy": 0.8525
+      }
+    },
+    "by_category_frequency": {
+      "common": {
+        "queries": 351,
+        "top_1_accuracy": 0.8519
+      },
+      "rare": {
+        "queries": 49,
+        "top_1_accuracy": 0.8571
+      }
+    },
+    "by_category": {
+      "bearing": {
+        "queries": 49,
+        "top_1_accuracy": 0.8776
+      },
+      "bolt": {
+        "queries": 52,
+        "top_1_accuracy": 0.8269
+      },
+      "bracket": {
+        "queries": 49,
+        "top_1_accuracy": 0.898
+      },
+      "connector": {
+        "queries": 49,
+        "top_1_accuracy": 0.8571
+      },
+      "nut": {
+        "queries": 56,
+        "top_1_accuracy": 0.875
+      },
+      "screw": {
+        "queries": 49,
+        "top_1_accuracy": 0.8163
+      },
+      "seal": {
+        "queries": 47,
+        "top_1_accuracy": 0.7872
+      },
+      "washer": {
+        "queries": 49,
+        "top_1_accuracy": 0.8776
+      }
+    }
+  },
+  "g6_query_style": {
+    "by_transformation": {
+      "abbreviation": {
+        "queries": 67,
+        "top_1_accuracy": 1.0
+      },
+      "missing_attribute": {
+        "queries": 67,
+        "top_1_accuracy": 0.3881
+      },
+      "noise": {
+        "queries": 67,
+        "top_1_accuracy": 1.0
+      },
+      "typo": {
+        "queries": 67,
+        "top_1_accuracy": 0.9701
+      },
+      "unit_or_fraction": {
+        "queries": 66,
+        "top_1_accuracy": 0.7576
+      },
+      "word_order": {
+        "queries": 66,
+        "top_1_accuracy": 1.0
+      }
+    },
+    "by_query_style": {
+      "abbreviation_heavy": {
+        "queries": 67,
+        "top_1_accuracy": 1.0
+      },
+      "terse": {
+        "queries": 67,
+        "top_1_accuracy": 0.3881
+      },
+      "typo_heavy": {
+        "queries": 67,
+        "top_1_accuracy": 0.9701
+      },
+      "unit_or_fraction": {
+        "queries": 66,
+        "top_1_accuracy": 0.7576
+      },
+      "verbose": {
+        "queries": 67,
+        "top_1_accuracy": 1.0
+      },
+      "word_order": {
+        "queries": 66,
+        "top_1_accuracy": 1.0
+      }
+    }
+  },
+  "g7_escalation_and_error": {
+    "threshold": 0.9,
+    "auto_answered": 302,
+    "reviewed": 98,
+    "coverage": 0.755,
+    "auto_error_rate": 0.043,
+    "review_error_rate": 0.4694,
+    "by_primary_tag": {
+      "adversarial": {
+        "queries": 134,
+        "escalation_rate": 0.1343,
+        "error_rate": 0.0149,
+        "auto_error_rate": 0.0
+      },
+      "ambiguous": {
+        "queries": 67,
+        "escalation_rate": 0.7761,
+        "error_rate": 0.6119,
+        "auto_error_rate": 0.6
+      },
+      "easy": {
+        "queries": 105,
+        "escalation_rate": 0.1333,
+        "error_rate": 0.0667,
+        "auto_error_rate": 0.011
+      },
+      "rare": {
+        "queries": 94,
+        "escalation_rate": 0.1489,
+        "error_rate": 0.0957,
+        "auto_error_rate": 0.0375
+      }
+    }
+  },
+  "g10_calibration": {
+    "reliability_diagram": [
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "queries": 98,
+        "mean_confidence": 0.8867,
+        "accuracy": 0.5306
+      },
+      {
+        "lower": 0.9,
+        "upper": 1.0,
+        "queries": 302,
+        "mean_confidence": 0.9141,
+        "accuracy": 0.957
+      }
+    ],
+    "bins": [
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "queries": 98,
+        "mean_confidence": 0.8867,
+        "accuracy": 0.5306
+      },
+      {
+        "lower": 0.9,
+        "upper": 1.0,
+        "queries": 302,
+        "mean_confidence": 0.9141,
+        "accuracy": 0.957
+      }
+    ],
+    "expected_calibration_error": 0.1196
+  },
+  "g11_robustness": {
+    "accuracy_by_noise_level": [
+      {
+        "noise_words": 0,
+        "accuracy": 0.8525
+      },
+      {
+        "noise_words": 1,
+        "accuracy": 0.8325
+      },
+      {
+        "noise_words": 2,
+        "accuracy": 0.8325
+      },
+      {
+        "noise_words": 3,
+        "accuracy": 0.8475
+      },
+      {
+        "noise_words": 4,
+        "accuracy": 0.8625
+      },
+      {
+        "noise_words": 5,
+        "accuracy": 0.865
+      }
+    ]
+  }
+}
