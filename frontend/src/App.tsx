@@ -21,6 +21,9 @@ function App() {
     <div className="app">
       <header className="header">
         <div className="container">
+          <div className="page-header">
+            <h2 className="eyebrow">Warehouse lookup</h2>
+          </div>
           <nav>
             <a href="#search" className={route === "search" ? "active" : ""}>Search</a>
             <a href="#review" className={route === "review" ? "active" : ""}>Review queue</a>

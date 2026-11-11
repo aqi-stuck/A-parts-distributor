@@ -69,7 +69,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 - [ ] F1 (ALL) Write the routing policy (`docs/routing.md`): when auto-answer, when review
 - [x] F2 (DEV1) Implement routing in the API (`route: auto | review`, with `reason`)
-- [ ] F3 (DEV2) "Not sure, needs review" state in the search UI
+- [x] F3 (DEV2) "Not sure, needs review" state in the search UI
 - [ ] F4 (DEV2) Review queue screen: query, candidates, evidence, Approve / Correct / Reject
 - [x] F5 (DEV1) `/feedback` endpoint; store human decisions as new labeled data
 - [x] F6 (DEV1) Audit trail: query, model version, output, reviewer, timestamp
@@ -98,7 +98,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 - [x] H1 (DEV1) API endpoints: `/search`, `/review-queue`, `/feedback`, `/health`, `/metrics`
 - [ ] H2 (DEV2) Search UI for warehouse staff (big input, ranked results, confidence badge)
-- [ ] H3 (DEV2) Reviewer view
+- [x] H3 (DEV2) Reviewer view
 - [ ] H4 (DEV2) Small monitoring panel (drift, escalation rate, latency)
 - [ ] H5 (DEV1) `docker compose up` runs everything from a clean machine
 - [x] H6 (DEV1) Seed script: load catalog and build index from scratch

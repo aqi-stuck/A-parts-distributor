@@ -23,6 +23,7 @@ class SearchResponse(BaseModel):
 # What the website sends to /feedback
 class FeedbackRequest(BaseModel):
     query: str
-    sku: str
-    decision: Literal["approve", "reject"]
+    sku: Optional[str] = None
+    decision: Literal["approve", "correct", "reject"]
     reviewer: Optional[str] = None
+    query_id: Optional[int] = None
