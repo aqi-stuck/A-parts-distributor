@@ -1,41 +1,7 @@
 import { useMemo, useState } from "react";
 import { search, feedback } from "../api";
 import type { SearchResponse, SearchResult } from "../api";
-
-type EvidenceChip = {
-  label: string;
-  value: string | null;
-};
-
-function humanizeEvidenceLabel(label: string): string {
-  return label
-    .replaceAll("_", " ")
-    .replace(/\b\w/g, (character) => character.toUpperCase());
-}
-
-function parseEvidence(evidence: string): EvidenceChip[] {
-  const separator = evidence.indexOf(":");
-  if (separator < 0) return [{ label: evidence, value: null }];
-
-  const rawLabel = evidence.slice(0, separator).trim();
-  const rawValue = evidence.slice(separator + 1).trim();
-  if (rawLabel === "attributes") {
-    const body = rawValue.match(/^\{([\s\S]*)\}$/)?.[1];
-    if (body) {
-      const attributes = Array.from(
-        body.matchAll(/(['"])(.*?)\1\s*:\s*(['"])(.*?)\3/g),
-        (match) => ({
-          label: humanizeEvidenceLabel(match[2]),
-          value: match[4],
-        }),
-      );
-      if (attributes.length > 0) return attributes;
-    }
-  }
-
-  const value = rawValue.replace(/^(['"])(.*)\1$/, "$2");
-  return [{ label: humanizeEvidenceLabel(rawLabel), value }];
-}
+import { EvidencePanel } from "../components/EvidencePanel";
 
 export function SearchPage() {
   const [query, setQuery] = useState("");
@@ -144,6 +110,7 @@ export function SearchPage() {
                 key={r.sku}
                 result={r}
                 route={data.route}
+                reason={data.reason}
                 saving={savingId === r.sku}
                 onApprove={() => onApproveReject(r.sku, "approve")}
                 onReject={() => onApproveReject(r.sku, "reject")}
@@ -167,9 +134,12 @@ export function SearchPage() {
 
 function ResultCard({
   result,
+  route,
+  reason,
 }: {
   result: SearchResult;
   route: "auto" | "review";
+  reason: string | null;
   saving: boolean;
   onApprove: () => void;
   onReject: () => void;
@@ -196,16 +166,7 @@ function ResultCard({
         <div className="score-fill" style={{ width: `${100 - Math.max(8, pct)}%` }} />
       </div>
 
-      <div className="chips" aria-label={`Match evidence for ${result.sku}`}>
-        {result.evidence.flatMap((evidence, evidenceIndex) =>
-          parseEvidence(evidence).map((chip, chipIndex) => (
-            <span className="chip" key={`${result.sku}-${evidenceIndex}-${chipIndex}`}>
-              <span className="chip-label">{chip.label}</span>
-              {chip.value !== null && <span className="chip-value">{chip.value}</span>}
-            </span>
-          )),
-        )}
-      </div>
+      <EvidencePanel result={result} route={route} reason={reason} />
     </article>
   );
 }

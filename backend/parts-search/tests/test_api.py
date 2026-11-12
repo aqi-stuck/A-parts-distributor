@@ -2,8 +2,19 @@
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
+import app.storage as storage
 
 client = TestClient(app)
+
+
+def test_init_db_creates_custom_database_directory(tmp_path, monkeypatch):
+    """A configured database path can live in a persistent data directory."""
+    db_path = tmp_path / "persistent" / "app.db"
+    monkeypatch.setattr(storage, "DB_PATH", str(db_path))
+
+    storage.init_db()
+
+    assert db_path.is_file()
 
 
 def test_health():
