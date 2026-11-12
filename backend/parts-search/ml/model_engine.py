@@ -32,6 +32,7 @@ class Engine:
                 'sku': sku,
                 'description': self.sku_to_desc.get(sku, ''),
                 'score': round(score, 4),
+                'confidence': round(float(r.get('confidence', score)), 4),
                 'evidence': evidence_list
             })
         return out

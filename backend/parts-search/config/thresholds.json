@@ -1,1 +1,1 @@
-{"version": "1.0", "low_confidence": 0.6, "too_close_margin": 0.05, "model_version": "placeholder-v0", "engine": "model"}
+{"version": "1.0", "low_confidence": 0.9, "too_close_margin": 0.05, "model_version": "hybrid-retriever-v1", "engine": "model"}

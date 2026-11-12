@@ -146,7 +146,7 @@ class HybridPartsRetriever:
             )
             reranked.append((score, index, attribute_score))
         reranked.sort(key=lambda item: (-item[0], self.catalog[item[1]]["sku"]))
-        return [
+        results = [
             {
                 "sku": self.catalog[index]["sku"],
                 "score": round(float(score), 6),
@@ -158,3 +158,14 @@ class HybridPartsRetriever:
             }
             for score, index, attribute_score in reranked[:limit]
         ]
+        if results:
+            top_score = results[0]["score"]
+            second_score = results[1]["score"] if len(results) > 1 else 0.0
+            margin = max(0.0, min(1.0, (top_score - second_score) * 10))
+            agreement = results[0]["evidence"]["attribute_agreement"]
+            results[0]["confidence"] = round(
+                max(0.0, min(1.0, 0.5 * top_score + 0.25 * margin + 0.25 * agreement)),
+                6,
+            )
+            results[0]["evidence"]["score_margin"] = round(top_score - second_score, 6)
+        return results

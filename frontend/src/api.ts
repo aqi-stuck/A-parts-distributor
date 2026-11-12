@@ -4,6 +4,7 @@ export type SearchResult = {
   sku: string;
   description: string;
   score: number;
+  confidence: number;
   evidence: string[];
 };
 

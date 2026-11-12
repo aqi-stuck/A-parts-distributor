@@ -10,6 +10,7 @@ class Candidate(BaseModel):
     sku: str
     description: str
     score: float
+    confidence: float = 0.0
     evidence: List[str]
 
 # What /search sends back

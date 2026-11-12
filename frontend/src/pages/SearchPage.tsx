@@ -130,7 +130,7 @@ export function SearchPage() {
               <h3>{data.route === "auto" ? "Auto answer" : "Needs review"}</h3>
               <div className="summary-topline">
                 <span className="summary-sku">{summary.sku}</span>
-                <span className="summary-score">{Math.round(summary.score * 100)}% confidence</span>
+                <span className="summary-score">{Math.round(summary.confidence * 100)}% confidence</span>
               </div>
               <p>{summary.description}</p>
             </div>
