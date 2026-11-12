@@ -2,23 +2,64 @@ import { useMemo, useState } from "react";
 import { search, feedback } from "../api";
 import type { SearchResponse, SearchResult } from "../api";
 
+type EvidenceChip = {
+  label: string;
+  value: string | null;
+};
+
+function humanizeEvidenceLabel(label: string): string {
+  return label
+    .replaceAll("_", " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase());
+}
+
+function parseEvidence(evidence: string): EvidenceChip[] {
+  const separator = evidence.indexOf(":");
+  if (separator < 0) return [{ label: evidence, value: null }];
+
+  const rawLabel = evidence.slice(0, separator).trim();
+  const rawValue = evidence.slice(separator + 1).trim();
+  if (rawLabel === "attributes") {
+    const body = rawValue.match(/^\{([\s\S]*)\}$/)?.[1];
+    if (body) {
+      const attributes = Array.from(
+        body.matchAll(/(['"])(.*?)\1\s*:\s*(['"])(.*?)\3/g),
+        (match) => ({
+          label: humanizeEvidenceLabel(match[2]),
+          value: match[4],
+        }),
+      );
+      if (attributes.length > 0) return attributes;
+    }
+  }
+
+  const value = rawValue.replace(/^(['"])(.*)\1$/, "$2");
+  return [{ label: humanizeEvidenceLabel(rawLabel), value }];
+}
+
 export function SearchPage() {
   const [query, setQuery] = useState("");
   const [lastQuery, setLastQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [canRetrySearch, setCanRetrySearch] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const [data, setData] = useState<SearchResponse | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
 
   const doSearch = async () => {
     const q = query.trim();
     if (!q) {
+      setCanRetrySearch(false);
+      setData(null);
       setError("Enter a part description before searching.");
       return;
     }
 
     setLoading(true);
     setError(null);
+    setCanRetrySearch(false);
+    setNotice(null);
     setData(null);
     setLastQuery(q);
 
@@ -27,6 +68,7 @@ export function SearchPage() {
       setData(res);
     } catch {
       setError("Could not reach the search service. Please try again.");
+      setCanRetrySearch(true);
     } finally {
       setLoading(false);
     }
@@ -35,7 +77,11 @@ export function SearchPage() {
   const onApproveReject = async (sku: string, decision: "approve" | "reject") => {
     try {
       setSavingId(sku);
+      setError(null);
+      setCanRetrySearch(false);
+      setNotice(null);
       await feedback(lastQuery || query, sku, decision);
+      setNotice(`${decision === "approve" ? "Approved" : "Rejected"} ${sku}.`);
     } catch {
       setError("Failed to save your review decision.");
     } finally {
@@ -50,10 +96,6 @@ export function SearchPage() {
 
   return (
     <section className="card w-full">
-      <div className="page-header">
-        <h2 className="eyebrow">Warehouse lookup</h2>
-      </div>
-
       <div className="input-row">
         <input
           id="part-query"
@@ -67,32 +109,25 @@ export function SearchPage() {
           {loading ? "Searching..." : "Search"}
         </button>
       </div>
-      {/* <p className="helper">Press Enter to run a lookup</p> */}
 
       {loading && <div className="status-box">Searching catalog...</div>}
       {error && (
         <div className="banner error">
           {error}
-          <button onClick={doSearch} className="secondary-button">
-            Retry
-          </button>
+          {canRetrySearch && (
+            <button onClick={doSearch} className="secondary-button" disabled={loading}>
+              Retry
+            </button>
+          )}
         </div>
       )}
+      {notice && <p className="saved-state" role="status">{notice}</p>}
 
       {data && (
         <>
-          <div className="status-row">
-            <span className={`badge ${data.route}`}>
-              {data.route === "auto" ? "Auto answer" : "Needs review"}
-            </span>
-            {data.route === "review" && data.reason && (
-              <span className="reason-pill">{data.reason}</span>
-            )}
-          </div>
-
           {summary && (
-            <div className="summary-card">
-              <h3>BEST MATCH</h3>
+            <div className={`summary-card ${data.route}`}>
+              <h3>{data.route === "auto" ? "Auto answer" : "Needs review"}</h3>
               <div className="summary-topline">
                 <span className="summary-sku">{summary.sku}</span>
                 <span className="summary-score">{Math.round(summary.confidence * 100)}% confidence</span>
@@ -132,10 +167,6 @@ export function SearchPage() {
 
 function ResultCard({
   result,
-  route,
-  saving,
-  onApprove,
-  onReject,
 }: {
   result: SearchResult;
   route: "auto" | "review";
@@ -143,9 +174,9 @@ function ResultCard({
   onApprove: () => void;
   onReject: () => void;
 }) {
-  const pct = Math.round(result.confidence * 100);
+  const pct = Math.min(100, Math.max(0, Math.round(result.score * 100)));
   return (
-    <div className="result">
+    <article className="result">
       <div className="result-header">
         <div>
           <h3>{result.sku}</h3>
@@ -154,28 +185,27 @@ function ResultCard({
         <div className="result-score">{pct}%</div>
       </div>
 
-      <div className="score-bar">
-        <div className="score-fill" style={{ width: `${Math.max(8, pct)}%` }} />
+      <div
+        className="score-bar"
+        role="progressbar"
+        aria-label={`Match score for ${result.sku}`}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={pct}
+      >
+        <div className="score-fill" style={{ width: `${100 - Math.max(8, pct)}%` }} />
       </div>
 
-      <div className="chips">
-        {result.evidence.map((e, i) => (
-          <span key={`${result.sku}-${i}`} className="chip">{e}</span>
-        ))}
-      </div>
-
-      <div className="actions">
-        {!saving ? (
-          <>
-            <button className="primary" onClick={onApprove}>Approve</button>
-            <button className="danger" onClick={onReject}>Reject</button>
-          </>
-        ) : (
-          <span className="saved-state">Saved</span>
+      <div className="chips" aria-label={`Match evidence for ${result.sku}`}>
+        {result.evidence.flatMap((evidence, evidenceIndex) =>
+          parseEvidence(evidence).map((chip, chipIndex) => (
+            <span className="chip" key={`${result.sku}-${evidenceIndex}-${chipIndex}`}>
+              <span className="chip-label">{chip.label}</span>
+              {chip.value !== null && <span className="chip-value">{chip.value}</span>}
+            </span>
+          )),
         )}
       </div>
-
-      {route === "review" && <div className="review-note">Review required before accepting this match.</div>}
-    </div>
+    </article>
   );
 }

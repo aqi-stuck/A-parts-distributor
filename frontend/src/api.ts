@@ -23,10 +23,12 @@ export type SearchResponse = {
 };
 
 export type ReviewItem = {
+  id: number;
   query: string;
   top_sku: string | null;
   latency_ms: number;
   created_at: string;
+  results: SearchResult[];
 };
 
 export type Metrics = {
@@ -51,11 +53,16 @@ export async function search(query: string): Promise<SearchResponse> {
   return handle(res);
 }
 
-export async function feedback(query: string, sku: string, decision: "approve" | "reject"): Promise<void> {
+export async function feedback(
+  query: string,
+  sku: string | null,
+  decision: "approve" | "correct" | "reject",
+  queryId?: number,
+): Promise<void> {
   const res = await fetch(`${API_BASE}/feedback`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query, sku, decision, reviewer: null }),
+    body: JSON.stringify({ query, sku, decision, reviewer: null, query_id: queryId }),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }

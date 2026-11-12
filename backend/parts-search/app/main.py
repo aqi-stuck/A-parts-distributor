@@ -46,7 +46,7 @@ def search(req: SearchRequest):
 @app.post("/feedback")
 def feedback(req: FeedbackRequest):
     """Save human feedback for a query."""
-    storage.save_feedback(req.query, req.sku, req.decision, req.reviewer)
+    storage.save_feedback(req.query, req.sku, req.decision, req.reviewer, req.query_id)
     return {"saved": True}
 
 

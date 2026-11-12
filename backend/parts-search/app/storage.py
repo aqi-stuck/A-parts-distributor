@@ -39,6 +39,8 @@ def init_db():
         existing_cols = {row[1] for row in conn.execute("PRAGMA table_info(feedback)").fetchall()}
         if "reviewer" not in existing_cols:
             conn.execute("ALTER TABLE feedback ADD COLUMN reviewer TEXT")
+        if "query_id" not in existing_cols:
+            conn.execute("ALTER TABLE feedback ADD COLUMN query_id INTEGER")
 
 
 def log_query(query, route, top_sku, latency_ms, model_version, output):
@@ -52,13 +54,13 @@ def log_query(query, route, top_sku, latency_ms, model_version, output):
         )
 
 
-def save_feedback(query, sku, decision, reviewer=None):
+def save_feedback(query, sku, decision, reviewer=None, query_id=None):
     """Insert a feedback row with current UTC timestamp."""
     created_at = datetime.now(timezone.utc).isoformat()
     with sqlite3.connect(DB_PATH) as conn:
         conn.execute(
-            "INSERT INTO feedback (query, sku, decision, created_at, reviewer) VALUES (?, ?, ?, ?, ?)",
-            (query, sku, decision, created_at, reviewer)
+            "INSERT INTO feedback (query, sku, decision, created_at, reviewer, query_id) VALUES (?, ?, ?, ?, ?, ?)",
+            (query, sku, decision, created_at, reviewer, query_id)
         )
 
 
@@ -67,11 +69,26 @@ def review_queue(limit=50):
     with sqlite3.connect(DB_PATH) as conn:
         conn.row_factory = sqlite3.Row
         cur = conn.execute(
-            "SELECT query, top_sku, latency_ms, created_at FROM query_log WHERE route = ? ORDER BY created_at DESC LIMIT ?",
+            """
+            SELECT q.id, q.query, q.top_sku, q.latency_ms, q.created_at,
+                   q.output_json
+            FROM query_log AS q
+            WHERE q.route = ?
+              AND NOT EXISTS (
+                  SELECT 1 FROM feedback AS f WHERE f.query_id = q.id
+              )
+            ORDER BY q.created_at DESC
+            LIMIT ?
+            """,
             ("review", limit)
         )
         rows = cur.fetchall()
-        return [dict(row) for row in rows]
+        items = []
+        for row in rows:
+            item = dict(row)
+            item["results"] = json.loads(item.pop("output_json") or "[]")
+            items.append(item)
+        return items
 
 
 def metrics():

@@ -1,94 +1,106 @@
 import { useEffect, useState } from "react";
-import { reviewQueue } from "../api";
+import { feedback, reviewQueue } from "../api";
 import type { ReviewItem } from "../api";
 
 export function ReviewPage() {
   const [items, setItems] = useState<ReviewItem[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 600);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [savingId, setSavingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const onResize = () => setIsDesktop(window.innerWidth > 600);
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    reviewQueue()
+      .then(setItems)
+      .catch(() => setError("Could not load review queue."));
   }, []);
 
-  useEffect(() => {
-    load();
-  }, []);
-
-  const load = async () => {
+  const submitDecision = async (
+    item: ReviewItem,
+    decision: "approve" | "correct" | "reject",
+    sku: string | null,
+  ) => {
+    setSavingId(item.id);
+    setError(null);
+    setNotice(null);
     try {
-      const data = await reviewQueue();
-      setItems(data);
-      setError(null);
+      await feedback(item.query, sku, decision, item.id);
+      setItems((current) => current?.filter((entry) => entry.id !== item.id) ?? []);
+      setNotice(`Review saved for “${item.query}”.`);
     } catch {
-      setError("Could not load review queue.");
+      setError("Could not save this review decision. The item is still in the queue.");
+    } finally {
+      setSavingId(null);
     }
   };
 
-  const openQuery = (q: string) => {
-    window.location.hash = "#search";
-    setTimeout(() => {
-      // trigger search via hash change in SearchPage? We'll just set location and let user press search.
-      // To automate, we could dispatch custom event but keep simple.
-      const input = document.querySelector<HTMLInputElement>('input[placeholder*="Type a part"]');
-      if (input) input.value = q;
-    }, 0);
-  };
-
-  if (error) return <div className="card">{error}</div>;
-  if (items === null) return <div className="card">Loading...</div>;
-  if (items.length === 0) return <div className="card">Nothing to review right now.</div>;
-
-  if (isDesktop) {
-    return (
-      <section className="card">
-        <div className="page-header">
-          <div>
-            <p className="eyebrow">Human checks</p>
-            <h2>Review queue</h2>
-          </div>
-        </div>
-        <p className="helper">Queries that need a human to check.</p>
-        <table>
-          <thead>
-            <tr><th>Query</th><th>Top suggested SKU</th><th>Latency ms</th><th>Time asked</th><th></th></tr>
-          </thead>
-          <tbody>
-            {items.map((it, i) => (
-              <tr key={i}>
-                <td>{it.query}</td>
-                <td>{it.top_sku ?? ""}</td>
-                <td>{it.latency_ms}</td>
-                <td>{new Date(it.created_at).toLocaleString()}</td>
-                <td><button onClick={() => openQuery(it.query)}>Open query</button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-    );
-  }
+  if (items === null && !error) return <section className="card">Loading review queue...</section>;
 
   return (
-    <section className="card">
-      <div className="page-header">
-        <div>
-          <p className="eyebrow">Human checks</p>
-          <h2>Review queue</h2>
-        </div>
-      </div>
-      <p className="helper">Queries that need a human to check.</p>
-      {items.map((it, i) => (
-        <div key={i} className="stack-card">
-          <div><strong>{it.query}</strong></div>
-          <div>Top SKU: {it.top_sku ?? ""}</div>
-          <div>Latency: {it.latency_ms} ms</div>
-          <div>{new Date(it.created_at).toLocaleString()}</div>
-          <button onClick={() => openQuery(it.query)}>Open query</button>
-        </div>
-      ))}
-    </section>
+    <div className="review-page">
+      {error && <div className="banner error" role="alert">{error}</div>}
+      {notice && <p className="saved-state" role="status">{notice}</p>}
+      {items?.length === 0 && <p className="empty-state">Nothing to review right now.</p>}
+      {items?.map((item) => {
+        const saving = savingId === item.id;
+        return (
+          <article
+            className="w-full rounded-md border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+            key={item.id}
+          >
+            <header className="flex flex-col gap-3 border-b border-slate-100 pb-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Review request</p>
+                <h2 className="mt-1 break-words text-base font-semibold text-slate-900">
+                  “{item.query}”
+                </h2>
+                <p className="mt-1 text-sm text-slate-500">
+                  {new Date(item.created_at).toLocaleString()} <span aria-hidden="true">·</span> {item.latency_ms} ms
+                </p>
+              </div>
+              <div className="shrink-0 rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-800">
+                <span className="font-medium">Top match:</span> {item.top_sku ?? "No match"}
+              </div>
+            </header>
+
+            <div className="pt-4">
+              <h3 className="text-sm font-semibold text-slate-700">Suggested parts</h3>
+              {item.results.length > 0 ? (
+                <div className="mt-2 grid gap-2">
+                  {item.results.map((candidate) => (
+                    <button
+                      className="!flex !h-auto !w-full !items-center !justify-between !gap-4 !rounded-md !border !border-slate-200 !bg-slate-50 !px-3 !py-3 !text-left !text-slate-800 transition hover:!border-blue-300 hover:!bg-blue-50 disabled:!cursor-wait disabled:!opacity-60"
+                      key={candidate.sku}
+                      disabled={saving}
+                      onClick={() => submitDecision(item, "approve", candidate.sku)}
+                    >
+                      <span className="min-w-0">
+                        <span className="block text-sm font-semibold text-slate-900">{candidate.sku}</span>
+                        <span className="mt-0.5 block text-sm font-normal text-slate-600">{candidate.description}</span>
+                      </span>
+                      <span className="shrink-0 text-sm font-semibold text-blue-700">
+                        {Math.round(candidate.score * 100)}%
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-2 text-sm text-slate-500">The search returned no candidate parts.</p>
+              )}
+            </div>
+
+            <footer className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
+              <button
+                className="!h-auto !rounded-lg !border !border-red-200 !bg-white !px-3 !py-2 !text-sm !text-red-700 transition hover:!bg-red-50 disabled:!cursor-wait disabled:!opacity-60"
+                disabled={saving}
+                onClick={() => submitDecision(item, "reject", null)}
+              >
+                Reject all suggestions
+              </button>
+              {saving && <span className="text-sm text-slate-500">Saving decision...</span>}
+            </footer>
+          </article>
+        );
+      })}
+    </div>
   );
 }
