@@ -95,7 +95,7 @@ export function SearchPage() {
               <h3>BEST MATCH</h3>
               <div className="summary-topline">
                 <span className="summary-sku">{summary.sku}</span>
-                <span className="summary-score">{Math.round(summary.score * 100)}% confidence</span>
+                <span className="summary-score">{Math.round(summary.confidence * 100)}% confidence</span>
               </div>
               <p>{summary.description}</p>
             </div>
@@ -143,7 +143,7 @@ function ResultCard({
   onApprove: () => void;
   onReject: () => void;
 }) {
-  const pct = Math.round(result.score * 100);
+  const pct = Math.round(result.confidence * 100);
   return (
     <div className="result">
       <div className="result-header">

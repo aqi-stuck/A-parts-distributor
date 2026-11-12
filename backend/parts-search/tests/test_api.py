@@ -26,9 +26,11 @@ def test_search_shape():
         assert isinstance(results, list)
         assert len(results) <= 5
         for item in results:
-            assert set(item.keys()) >= {"sku", "description", "score", "evidence"}
+            assert set(item.keys()) >= {"sku", "description", "score", "confidence", "evidence"}
             assert isinstance(item["score"], (int, float))
             assert 0 <= item["score"] <= 1
+            assert isinstance(item["confidence"], (int, float))
+            assert 0 <= item["confidence"] <= 1
 
 
 def test_empty_query_rejected():
