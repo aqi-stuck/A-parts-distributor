@@ -91,8 +91,8 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 <!-- partial: logging failure not handled -->
 - [x] G10 (ML) Calibration: reliability diagram + expected calibration error
 - [x] G11 (ML) Robustness: accuracy vs increasing noise level
-- [ ] G12 (ML) Before/after table vs baseline (headline result) in `results/summary.md`
-- [ ] G13 (ML) Error analysis: 20 worst failures, causes, what remains unfixed
+- [x] G12 (ML) Before/after table vs baseline (headline result) in `results/summary.md`
+- [x] G13 (ML) Error analysis: 20 worst failures, causes, what remains unfixed
 
 ## H. Make it run
 
@@ -108,7 +108,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 ## I. Docs and demo
 
 - [ ] I1 (ALL) README: setup, architecture diagram, one-command run
-- [ ] I2 (ML) System/model card: intended use, limits, known failures, data sources, bias findings
+- [x] I2 (ML) System/model card: intended use, limits, known failures, data sources, bias findings
 - [ ] I3 (ALL) Risk register: failure modes, mitigations, what humans still own
 - [ ] I4 (ALL) Reproducible eval scripts + instructions in `docs/reproduce.md`
 - [ ] I5 (DEV2) Demo script (3-5 min): baseline fails -> system handles it -> drift detected -> review screen with evidence -> fault ends gracefully -> before/after table
