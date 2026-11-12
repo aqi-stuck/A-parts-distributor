@@ -15,7 +15,7 @@ def test_audit_trail_model_version_and_output():
         ).fetchone()
         conn.close()
         assert row is not None
-        assert row["model_version"] == "placeholder-v0"
+        assert row["model_version"] == "hybrid-retriever-v1"
         assert row["output_json"]
         assert len(row["output_json"]) > 2
 
