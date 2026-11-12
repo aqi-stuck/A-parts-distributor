@@ -167,10 +167,6 @@ export function SearchPage() {
 
 function ResultCard({
   result,
-  route,
-  saving,
-  onApprove,
-  onReject,
 }: {
   result: SearchResult;
   route: "auto" | "review";
