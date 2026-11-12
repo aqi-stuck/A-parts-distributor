@@ -14,8 +14,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] A2 (ALL) Define "high-impact output" (low confidence, safety-critical part, high-value item, OOD query)
 - [ ] A3 (ALL) Fix success metrics: top-1, top-5, hard-case accuracy, hallucination rate, escalation precision, p50/p95 latency
 - [x] A4 (ML) Choose dataset: deterministic synthetic catalog (3,000 parts)
-- [ ] A5 (DEV1) Create repo, folder layout, Dockerfile skeleton, CI that runs tests
-<!-- partial: Dockerfile and CI missing -->
+- [x] A5 (DEV1) Create repo, folder layout, Dockerfile skeleton, CI that runs tests
 - [ ] A6 (ALL) Agree the API contract (see `docs/contract.md`) and commit it
 - [x] A7 (DEV1) API stub returning fake data so the frontend is never blocked
 
@@ -70,10 +69,10 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] F1 (ALL) Write the routing policy (`docs/routing.md`): when auto-answer, when review
 - [x] F2 (DEV1) Implement routing in the API (`route: auto | review`, with `reason`)
 - [x] F3 (DEV2) "Not sure, needs review" state in the search UI
-- [ ] F4 (DEV2) Review queue screen: query, candidates, evidence, Approve / Correct / Reject
+- [x] F4 (DEV2) Review queue screen: query, candidates, evidence, Approve / Correct / Reject
 - [x] F5 (DEV1) `/feedback` endpoint; store human decisions as new labeled data
 - [x] F6 (DEV1) Audit trail: query, model version, output, reviewer, timestamp
-- [ ] F7 (DEV2) Evidence panel on every result: matched fields, extracted attributes, confidence, routing reason
+- [x] F7 (DEV2) Evidence panel on every result: matched fields, extracted attributes, confidence, routing reason
 - [x] F8 (DEV1) System-failure fallback: timeout/error -> manual catalog search, never a raw error
 - [x] F9 (ML) Coverage vs accuracy curve (how much auto-answered at what error rate)
 
@@ -97,10 +96,10 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 ## H. Make it run
 
 - [x] H1 (DEV1) API endpoints: `/search`, `/review-queue`, `/feedback`, `/health`, `/metrics`
-- [ ] H2 (DEV2) Search UI for warehouse staff (big input, ranked results, confidence badge)
+- [x] H2 (DEV2) Search UI for warehouse staff (big input, ranked results, confidence badge)
 - [x] H3 (DEV2) Reviewer view
 - [ ] H4 (DEV2) Small monitoring panel (drift, escalation rate, latency)
-- [ ] H5 (DEV1) `docker compose up` runs everything from a clean machine
+- [x] H5 (DEV1) `docker compose up` runs everything from a clean machine
 - [x] H6 (DEV1) Seed script: load catalog and build index from scratch
 - [x] H7 (DEV1) Thresholds in a versioned config file
 - [x] H8 (DEV1) Hard-case suite runs in CI as a regression test (fails build if hard-case accuracy drops)

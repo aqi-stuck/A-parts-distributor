@@ -1,14 +1,16 @@
-﻿DB_PATH = "data/app.db"
-
 import json
 import sqlite3
 import os
 from datetime import datetime, timezone
 
+DB_PATH = os.environ.get("PARTS_DB_PATH", "data/app.db")
+
 
 def init_db():
     """Create data folder and tables if they do not exist, add missing columns."""
-    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+    db_dir = os.path.dirname(DB_PATH)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
     with sqlite3.connect(DB_PATH) as conn:
         conn.execute("""
             CREATE TABLE IF NOT EXISTS query_log (

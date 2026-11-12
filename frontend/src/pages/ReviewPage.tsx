@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { feedback, reviewQueue } from "../api";
 import type { ReviewItem } from "../api";
+import { EvidencePanel } from "../components/EvidencePanel";
 
 export function ReviewPage() {
   const [items, setItems] = useState<ReviewItem[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [savingId, setSavingId] = useState<number | null>(null);
+  const [correctionSkus, setCorrectionSkus] = useState<Record<number, string>>({});
 
   useEffect(() => {
     reviewQueue()
@@ -25,6 +27,11 @@ export function ReviewPage() {
     try {
       await feedback(item.query, sku, decision, item.id);
       setItems((current) => current?.filter((entry) => entry.id !== item.id) ?? []);
+      setCorrectionSkus((current) => {
+        const next = { ...current };
+        delete next[item.id];
+        return next;
+      });
       setNotice(`Review saved for “${item.query}”.`);
     } catch {
       setError("Could not save this review decision. The item is still in the queue.");
@@ -67,20 +74,28 @@ export function ReviewPage() {
               {item.results.length > 0 ? (
                 <div className="mt-2 grid gap-2">
                   {item.results.map((candidate) => (
-                    <button
-                      className="!flex !h-auto !w-full !items-center !justify-between !gap-4 !rounded-md !border !border-slate-200 !bg-slate-50 !px-3 !py-3 !text-left !text-slate-800 transition hover:!border-blue-300 hover:!bg-blue-50 disabled:!cursor-wait disabled:!opacity-60"
+                    <article
+                      className="review-candidate"
                       key={candidate.sku}
-                      disabled={saving}
-                      onClick={() => submitDecision(item, "approve", candidate.sku)}
                     >
-                      <span className="min-w-0">
-                        <span className="block text-sm font-semibold text-slate-900">{candidate.sku}</span>
-                        <span className="mt-0.5 block text-sm font-normal text-slate-600">{candidate.description}</span>
-                      </span>
-                      <span className="shrink-0 text-sm font-semibold text-blue-700">
-                        {Math.round(candidate.score * 100)}%
-                      </span>
-                    </button>
+                      <div className="review-candidate-header">
+                        <div>
+                          <h4>{candidate.sku}</h4>
+                          <p>{candidate.description}</p>
+                        </div>
+                        <span className="result-score">
+                          {Math.round(candidate.score * 100)}% match
+                        </span>
+                      </div>
+                      <EvidencePanel result={candidate} route="review" />
+                      <button
+                        type="button"
+                        disabled={saving}
+                        onClick={() => submitDecision(item, "approve", candidate.sku)}
+                      >
+                        Approve this part
+                      </button>
+                    </article>
                   ))}
                 </div>
               ) : (
@@ -89,7 +104,36 @@ export function ReviewPage() {
             </div>
 
             <footer className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
+              <form
+                className="review-correction"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  const sku = correctionSkus[item.id]?.trim();
+                  if (sku) void submitDecision(item, "correct", sku);
+                }}
+              >
+                <label htmlFor={`correction-sku-${item.id}`}>Correct SKU</label>
+                <input
+                  id={`correction-sku-${item.id}`}
+                  value={correctionSkus[item.id] ?? ""}
+                  onChange={(event) =>
+                    setCorrectionSkus((current) => ({
+                      ...current,
+                      [item.id]: event.target.value,
+                    }))
+                  }
+                  placeholder="Enter the correct SKU"
+                  disabled={saving}
+                />
+                <button
+                  type="submit"
+                  disabled={saving || !correctionSkus[item.id]?.trim()}
+                >
+                  Save correction
+                </button>
+              </form>
               <button
+                type="button"
                 className="!h-auto !rounded-lg !border !border-red-200 !bg-white !px-3 !py-2 !text-sm !text-red-700 transition hover:!bg-red-50 disabled:!cursor-wait disabled:!opacity-60"
                 disabled={saving}
                 onClick={() => submitDecision(item, "reject", null)}
