@@ -23,8 +23,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 - [x] B1 (ML) Build the clean catalog (SKU, description, brand, dimensions, material, category)
 - [x] B2 (ML) Messy-query generator: typos, abbreviations, unit/fraction variants, word order, missing attributes, noise
-- [ ] B3 (ML) Create the gold test set (400 queries) with verified SKUs
-<!-- partial: gold test set missing -->
+- [x] B3 (ML) Create the gold test set (400 queries) with verified SKUs
 - [x] B4 (ML) Freeze the gold set; never tune on it
 - [x] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD
 - [x] B6 (ALL) Contribute adversarial cases: near-duplicate SKUs (M8 vs M10, left vs right), lookalike part numbers
@@ -35,8 +34,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 - [x] C1 (ML) Implement baseline: BM25 / TF-IDF + fuzzy matching
 - [x] C2 (ML) Run baseline on frozen gold set, per slice
-- [ ] C3 (ML) Save results to `results/baseline_v1.json`
-<!-- partial: baseline_v1.json missing -->
+- [x] C3 (ML) Save results to `results/baseline_v1.json`
 - [x] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
 - [x] C5 (DEV1) Serve the baseline through the real API as the first working backend
 
@@ -104,7 +102,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] H6 (DEV1) Seed script: load catalog and build index from scratch
 - [x] H7 (DEV1) Thresholds in a versioned config file
 - [x] H8 (DEV1) Hard-case suite runs in CI as a regression test (fails build if hard-case accuracy drops)
-<!-- partial: CI passes only after push, verify on GitHub Actions tab -->
+<!-- CI verified on GitHub Actions after the frontend build-directory fix. -->
 
 ## I. Docs and demo
 
