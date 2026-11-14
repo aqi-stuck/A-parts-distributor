@@ -10,13 +10,13 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 ## A. Scope and setup
 
-- [ ] A1 (ALL) Write the one-sentence task: messy query -> ranked SKUs + confidence + evidence, or escalate
-- [ ] A2 (ALL) Define "high-impact output" (low confidence, safety-critical part, high-value item, OOD query)
-- [ ] A3 (ALL) Fix success metrics: top-1, top-5, hard-case accuracy, hallucination rate, escalation precision, p50/p95 latency
+- [x] A1 (ALL) Write the one-sentence task: messy query -> ranked SKUs + confidence + evidence, or escalate
+- [x] A2 (ALL) Define "high-impact output" (low confidence, safety-critical part, high-value item, OOD query)
+- [x] A3 (ALL) Fix success metrics: top-1, top-5, hard-case accuracy, hallucination rate, escalation precision, p50/p95 latency
 - [x] A4 (ML) Choose dataset: deterministic synthetic catalog (3,000 parts)
 - [x] A5 (DEV1) Create repo, folder layout, Dockerfile skeleton, CI that runs tests
 <!-- partial: Docker build not verified locally -->
-- [ ] A6 (ALL) Agree the API contract (see `docs/contract.md`) and commit it
+- [x] A6 (ALL) Agree the API contract (see `docs/contract.md`) and commit it
 - [x] A7 (DEV1) API stub returning fake data so the frontend is never blocked
 
 ## B. Data and hard-case test set
@@ -27,8 +27,8 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 <!-- partial: gold test set missing -->
 - [x] B4 (ML) Freeze the gold set; never tune on it
 - [x] B5 (ML) Tag each query: easy / rare / ambiguous / adversarial / OOD
-- [ ] B6 (ALL) Contribute adversarial cases: near-duplicate SKUs (M8 vs M10, left vs right), lookalike part numbers
-- [ ] B7 (ALL) Contribute prompt-injection queries and nonexistent-part queries
+- [x] B6 (ALL) Contribute adversarial cases: near-duplicate SKUs (M8 vs M10, left vs right), lookalike part numbers
+- [x] B7 (ALL) Contribute prompt-injection queries and nonexistent-part queries
 - [x] B8 (ML) Train / validation / test split with no leakage
 
 ## C. Documented baseline
@@ -67,7 +67,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 ## F. Safe fallback and human review
 
-- [ ] F1 (ALL) Write the routing policy (`docs/routing.md`): when auto-answer, when review
+- [x] F1 (ALL) Write the routing policy (`docs/routing.md`): when auto-answer, when review
 - [x] F2 (DEV1) Implement routing in the API (`route: auto | review`, with `reason`)
 - [x] F3 (DEV2) "Not sure, needs review" state in the search UI
 - [x] F4 (DEV2) Review queue screen: query, candidates, evidence, Approve / Correct / Reject
@@ -108,13 +108,13 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 
 ## I. Docs and demo
 
-- [ ] I1 (ALL) README: setup, architecture diagram, one-command run
+- [x] I1 (ALL) README: setup, architecture diagram, one-command run
 - [x] I2 (ML) System/model card: intended use, limits, known failures, data sources, bias findings
-- [ ] I3 (ALL) Risk register: failure modes, mitigations, what humans still own
-- [ ] I4 (ALL) Reproducible eval scripts + instructions in `docs/reproduce.md`
-- [ ] I5 (DEV2) Demo script (3-5 min): baseline fails -> system handles it -> drift detected -> review screen with evidence -> fault ends gracefully -> before/after table
-- [ ] I6 (ALL) Pre-pick the 5-6 demo queries and test them
-- [ ] I7 (ALL) Prepare answers: hallucination control, new-category behavior, fairness, latency
+- [x] I3 (ALL) Risk register: failure modes, mitigations, what humans still own
+- [x] I4 (ALL) Reproducible eval scripts + instructions in `docs/reproduce.md`
+- [x] I5 (DEV2) Demo script (3-5 min): baseline fails -> system handles it -> drift detected -> review screen with evidence -> fault ends gracefully -> before/after table
+- [x] I6 (ALL) Pre-pick the 5-6 demo queries and test them
+- [x] I7 (ALL) Prepare answers: hallucination control, new-category behavior, fairness, latency
 - [ ] I8 (ALL) Rehearse the demo twice end to end
 
 ## Cut list (drop these first if time runs out)

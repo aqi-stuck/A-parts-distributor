@@ -62,5 +62,20 @@
     "id": "near_duplicate-2",
     "query": "M10 bolt",
     "category": "near_duplicate"
+  },
+  {
+    "id": "near_duplicate-3",
+    "query": "left hand bracket",
+    "category": "near_duplicate"
+  },
+  {
+    "id": "near_duplicate-4",
+    "query": "right hand bracket",
+    "category": "near_duplicate"
+  },
+  {
+    "id": "lookalike-part-number",
+    "query": "BLT-0042O",
+    "category": "lookalike_part_number"
   }
 ]
