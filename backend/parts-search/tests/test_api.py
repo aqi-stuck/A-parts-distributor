@@ -44,6 +44,26 @@ def test_search_shape():
             assert 0 <= item["confidence"] <= 1
 
 
+def test_search_evidence_labels_requested_attributes():
+    """Search evidence distinguishes requested attributes the candidate has or lacks."""
+    with TestClient(app) as client:
+        response = client.post("/search", json={"query": "m12 zinc bearing 9999 mm"})
+
+    assert response.status_code == 200
+    evidence = [
+        item
+        for result in response.json()["results"]
+        for item in result["evidence"]
+    ]
+    assert "different attribute: length_mm = 9999" in evidence
+    assert "not specified: material" in evidence
+    assert any(item.startswith("matched attribute:") for item in evidence)
+    assert not any(
+        item.startswith(("normalized_query:", "attribute_agreement:", "score_margin:"))
+        for item in evidence
+    )
+
+
 def test_empty_query_rejected():
     """Empty query is rejected by validation."""
     with TestClient(app) as client:

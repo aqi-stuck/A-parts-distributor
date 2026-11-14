@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { search, feedback } from "../api";
 import type { SearchResponse, SearchResult } from "../api";
-import { EvidencePanel } from "../components/EvidencePanel";
+import { ResultCard } from "../components/ResultCard";
 
 export function SearchPage() {
   const [query, setQuery] = useState("");
@@ -93,24 +93,18 @@ export function SearchPage() {
         <>
           {summary && (
             <div className={`summary-card ${data.route}`}>
-              <h3>{data.route === "auto" ? "Auto answer" : "Needs review"}</h3>
-              <div className="summary-topline">
-                <span className="summary-sku">{summary.sku}</span>
-                <span className="summary-score">{Math.round(summary.confidence * 100)}% confidence</span>
-              </div>
-              <p>{summary.description}</p>
+              <h3>{data.route === "auto" ? "Confident Match" : "Needs review"}</h3>
             </div>
           )}
 
           {data.results.length === 0 ? (
             <p className="empty-state">No matching parts found. This request should be sent to a human reviewer.</p>
           ) : (
-            data.results.map((r: SearchResult) => (
+            data.results.map((r: SearchResult, index) => (
               <ResultCard
                 key={r.sku}
                 result={r}
-                route={data.route}
-                reason={data.reason}
+                isTopResult={index === 0}
                 saving={savingId === r.sku}
                 onApprove={() => onApproveReject(r.sku, "approve")}
                 onReject={() => onApproveReject(r.sku, "reject")}
@@ -129,44 +123,5 @@ export function SearchPage() {
         </>
       )}
     </section>
-  );
-}
-
-function ResultCard({
-  result,
-  route,
-  reason,
-}: {
-  result: SearchResult;
-  route: "auto" | "review";
-  reason: string | null;
-  saving: boolean;
-  onApprove: () => void;
-  onReject: () => void;
-}) {
-  const pct = Math.min(100, Math.max(0, Math.round(result.score * 100)));
-  return (
-    <article className="result">
-      <div className="result-header">
-        <div>
-          <h3>{result.sku}</h3>
-          <p className="result-description">{result.description}</p>
-        </div>
-        <div className="result-score">{pct}%</div>
-      </div>
-
-      <div
-        className="score-bar"
-        role="progressbar"
-        aria-label={`Match score for ${result.sku}`}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={pct}
-      >
-        <div className="score-fill" style={{ width: `${100 - Math.max(8, pct)}%` }} />
-      </div>
-
-      <EvidencePanel result={result} route={route} reason={reason} />
-    </article>
   );
 }
