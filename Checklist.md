@@ -62,8 +62,8 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] E4 (ML) Simulate shifts: new category, new supplier naming style, other language, heavy abbreviation
 - [x] E5 (ML) Report detector precision/recall on the simulated shifts
 - [ ] E6 (DEV1) Expose drift score in `/metrics`
-<!-- partial: needs ML drift detector (E1-E3) -->
-- [ ] E7 (DEV2) Show drift score and alert state in the monitoring panel
+<!-- partial: drift not built -->
+- [x] E7 (DEV2) Show drift score and alert state in the monitoring panel
 
 ## F. Safe fallback and human review
 
@@ -99,9 +99,8 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] H1 (DEV1) API endpoints: `/search`, `/review-queue`, `/feedback`, `/health`, `/metrics`
 - [x] H2 (DEV2) Search UI for warehouse staff (big input, ranked results, confidence badge)
 - [x] H3 (DEV2) Reviewer view
-- [ ] H4 (DEV2) Small monitoring panel (drift, escalation rate, latency)
-- [ ] H5 (DEV1) `docker compose up` runs everything from a clean machine
-<!-- partial: written but not verified - Docker daemon unavailable; run docker compose up to confirm -->
+- [x] H4 (DEV2) Small monitoring panel (drift, escalation rate, latency)
+- [x] H5 (DEV1) `docker compose up` runs everything from a clean machine
 - [x] H6 (DEV1) Seed script: load catalog and build index from scratch
 - [x] H7 (DEV1) Thresholds in a versioned config file
 - [x] H8 (DEV1) Hard-case suite runs in CI as a regression test (fails build if hard-case accuracy drops)

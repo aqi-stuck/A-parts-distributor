@@ -24,8 +24,16 @@ class Engine:
             ev = r.get('evidence', {})
             evidence_list = []
             if isinstance(ev, dict):
-                for k, v in ev.items():
-                    evidence_list.append(f"{k}: {v}")
+                for key, status in (
+                    ("matched_attributes", "matched"),
+                    ("missing_attributes", "different"),
+                ):
+                    for field, value in ev.get(key, {}).items():
+                        evidence_list.append(f"{status} attribute: {field} = {value}")
+                evidence_list.extend(
+                    f"not specified: {field}"
+                    for field in ev.get("unspecified_attributes", ())
+                )
             else:
                 evidence_list = [str(ev)]
             out.append({

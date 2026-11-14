@@ -83,11 +83,11 @@ export function ReviewPage() {
                           <h4>{candidate.sku}</h4>
                           <p>{candidate.description}</p>
                         </div>
-                        <span className="result-score">
-                          {Math.round(candidate.score * 100)}% match
+                        <span className="match-score">
+                          {Math.round(candidate.confidence * 100)}% match confidence
                         </span>
                       </div>
-                      <EvidencePanel result={candidate} route="review" />
+                      <EvidencePanel result={candidate} />
                       <button
                         type="button"
                         disabled={saving}

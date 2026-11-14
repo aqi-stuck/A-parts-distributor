@@ -35,6 +35,8 @@ export type Metrics = {
   total_queries: number;
   review_count: number;
   avg_latency_ms: number;
+  drift_score?: number | null;
+  drift_alert?: boolean | null;
 };
 
 async function handle(res: Response) {
