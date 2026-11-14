@@ -5,7 +5,7 @@ from app.routing import decide_route
 
 def test_config_loads():
     """Config loads and version is correct."""
-    assert VERSION == "1.0"
+    assert VERSION == "1.1"
     assert isinstance(LOW_CONFIDENCE, float)
     assert isinstance(TOO_CLOSE, float)
 

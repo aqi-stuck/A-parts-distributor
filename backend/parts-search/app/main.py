@@ -1,4 +1,5 @@
-﻿from contextlib import asynccontextmanager
+﻿import logging
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -39,7 +40,11 @@ def search(req: SearchRequest):
     result = service.search(req.query)
     results = result.get("results", [])
     top_sku = results[0]["sku"] if results else None
-    storage.log_query(req.query, result["route"], top_sku, result["latency_ms"], MODEL_VERSION, results)
+    try:
+        storage.log_query(req.query, result["route"], top_sku, result["latency_ms"], MODEL_VERSION, results)
+    except Exception:
+        # A logging/DB failure must never hide a valid search result.
+        logging.exception("query log failed")
     return result
 
 

@@ -1,7 +1,10 @@
 ﻿import json
 import logging
 import time
-from app.config import ENGINE
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FuturesTimeoutError
+
+from app.config import ENGINE, ENGINE_TIMEOUT_MS
 from app.routing import decide_route
 from app.fallback import keyword_fallback
 
@@ -9,6 +12,18 @@ if ENGINE == "model":
     from ml.model_engine import Engine
 else:
     from ml.baseline_engine import Engine
+
+# One shared pool so a timed-out call never spawns unlimited threads.
+_EXECUTOR = ThreadPoolExecutor(max_workers=4, thread_name_prefix="parts-engine")
+
+
+def _safe_fallback(catalog: list[dict], query: str) -> list[dict]:
+    """Keyword fallback that never raises; empty list on failure."""
+    try:
+        return keyword_fallback(catalog, query)
+    except Exception:
+        logging.exception("keyword fallback failed")
+        return []
 
 
 class SearchService:
@@ -26,20 +41,25 @@ class SearchService:
         routing_ms = 0.0
         try:
             engine_start = time.perf_counter()
-            results_raw = self.engine.search(query)
-            engine_end = time.perf_counter()
-            engine_ms = round((engine_end - engine_start) * 1000, 2)
-            results = results_raw[:5]
-            routing_start = time.perf_counter()
-            route, reason = decide_route(results)
-            routing_end = time.perf_counter()
-            routing_ms = round((routing_end - routing_start) * 1000, 2)
+            future = _EXECUTOR.submit(self.engine.search, query)
+            try:
+                results_raw = future.result(timeout=ENGINE_TIMEOUT_MS / 1000.0)
+            except FuturesTimeoutError:
+                logging.warning("engine timed out after %s ms", ENGINE_TIMEOUT_MS)
+                engine_ms = round((time.perf_counter() - engine_start) * 1000, 2)
+                results = _safe_fallback(self.catalog, query)
+                route = "review"
+                reason = "engine timeout"
+            else:
+                engine_ms = round((time.perf_counter() - engine_start) * 1000, 2)
+                results = results_raw[:5]
+                routing_start = time.perf_counter()
+                route, reason = decide_route(results)
+                routing_end = time.perf_counter()
+                routing_ms = round((routing_end - routing_start) * 1000, 2)
         except Exception:
             logging.exception("search failed")
-            try:
-                results = keyword_fallback(self.catalog, query, limit=5)
-            except Exception:
-                results = []
+            results = _safe_fallback(self.catalog, query)
             route = "review"
             reason = "system error"
             engine_ms = 0.0

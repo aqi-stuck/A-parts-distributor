@@ -3,6 +3,7 @@ import sqlite3
 import os
 from datetime import datetime, timezone
 
+
 DB_PATH = os.environ.get("PARTS_DB_PATH", "data/app.db")
 
 
@@ -94,10 +95,18 @@ def review_queue(limit=50):
 
 
 def metrics():
-    """Return total queries, review count and average latency."""
+    """Return total queries, review count, average latency and drift status."""
     with sqlite3.connect(DB_PATH) as conn:
         total = conn.execute("SELECT COUNT(*) FROM query_log").fetchone()[0]
         review = conn.execute("SELECT COUNT(*) FROM query_log WHERE route = 'review'").fetchone()[0]
         avg_row = conn.execute("SELECT AVG(latency_ms) FROM query_log").fetchone()[0]
         avg = round(avg_row, 2) if avg_row is not None else 0.0
-    return {"total_queries": total, "review_count": review, "avg_latency_ms": avg}
+    return {
+        "total_queries": total,
+        "review_count": review,
+        "avg_latency_ms": avg,
+        # No drift/OOD/PSI implementation exists in app/ or ml/, so the score
+        # cannot be derived from recent query_log rows.
+        "drift_score": None,
+        "drift_status": "not_computed",
+    }
