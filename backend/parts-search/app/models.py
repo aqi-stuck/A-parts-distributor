@@ -20,6 +20,7 @@ class SearchResponse(BaseModel):
     results: List[Candidate]
     latency_ms: float
     timing_ms: Optional[dict] = None
+    engine: Optional[str] = None
 
 # What the website sends to /feedback
 class FeedbackRequest(BaseModel):

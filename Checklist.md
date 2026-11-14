@@ -15,6 +15,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] A3 (ALL) Fix success metrics: top-1, top-5, hard-case accuracy, hallucination rate, escalation precision, p50/p95 latency
 - [x] A4 (ML) Choose dataset: deterministic synthetic catalog (3,000 parts)
 - [x] A5 (DEV1) Create repo, folder layout, Dockerfile skeleton, CI that runs tests
+<!-- partial: Docker build not verified locally -->
 - [ ] A6 (ALL) Agree the API contract (see `docs/contract.md`) and commit it
 - [x] A7 (DEV1) API stub returning fake data so the frontend is never blocked
 
@@ -37,7 +38,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [ ] C3 (ML) Save results to `results/baseline_v1.json`
 <!-- partial: baseline_v1.json missing -->
 - [x] C4 (ML) Write `docs/baseline.md`: method, version, date, metrics, known failure modes
-- [ ] C5 (DEV1) Serve the baseline through the real API as the first working backend
+- [x] C5 (DEV1) Serve the baseline through the real API as the first working backend
 
 ## D. Improved system
 
@@ -50,7 +51,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] D7 (ML) Grounded output only: return SKUs that exist in the catalog; no invented specs
 - [x] D8 (ML) Prompt-injection hardening: query treated as data, never as instructions
 - [x] D9 (ML) Optional: LLM explanations behind a switch, checked against catalog fields
-- [ ] D10 (DEV1) Integrate the model behind the agreed API contract
+- [x] D10 (DEV1) Integrate the model behind the agreed API contract
 - [x] D11 (DEV1) Per-stage latency timing in every response
 
 ## E. Distribution shift detection
@@ -103,6 +104,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] H6 (DEV1) Seed script: load catalog and build index from scratch
 - [x] H7 (DEV1) Thresholds in a versioned config file
 - [x] H8 (DEV1) Hard-case suite runs in CI as a regression test (fails build if hard-case accuracy drops)
+<!-- partial: CI passes only after push, verify on GitHub Actions tab -->
 
 ## I. Docs and demo
 

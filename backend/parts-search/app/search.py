@@ -51,5 +51,6 @@ class SearchService:
             "reason": reason,
             "results": results,
             "latency_ms": latency_ms,
-            "timing_ms": {"engine": engine_ms, "routing": routing_ms, "total": total_ms}
+            "timing_ms": {"engine": engine_ms, "routing": routing_ms, "total": total_ms},
+            "engine": ENGINE
         }
