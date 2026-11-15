@@ -2,7 +2,7 @@ this is checklist i got notion ai to write this for me this includes roles 1 bei
 # Parts Distributor Search: Hackathon Checklist
 
 **How to use:** tick a box with `- [x]` in the same commit as the work. Reference IDs in commit messages (e.g. `done B2, B3`). Don't reword or renumber items; add new ones at the end of a section so diffs stay readable.
-**Owners:** ML = AI/ML person, DEV1 = backend, DEV2 = frontend, ALL = everyone.
+**Owners:** ML = AI/ML person(Aqdas), DEV1 = backend(Fasih), DEV2 = frontend(Sameed), ALL = everyone.
 
 ## Goal
 
