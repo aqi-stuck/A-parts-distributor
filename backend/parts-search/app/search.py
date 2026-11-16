@@ -1,20 +1,28 @@
 ﻿import json
 import logging
 import time
+from collections import deque
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import TimeoutError as FuturesTimeoutError
+from datetime import datetime, timezone
+from typing import Any
 
-from app.config import ENGINE, ENGINE_TIMEOUT_MS
+import numpy as np
+from scipy.stats import ks_2samp
+
+from app.config import ENGINE, ENGINE_TIMEOUT_MS, DRIFT_THRESHOLD
 from app.routing import decide_route
 from app.fallback import keyword_fallback
+import app.storage as storage
+import app.drift_state as drift_state
 
 if ENGINE == "model":
     from ml.model_engine import Engine
 else:
     from ml.baseline_engine import Engine
 
-# One shared pool so a timed-out call never spawns unlimited threads.
 _EXECUTOR = ThreadPoolExecutor(max_workers=4, thread_name_prefix="parts-engine")
+_DRIFT_WINDOW_SIZE = 100
 
 
 def _safe_fallback(catalog: list[dict], query: str) -> list[dict]:
@@ -26,6 +34,136 @@ def _safe_fallback(catalog: list[dict], query: str) -> list[dict]:
         return []
 
 
+_DRIFT_TRACKER: drift_state.DriftTracker | None = None
+_REFERENCE_FEATURES: list[dict[str, Any]] = []
+_RETRIEVER: "Any | None" = None
+
+
+def _get_retriever():
+    from pathlib import Path
+    from ml.improved_retrieval import HybridPartsRetriever
+    catalog_csv = Path(__file__).resolve().parents[4] / "data" / "catalog.csv"
+    if not catalog_csv.exists():
+        return None
+    global _RETRIEVER
+    if _RETRIEVER is None:
+        _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
+    return _RETRIEVER
+
+
+def _initialize_drift_tracker() -> None:
+    global _DRIFT_TRACKER, _REFERENCE_FEATURES
+    if _DRIFT_TRACKER is not None:
+        return
+    try:
+        from pathlib import Path
+        from ml.improved_retrieval import HybridPartsRetriever, normalize_query
+        from sklearn.metrics.pairwise import cosine_similarity
+        from src.baseline import tokenize
+
+        catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
+        if not catalog_csv.exists():
+            return
+
+        retriever = HybridPartsRetriever.from_csv(str(catalog_csv))
+        known_tokens = set(retriever.vectorizer.vocabulary_)
+        known_categories = {row.get("category", "unknown").lower() for row in retriever.catalog if row.get("category")}
+
+        def extract_features(query: str) -> dict[str, Any]:
+            normalized = normalize_query(query)
+            tokens = tokenize(normalized)
+            unseen_rate = (
+                sum(token not in known_tokens for token in tokens) / len(tokens)
+                if tokens else 1.0
+            )
+            query_vector = retriever.vectorizer.transform([normalized])
+            query_embedding = retriever.embedding_model.transform(query_vector)
+            similarities = cosine_similarity(
+                query_embedding, retriever.document_matrix
+            ).ravel()
+            category = next(
+                (value for value in known_categories if value in normalized),
+                "unknown",
+            )
+            return {
+                "embedding_distance": float(1.0 - similarities.max(initial=0.0)),
+                "unseen_token_rate": float(unseen_rate),
+                "query_length": len(tokens),
+                "category": category,
+                "unknown_category": float(category == "unknown"),
+            }
+
+        ref_queries = [
+            "zinc steel bolt m6 20 mm",
+            "m8 zinc hex bolt 25 mm",
+            "steel washer m6",
+            "brass screw m4 10 mm",
+            "stainless bolt m10 30 mm",
+        ]
+        _REFERENCE_FEATURES = [extract_features(q) for q in ref_queries]
+        _DRIFT_TRACKER = drift_state.DriftTracker(_REFERENCE_FEATURES, threshold=DRIFT_THRESHOLD)
+    except Exception as e:
+        logging.warning("Drift tracker initialization failed: %s", e)
+
+
+def _extract_ood_score(query: str) -> tuple[float, bool, dict[str, Any]]:
+    """Extract OOD score and features for a query using the same logic as DriftDetector."""
+    try:
+        from ml.improved_retrieval import normalize_query
+        from src.baseline import tokenize
+        from sklearn.metrics.pairwise import cosine_similarity
+
+        retriever = _get_retriever()
+        if not retriever:
+            return 0.0, False, {}
+
+        normalized = normalize_query(query)
+        tokens = tokenize(normalized)
+
+        known_tokens = set(retriever.vectorizer.vocabulary_)
+        known_categories = {row.get("category", "unknown").lower() for row in retriever.catalog if row.get("category")}
+
+        unseen_rate = (
+            sum(token not in known_tokens for token in tokens) / len(tokens)
+            if tokens else 1.0
+        )
+
+        query_vector = retriever.vectorizer.transform([normalized])
+        query_embedding = retriever.embedding_model.transform(query_vector)
+        similarities = cosine_similarity(
+            query_embedding, retriever.document_matrix
+        ).ravel()
+
+        category = next(
+            (value for value in known_categories if value in normalized),
+            "unknown",
+        )
+
+        feat = {
+            "embedding_distance": float(1.0 - similarities.max(initial=0.0)),
+            "unseen_token_rate": float(unseen_rate),
+            "query_length": len(tokens),
+            "category": category,
+            "unknown_category": float(category == "unknown"),
+        }
+
+        length_signal = min(float(len(tokens)) / 20.0, 1.0)
+        score = float(
+            0.45 * feat["embedding_distance"]
+            + 0.30 * feat["unseen_token_rate"]
+            + 0.15 * length_signal
+            + 0.10 * feat["unknown_category"]
+        )
+
+        threshold = 0.22
+        is_ood = score > threshold
+
+        return round(score, 6), is_ood, feat
+    except Exception as e:
+        logging.debug("OOD score extraction failed: %s", e)
+        return 0.0, False, {}
+
+
 class SearchService:
     """Provides search with engine and routing, measuring latency."""
 
@@ -33,6 +171,7 @@ class SearchService:
         self.engine = Engine(catalog_path)
         with open(catalog_path, 'r', encoding='utf-8') as f:
             self.catalog = json.load(f)
+        _initialize_drift_tracker()
 
     def search(self, query: str) -> dict:
         """Run search, decide route, and return results with latency."""
@@ -66,6 +205,21 @@ class SearchService:
             routing_ms = 0.0
         total_ms = round((time.perf_counter() - start) * 1000, 2)
         latency_ms = total_ms
+
+        if _DRIFT_TRACKER:
+            ood_score, is_ood, features = _extract_ood_score(query)
+            if _DRIFT_TRACKER.add_query(ood_score, is_ood, features):
+                state = _DRIFT_TRACKER.close_window()
+                drift_state.update_metrics_from_drift(
+                    window_size=state.get("window_size", 0),
+                    psi_score=state.get("psi_score"),
+                    ks_score=state.get("ks_score", 0.0),
+                    alert_active=state.get("alert_active", False),
+                    window_end=state.get("window_end"),
+                    ood_scores=state.get("ood_scores", []),
+                    ood_flagged=state.get("ood_flagged", 0),
+                )
+
         return {
             "route": route,
             "reason": reason,

@@ -28,3 +28,4 @@ TOO_CLOSE = float(_config["too_close_margin"])
 MODEL_VERSION = _config["model_version"]
 ENGINE = _config.get("engine", "baseline")
 ENGINE_TIMEOUT_MS = int(_config.get("engine_timeout_ms", 2000))
+DRIFT_THRESHOLD = float(_config.get("drift_threshold", 0.2))

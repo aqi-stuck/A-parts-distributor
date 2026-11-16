@@ -66,9 +66,32 @@ timestamp, latency, and the same catalog-grounded candidate shape used by
 
 ## `GET /metrics`
 
-Returns `total_queries`, `review_count`, and `avg_latency_ms`. When drift
-measurements are available, it may also include `drift_score` and
-`drift_alert`.
+Returns aggregate metrics including:
+
+- `total_queries`: total number of queries processed
+- `review_count`: number of queries routed to human review
+- `avg_latency_ms`: average query latency in milliseconds
+- `db_status`: `ok` or `unavailable` depending on database health
+- `log_write_failures_total`: count of audit log write failures
+
+Drift detection metrics (available after a window of 100 queries):
+
+- `drift_window_score`: latest window-level PSI value
+- `drift_alert_active`: `0` or `1`, `1` when PSI or KS exceeds threshold
+- `drift_window_size`: number of queries in the last completed window (100)
+- `drift_last_window_end`: ISO-8601 timestamp of the last completed window
+- `drift_status`: `warming_up` before first window completes, `ok` after
+- `ood_score_mean`: mean OOD score over the current window's queries
+- `ood_score_p95`: 95th percentile OOD score over the current window
+- `ood_flag_rate`: fraction of queries flagged OOD in the current window
+
+Legacy fields (for backward compatibility):
+
+- `drift_score`: alias for `drift_window_score`
+- `drift_alert`: boolean alias for `drift_alert_active > 0`
+
+Before the first drift window completes, `drift_window_score` and related
+fields are `null` and `drift_status` is `warming_up`.
 
 ## `GET /health`
 
