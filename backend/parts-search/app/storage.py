@@ -1,10 +1,32 @@
 import json
-import sqlite3
+import logging
 import os
+import sqlite3
 from datetime import datetime, timezone
 
-
 DB_PATH = os.environ.get("PARTS_DB_PATH", "data/app.db")
+
+# In-process counter so audit-store failures are observable even when the
+# database itself is the thing that broke.
+_LOG_WRITE_FAILURES = 0
+
+
+def record_log_failure() -> int:
+    """Count one failed audit/log write and return the running total."""
+    global _LOG_WRITE_FAILURES
+    _LOG_WRITE_FAILURES += 1
+    return _LOG_WRITE_FAILURES
+
+
+def log_write_failures_total() -> int:
+    """Return how many audit writes have failed since process start."""
+    return _LOG_WRITE_FAILURES
+
+
+def reset_log_write_failures() -> None:
+    """Reset the counter (test helper)."""
+    global _LOG_WRITE_FAILURES
+    _LOG_WRITE_FAILURES = 0
 
 
 def init_db():
@@ -95,18 +117,32 @@ def review_queue(limit=50):
 
 
 def metrics():
-    """Return total queries, review count, average latency and drift status."""
-    with sqlite3.connect(DB_PATH) as conn:
-        total = conn.execute("SELECT COUNT(*) FROM query_log").fetchone()[0]
-        review = conn.execute("SELECT COUNT(*) FROM query_log WHERE route = 'review'").fetchone()[0]
-        avg_row = conn.execute("SELECT AVG(latency_ms) FROM query_log").fetchone()[0]
-        avg = round(avg_row, 2) if avg_row is not None else 0.0
-    return {
-        "total_queries": total,
-        "review_count": review,
-        "avg_latency_ms": avg,
+    """Return usage metrics; degrade gracefully when the audit store is down."""
+    payload = {
+        "total_queries": 0,
+        "review_count": 0,
+        "avg_latency_ms": 0.0,
+        "db_status": "ok",
+    }
+    try:
+        with sqlite3.connect(DB_PATH) as conn:
+            total = conn.execute("SELECT COUNT(*) FROM query_log").fetchone()[0]
+            review = conn.execute("SELECT COUNT(*) FROM query_log WHERE route = 'review'").fetchone()[0]
+            avg_row = conn.execute("SELECT AVG(latency_ms) FROM query_log").fetchone()[0]
+    except sqlite3.Error:
+        # Metrics must stay readable even when the database is unavailable;
+        # counts fall back to zero and the status field says why.
+        logging.exception("metrics: audit store unavailable")
+        payload["db_status"] = "unavailable"
+    else:
+        payload["total_queries"] = total
+        payload["review_count"] = review
+        payload["avg_latency_ms"] = round(avg_row, 2) if avg_row is not None else 0.0
+    payload.update({
+        "log_write_failures_total": log_write_failures_total(),
         # No drift/OOD/PSI implementation exists in app/ or ml/, so the score
         # cannot be derived from recent query_log rows.
         "drift_score": None,
         "drift_status": "not_computed",
-    }
+    })
+    return payload
