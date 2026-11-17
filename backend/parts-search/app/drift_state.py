@@ -123,7 +123,7 @@ class DriftTracker:
         return float(psi)
 
     def _threshold_exceeded(self, psi: float, ks: dict[str, float]) -> bool:
-        return psi >= self.threshold or max(ks.values()) >= self.threshold
+        return psi > self.threshold + 1e-12 or max(ks.values()) > self.threshold + 1e-12
 
 
 def reset_drift_state() -> None:
@@ -137,6 +137,12 @@ def reset_drift_state() -> None:
         _psi_score = None
         _ks_score = None
         _alert_active = False
+    try:
+        from app import search
+        if search._DRIFT_TRACKER is not None:
+            search._DRIFT_TRACKER.reset_window()
+    except Exception:
+        pass
 
 
 def get_drift_threshold() -> float:
@@ -179,7 +185,7 @@ def compute_window_drift(reference_features: list[dict[str, Any]]) -> dict[str, 
         psi = _compute_psi(reference_features, current)
         ks = _compute_ks(reference_features, current)
         max_ks = max(ks.values()) if ks else 0.0
-        alert = psi >= threshold or max_ks >= threshold
+        alert = psi > threshold + 1e-12 or max_ks > threshold + 1e-12
         _window_end = datetime.now(timezone.utc)
         _psi_score = psi
         _ks_score = max_ks
