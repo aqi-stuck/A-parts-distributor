@@ -42,12 +42,17 @@ _RETRIEVER: "Any | None" = None
 def _get_retriever():
     from pathlib import Path
     from ml.improved_retrieval import HybridPartsRetriever
-    catalog_csv = Path(__file__).resolve().parents[4] / "data" / "catalog.csv"
-    if not catalog_csv.exists():
-        return None
+    catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
     global _RETRIEVER
     if _RETRIEVER is None:
-        _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
+        if catalog_csv.exists():
+            _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
+        else:
+            catalog_json = Path(__file__).resolve().parents[1] / "data" / "catalog.json"
+            if not catalog_json.exists():
+                return None
+            with catalog_json.open(encoding="utf-8") as file:
+                _RETRIEVER = HybridPartsRetriever(json.load(file))
     return _RETRIEVER
 
 
@@ -56,16 +61,14 @@ def _initialize_drift_tracker() -> None:
     if _DRIFT_TRACKER is not None:
         return
     try:
-        from pathlib import Path
-        from ml.improved_retrieval import HybridPartsRetriever, normalize_query
+        from ml.improved_retrieval import normalize_query
         from sklearn.metrics.pairwise import cosine_similarity
-        from src.baseline import tokenize
+        from ml.baseline_model import tokenize
 
-        catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
-        if not catalog_csv.exists():
+        retriever = _get_retriever()
+        if retriever is None:
             return
 
-        retriever = HybridPartsRetriever.from_csv(str(catalog_csv))
         known_tokens = set(retriever.vectorizer.vocabulary_)
         known_categories = {row.get("category", "unknown").lower() for row in retriever.catalog if row.get("category")}
 
@@ -110,7 +113,7 @@ def _extract_ood_score(query: str) -> tuple[float, bool, dict[str, Any]]:
     """Extract OOD score and features for a query using the same logic as DriftDetector."""
     try:
         from ml.improved_retrieval import normalize_query
-        from src.baseline import tokenize
+        from ml.baseline_model import tokenize
         from sklearn.metrics.pairwise import cosine_similarity
 
         retriever = _get_retriever()
@@ -210,7 +213,7 @@ class SearchService:
             ood_score, is_ood, features = _extract_ood_score(query)
             if _DRIFT_TRACKER.add_query(ood_score, is_ood, features):
                 state = _DRIFT_TRACKER.close_window()
-                drift_state.update_metrics_from_drift(
+                storage.update_drift_metrics(
                     window_size=state.get("window_size", 0),
                     psi_score=state.get("psi_score"),
                     ks_score=state.get("ks_score", 0.0),
