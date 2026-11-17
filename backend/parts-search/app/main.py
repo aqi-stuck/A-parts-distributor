@@ -286,7 +286,7 @@ from app.routes import Route, ENDPOINTS, DISCOVERY
 from uuid import uuid4
 import json
 import asyncio
-from datetime import datetime
+from datetime import datetime, timezone
 from collections import deque
 from prometheus_client import Counter , Gauge
 
@@ -542,7 +542,13 @@ def feedback_v1(req: FeedbackRequestV1):
     if not updated:
         raise HTTPException(status_code=404, detail=f"Review item {req.item_id} not found")
     # Publish event after successful feedback
-    payload = FeedbackRecordedPayload(item_id=req.item_id, action=req.action, status="saved").model_dump()
+    payload = FeedbackRecordedPayload(
+        query=updated.query,
+        sku=req.corrected_sku or (updated.candidates[0].sku if updated.candidates else ""),
+        decision=req.action,
+        reviewer=req.reviewer,
+        timestamp=datetime.now(timezone.utc),
+    ).model_dump(mode="json")
     publish_event("feedback.recorded", payload)
     return updated
 

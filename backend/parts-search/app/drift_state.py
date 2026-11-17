@@ -139,9 +139,13 @@ class DriftTracker:
         return float(psi)
 
     def _threshold_exceeded(self, psi: float, ks: dict[str, float]) -> bool:
+<<<<<<< HEAD
         # Strict comparison with an epsilon: a score that lands exactly on the
         # threshold (float rounding) must not raise a false alert.
         return psi > self.threshold + _EPS or max(ks.values()) > self.threshold + _EPS
+=======
+        return psi > self.threshold + 1e-12 or max(ks.values()) > self.threshold + 1e-12
+>>>>>>> 4a004797877386bb42c90be30350757551a9e720
 
 
 def reset_drift_state() -> None:
@@ -155,6 +159,12 @@ def reset_drift_state() -> None:
         _psi_score = None
         _ks_score = None
         _alert_active = False
+    try:
+        from app import search
+        if search._DRIFT_TRACKER is not None:
+            search._DRIFT_TRACKER.reset_window()
+    except Exception:
+        pass
 
     # The search service owns a long-lived tracker; clearing only the module
     # state would leave a half-filled window that leaks into the next test.
@@ -203,7 +213,11 @@ def compute_window_drift(reference_features: list[dict[str, Any]]) -> dict[str, 
         psi = _compute_psi(reference_features, current)
         ks = _compute_ks(reference_features, current)
         max_ks = max(ks.values()) if ks else 0.0
+<<<<<<< HEAD
         alert = psi > threshold + _EPS or max_ks > threshold + _EPS
+=======
+        alert = psi > threshold + 1e-12 or max_ks > threshold + 1e-12
+>>>>>>> 4a004797877386bb42c90be30350757551a9e720
         _window_end = datetime.now(timezone.utc)
         _psi_score = psi
         _ks_score = max_ks

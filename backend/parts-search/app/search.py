@@ -58,6 +58,7 @@ def _reference_catalog_paths():
 
 
 def _get_retriever():
+<<<<<<< HEAD
     """Load the reference retriever from the repository catalog with a Docker fallback."""
     global _RETRIEVER
     if _RETRIEVER is not None:
@@ -106,6 +107,35 @@ def _initialize_drift_tracker() -> None:
         retriever = _get_retriever()
         if retriever is None:
             logging.warning("Drift tracker disabled: reference catalog unavailable")
+=======
+    from pathlib import Path
+    from ml.improved_retrieval import HybridPartsRetriever
+    catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
+    global _RETRIEVER
+    if _RETRIEVER is None:
+        if catalog_csv.exists():
+            _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
+        else:
+            catalog_json = Path(__file__).resolve().parents[1] / "data" / "catalog.json"
+            if not catalog_json.exists():
+                return None
+            with catalog_json.open(encoding="utf-8") as file:
+                _RETRIEVER = HybridPartsRetriever(json.load(file))
+    return _RETRIEVER
+
+
+def _initialize_drift_tracker() -> None:
+    global _DRIFT_TRACKER, _REFERENCE_FEATURES
+    if _DRIFT_TRACKER is not None:
+        return
+    try:
+        from ml.improved_retrieval import normalize_query
+        from sklearn.metrics.pairwise import cosine_similarity
+        from ml.baseline_model import tokenize
+
+        retriever = _get_retriever()
+        if retriever is None:
+>>>>>>> 4a004797877386bb42c90be30350757551a9e720
             return
 
         known_tokens = set(retriever.vectorizer.vocabulary_)
@@ -263,7 +293,7 @@ class SearchService:
             ood_score, is_ood, features = _extract_ood_score(query)
             if _DRIFT_TRACKER.add_query(ood_score, is_ood, features):
                 state = _DRIFT_TRACKER.close_window()
-                drift_state.update_metrics_from_drift(
+                storage.update_drift_metrics(
                     window_size=state.get("window_size", 0),
                     psi_score=state.get("psi_score"),
                     ks_score=state.get("ks_score", 0.0),
