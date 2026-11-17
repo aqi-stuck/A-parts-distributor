@@ -59,7 +59,7 @@ Warehouse staff type messy part descriptions. The system returns the right SKU w
 - [x] E3 (ML) Implement window-level drift alert (e.g. PSI / KS)
 - [x] E4 (ML) Simulate shifts: new category, new supplier naming style, other language, heavy abbreviation
 - [x] E5 (ML) Report detector precision/recall on the simulated shifts
-- [ ] E6 (DEV1) Expose drift score in `/metrics`
+- [x] E6 (DEV1) Expose drift score in `/metrics`
 <!-- partial: drift not built -->
 - [x] E7 (DEV2) Show drift score and alert state in the monitoring panel
 

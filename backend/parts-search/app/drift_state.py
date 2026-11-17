@@ -235,13 +235,23 @@ def update_metrics_from_drift(
     ood_scores: list[float],
     ood_flagged: int,
 ) -> None:
-    """Update the global drift metrics state."""
+    """Update the global drift metrics state. Also syncs to storage module."""
     global _window_end, _psi_score, _ks_score, _alert_active
     with _drift_lock:
         _window_end = window_end
         _psi_score = psi_score
         _ks_score = ks_score
         _alert_active = alert_active
+    import app.storage as storage
+    storage.update_drift_metrics(
+        window_size=window_size,
+        psi_score=psi_score,
+        ks_score=ks_score,
+        alert_active=alert_active,
+        window_end=window_end,
+        ood_scores=ood_scores,
+        ood_flagged=ood_flagged,
+    )
 
 
 def get_metrics_state() -> dict[str, Any]:

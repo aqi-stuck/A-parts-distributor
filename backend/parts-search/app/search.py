@@ -42,7 +42,7 @@ _RETRIEVER: "Any | None" = None
 def _get_retriever():
     from pathlib import Path
     from ml.improved_retrieval import HybridPartsRetriever
-    catalog_csv = Path(__file__).resolve().parents[4] / "data" / "catalog.csv"
+    catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
     if not catalog_csv.exists():
         return None
     global _RETRIEVER
