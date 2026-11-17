@@ -1,25 +1,32 @@
 ﻿import json
 import logging
 import time
-from collections import deque
 from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import TimeoutError as FuturesTimeoutError
-from datetime import datetime, timezone
 from typing import Any
-
-import numpy as np
-from scipy.stats import ks_2samp
 
 from app.config import ENGINE, ENGINE_TIMEOUT_MS, DRIFT_THRESHOLD
 from app.routing import decide_route
 from app.fallback import keyword_fallback
-import app.storage as storage
 import app.drift_state as drift_state
 
-if ENGINE == "model":
-    from ml.model_engine import Engine
-else:
-    from ml.baseline_engine import Engine
+# The retrieval engine pulls in numpy/scipy/sklearn native extensions. On hosts
+# where an application-control policy blocks those DLLs, importing them at module
+# scope made the whole API fail to boot. Degrade to the F8 manual catalog search
+# instead: the service still answers every request, just without the model.
+ENGINE_IMPORT_ERROR: str | None = None
+try:
+    if ENGINE == "model":
+        from ml.model_engine import Engine
+    else:
+        from ml.baseline_engine import Engine
+except Exception as _engine_exc:  # noqa: BLE001 - any import failure must degrade
+    Engine = None  # type: ignore[assignment]
+    ENGINE_IMPORT_ERROR = f"{type(_engine_exc).__name__}: {_engine_exc}"
+    logging.warning(
+        "Search engine unavailable (%s); serving manual catalog fallback only",
+        ENGINE_IMPORT_ERROR,
+    )
 
 _EXECUTOR = ThreadPoolExecutor(max_workers=4, thread_name_prefix="parts-engine")
 _DRIFT_WINDOW_SIZE = 100
@@ -37,35 +44,70 @@ def _safe_fallback(catalog: list[dict], query: str) -> list[dict]:
 _DRIFT_TRACKER: drift_state.DriftTracker | None = None
 _REFERENCE_FEATURES: list[dict[str, Any]] = []
 _RETRIEVER: "Any | None" = None
+_DRIFT_INIT_ATTEMPTED = False
+
+
+def _reference_catalog_paths():
+    """Repository catalog.csv first, then the backend-bundled catalog.json (Docker)."""
+    from pathlib import Path
+
+    # __file__ = backend/parts-search/app/search.py
+    backend_dir = Path(__file__).resolve().parents[1]
+    repo_root = backend_dir.parents[1]
+    return repo_root / "data" / "catalog.csv", backend_dir / "data" / "catalog.json"
 
 
 def _get_retriever():
-    from pathlib import Path
-    from ml.improved_retrieval import HybridPartsRetriever
-    catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
-    if not catalog_csv.exists():
-        return None
+    """Load the reference retriever from the repository catalog with a Docker fallback."""
     global _RETRIEVER
-    if _RETRIEVER is None:
-        _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
+    if _RETRIEVER is not None:
+        return _RETRIEVER
+    try:
+        from ml.improved_retrieval import HybridPartsRetriever
+
+        catalog_csv, catalog_json = _reference_catalog_paths()
+        if catalog_csv.is_file():
+            _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
+        elif catalog_json.is_file():
+            # Docker images ship only backend/parts-search/data/catalog.json.
+            with open(catalog_json, "r", encoding="utf-8") as f:
+                _RETRIEVER = HybridPartsRetriever(json.load(f))
+        else:
+            logging.warning(
+                "No reference catalog found (looked for %s and %s)",
+                catalog_csv,
+                catalog_json,
+            )
+    except Exception:
+        logging.warning("Reference retriever initialization failed", exc_info=True)
+        _RETRIEVER = None
     return _RETRIEVER
 
 
-def _initialize_drift_tracker() -> None:
-    global _DRIFT_TRACKER, _REFERENCE_FEATURES
-    if _DRIFT_TRACKER is not None:
-        return
-    try:
-        from pathlib import Path
-        from ml.improved_retrieval import HybridPartsRetriever, normalize_query
-        from sklearn.metrics.pairwise import cosine_similarity
-        from src.baseline import tokenize
+def reset_drift_tracker() -> None:
+    """Drop the active tracker and retriever so drift state can be rebuilt."""
+    global _DRIFT_TRACKER, _REFERENCE_FEATURES, _RETRIEVER, _DRIFT_INIT_ATTEMPTED
+    _DRIFT_TRACKER = None
+    _REFERENCE_FEATURES = []
+    _RETRIEVER = None
+    _DRIFT_INIT_ATTEMPTED = False
 
-        catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
-        if not catalog_csv.exists():
+
+def _initialize_drift_tracker() -> None:
+    global _DRIFT_TRACKER, _REFERENCE_FEATURES, _DRIFT_INIT_ATTEMPTED
+    if _DRIFT_TRACKER is not None or _DRIFT_INIT_ATTEMPTED:
+        return
+    _DRIFT_INIT_ATTEMPTED = True
+    try:
+        from ml.improved_retrieval import normalize_query
+        from ml.baseline_model import tokenize
+        from sklearn.metrics.pairwise import cosine_similarity
+
+        retriever = _get_retriever()
+        if retriever is None:
+            logging.warning("Drift tracker disabled: reference catalog unavailable")
             return
 
-        retriever = HybridPartsRetriever.from_csv(str(catalog_csv))
         known_tokens = set(retriever.vectorizer.vocabulary_)
         known_categories = {row.get("category", "unknown").lower() for row in retriever.catalog if row.get("category")}
 
@@ -110,7 +152,7 @@ def _extract_ood_score(query: str) -> tuple[float, bool, dict[str, Any]]:
     """Extract OOD score and features for a query using the same logic as DriftDetector."""
     try:
         from ml.improved_retrieval import normalize_query
-        from src.baseline import tokenize
+        from ml.baseline_model import tokenize
         from sklearn.metrics.pairwise import cosine_similarity
 
         retriever = _get_retriever()
@@ -168,45 +210,56 @@ class SearchService:
     """Provides search with engine and routing, measuring latency."""
 
     def __init__(self, catalog_path: str):
-        self.engine = Engine(catalog_path)
+        self.engine = Engine(catalog_path) if Engine is not None else None
         with open(catalog_path, 'r', encoding='utf-8') as f:
             self.catalog = json.load(f)
-        _initialize_drift_tracker()
+        if self.engine is not None:
+            _initialize_drift_tracker()
 
     def search(self, query: str) -> dict:
         """Run search, decide route, and return results with latency."""
         start = time.perf_counter()
         engine_ms = 0.0
         routing_ms = 0.0
-        try:
-            engine_start = time.perf_counter()
-            future = _EXECUTOR.submit(self.engine.search, query)
-            try:
-                results_raw = future.result(timeout=ENGINE_TIMEOUT_MS / 1000.0)
-            except FuturesTimeoutError:
-                logging.warning("engine timed out after %s ms", ENGINE_TIMEOUT_MS)
-                engine_ms = round((time.perf_counter() - engine_start) * 1000, 2)
-                results = _safe_fallback(self.catalog, query)
-                route = "review"
-                reason = "engine timeout"
-            else:
-                engine_ms = round((time.perf_counter() - engine_start) * 1000, 2)
-                results = results_raw[:5]
-                routing_start = time.perf_counter()
-                route, reason = decide_route(results)
-                routing_end = time.perf_counter()
-                routing_ms = round((routing_end - routing_start) * 1000, 2)
-        except Exception:
-            logging.exception("search failed")
+        if self.engine is None:
+            # Startup-time dependency failure: answer from the catalog directly.
             results = _safe_fallback(self.catalog, query)
             route = "review"
             reason = "system error"
-            engine_ms = 0.0
-            routing_ms = 0.0
+        else:
+            try:
+                engine_start = time.perf_counter()
+                future = _EXECUTOR.submit(self.engine.search, query)
+                try:
+                    results_raw = future.result(timeout=ENGINE_TIMEOUT_MS / 1000.0)
+                except FuturesTimeoutError:
+                    logging.warning("engine timed out after %s ms", ENGINE_TIMEOUT_MS)
+                    engine_ms = round((time.perf_counter() - engine_start) * 1000, 2)
+                    results = _safe_fallback(self.catalog, query)
+                    route = "review"
+                    reason = "engine timeout"
+                else:
+                    engine_ms = round((time.perf_counter() - engine_start) * 1000, 2)
+                    results = results_raw[:5]
+                    routing_start = time.perf_counter()
+                    route, reason = decide_route(results)
+                    routing_end = time.perf_counter()
+                    routing_ms = round((routing_end - routing_start) * 1000, 2)
+            except Exception:
+                logging.exception("search failed")
+                results = _safe_fallback(self.catalog, query)
+                route = "review"
+                reason = "system error"
+                engine_ms = 0.0
+                routing_ms = 0.0
         total_ms = round((time.perf_counter() - start) * 1000, 2)
         latency_ms = total_ms
 
-        if _DRIFT_TRACKER:
+        if _DRIFT_TRACKER is None:
+            # Rebuild after a reset so completed windows keep reaching /metrics.
+            _initialize_drift_tracker()
+
+        if _DRIFT_TRACKER is not None:
             ood_score, is_ood, features = _extract_ood_score(query)
             if _DRIFT_TRACKER.add_query(ood_score, is_ood, features):
                 state = _DRIFT_TRACKER.close_window()

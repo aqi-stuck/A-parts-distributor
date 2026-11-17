@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "request_id": "req-review-5c3b9912",
+  "model_version": "hybrid-retriever-v1",
+  "query": "brass hex bolt 10mm",
+  "route": "review",
+  "reason": {
+    "code": "low_margin",
+    "text": "Top candidates are too close in score; human verification needed."
+  },
+  "timing_ms": {
+    "normalize": 1,
+    "retrieve": 21,
+    "rerank": 3,
+    "total": 25
+  },
+  "results": [
+    {
+      "sku": "BOL-M10-025-1089",
+      "description": "zinc steel hex bolt M10 x 25 mm",
+      "score": 0.68,
+      "confidence": {
+        "value": 0.68,
+        "level": "low",
+        "label": "Low confidence"
+      },
+      "evidence": [
+        {
+          "field": "thread",
+          "query_value": "10mm",
+          "catalog_value": "M10",
+          "match": "exact"
+        },
+        {
+          "field": "material",
+          "query_value": "brass",
+          "catalog_value": "steel",
+          "match": "mismatch"
+        }
+      ]
+    },
+    {
+      "sku": "SCR-M10-020-0541",
+      "description": "brass machine screw M10 x 20 mm",
+      "score": 0.66,
+      "confidence": {
+        "value": 0.66,
+        "level": "low",
+        "label": "Low confidence"
+      },
+      "evidence": [
+        {
+          "field": "material",
+          "query_value": "brass",
+          "catalog_value": "brass",
+          "match": "exact"
+        },
+        {
+          "field": "category",
+          "query_value": "bolt",
+          "catalog_value": "screw",
+          "match": "mismatch"
+        }
+      ]
+    }
+  ]
+}

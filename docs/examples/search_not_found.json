@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "request_id": "req-notfound-09a8823f",
+  "model_version": "hybrid-retriever-v1",
+  "query": "zzqxv qqwpl non-existent widget 999",
+  "route": "review",
+  "reason": {
+    "code": "not_found",
+    "text": "No matching parts found in catalog."
+  },
+  "timing_ms": {
+    "normalize": 1,
+    "retrieve": 9,
+    "rerank": 0,
+    "total": 10
+  },
+  "results": []
+}

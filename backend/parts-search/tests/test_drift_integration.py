@@ -77,6 +77,54 @@ def test_drift_no_alert_on_in_distribution():
     assert data["drift_alert_active"] == 0
 
 
+def test_drift_uses_backend_catalog_when_repo_copy_is_absent(monkeypatch):
+    """Docker ships only backend/parts-search/data/catalog.json; drift must still start."""
+    from app import search as search_module
+
+    backend_json = Path(__file__).parent.parent / "data" / "catalog.json"
+    missing_csv = Path(__file__).parent.parent / "data" / "does-not-exist.csv"
+    monkeypatch.setattr(
+        search_module,
+        "_reference_catalog_paths",
+        lambda: (missing_csv, backend_json),
+    )
+    drift_state.reset_drift_state()
+    search_module._initialize_drift_tracker()
+
+    assert search_module._DRIFT_TRACKER is not None
+    assert search_module._REFERENCE_FEATURES
+
+
+def test_reset_drift_state_clears_active_tracker():
+    """Test isolation: resetting drift state must drop the live DriftTracker."""
+    from app import search as search_module
+
+    search_module._initialize_drift_tracker()
+    assert search_module._DRIFT_TRACKER is not None
+
+    drift_state.reset_drift_state()
+
+    assert search_module._DRIFT_TRACKER is None
+
+
+def test_threshold_boundary_does_not_alert():
+    """A score exactly on the alert threshold is not a drift alert (float safety)."""
+    features = {
+        "embedding_distance": 0.0,
+        "unseen_token_rate": 0.0,
+        "query_length": 5,
+        "category": "bolt",
+    }
+    tracker = drift_state.DriftTracker([features], threshold=0.0)
+    tracker.add_query(0.0, False, features)
+
+    state = tracker.close_window()
+
+    assert state["psi_score"] == 0.0
+    assert state["ks_score"] == 0.0
+    assert state["alert_active"] is False
+
+
 def test_empty_window_returns_warming_up():
     """Empty window (no queries) returns warming_up with nulls."""
     drift_state.reset_drift_state()

@@ -1,15 +1,31 @@
 """Drift detection state tracking for the /metrics endpoint."""
 
+import logging
 import threading
 from collections import deque, Counter
 from datetime import datetime, timezone
 from typing import Any
 
-import numpy as np
-from scipy.stats import ks_2samp
+# numpy/scipy ship native DLLs that a Windows application-control policy can
+# block. Drift metrics are optional, so their absence must not prevent the API
+# from importing; drift degrades to "unavailable" instead.
+try:
+    import numpy as np
+    from scipy.stats import ks_2samp
+
+    STATS_AVAILABLE = True
+    STATS_IMPORT_ERROR: str | None = None
+except Exception as _stats_exc:  # noqa: BLE001
+    np = None  # type: ignore[assignment]
+    ks_2samp = None  # type: ignore[assignment]
+    STATS_AVAILABLE = False
+    STATS_IMPORT_ERROR = f"{type(_stats_exc).__name__}: {_stats_exc}"
+    logging.warning("Drift statistics unavailable: %s", STATS_IMPORT_ERROR)
 
 
 _WINDOW_SIZE = 100
+# Guards threshold comparisons against float rounding at the alert boundary.
+_EPS = 1e-9
 _drift_lock = threading.RLock()
 _current_window: deque = deque(maxlen=_WINDOW_SIZE)
 _ood_scores: deque = deque(maxlen=_WINDOW_SIZE)
@@ -55,9 +71,9 @@ class DriftTracker:
     def close_window(self) -> dict[str, Any]:
         """Compute drift metrics for the completed window."""
         with self._lock:
-            if not self._window:
+            if not self._window or not STATS_AVAILABLE:
                 result = {
-                    "window_size": 0,
+                    "window_size": len(self._window),
                     "psi_score": None,
                     "ks_score": 0.0,
                     "alert_active": False,
@@ -123,11 +139,13 @@ class DriftTracker:
         return float(psi)
 
     def _threshold_exceeded(self, psi: float, ks: dict[str, float]) -> bool:
-        return psi >= self.threshold or max(ks.values()) >= self.threshold
+        # Strict comparison with an epsilon: a score that lands exactly on the
+        # threshold (float rounding) must not raise a false alert.
+        return psi > self.threshold + _EPS or max(ks.values()) > self.threshold + _EPS
 
 
 def reset_drift_state() -> None:
-    """Reset drift state (test helper)."""
+    """Reset drift state (test helper), including the active DriftTracker."""
     global _current_window, _ood_scores, _ood_flagged, _window_end, _psi_score, _ks_score, _alert_active
     with _drift_lock:
         _current_window.clear()
@@ -137,6 +155,12 @@ def reset_drift_state() -> None:
         _psi_score = None
         _ks_score = None
         _alert_active = False
+
+    # The search service owns a long-lived tracker; clearing only the module
+    # state would leave a half-filled window that leaks into the next test.
+    import app.search as search_module
+
+    search_module.reset_drift_tracker()
 
 
 def get_drift_threshold() -> float:
@@ -163,7 +187,7 @@ def add_query_to_window(ood_score: float, is_ood: bool, features: dict[str, Any]
 def compute_window_drift(reference_features: list[dict[str, Any]]) -> dict[str, Any]:
     """Compute PSI and KS statistics for the current window."""
     with _drift_lock:
-        if len(_current_window) == 0:
+        if len(_current_window) == 0 or not STATS_AVAILABLE:
             return {
                 "psi_score": None,
                 "ks_score": None,
@@ -179,7 +203,7 @@ def compute_window_drift(reference_features: list[dict[str, Any]]) -> dict[str, 
         psi = _compute_psi(reference_features, current)
         ks = _compute_ks(reference_features, current)
         max_ks = max(ks.values()) if ks else 0.0
-        alert = psi >= threshold or max_ks >= threshold
+        alert = psi > threshold + _EPS or max_ks > threshold + _EPS
         _window_end = datetime.now(timezone.utc)
         _psi_score = psi
         _ks_score = max_ks
@@ -234,14 +258,24 @@ def update_metrics_from_drift(
     window_end: datetime | None,
     ood_scores: list[float],
     ood_flagged: int,
+    retriever: Any | None = None,
 ) -> None:
-    """Update the global drift metrics state. Also syncs to storage module."""
+    """Publish a completed window to the state that /metrics reads."""
+    if retriever is None:
+        from app.search import _get_retriever
+
+        retriever = _get_retriever()
+    if retriever is None:
+        logging.warning("drift window dropped: reference retriever unavailable")
+        return
+
     global _window_end, _psi_score, _ks_score, _alert_active
     with _drift_lock:
         _window_end = window_end
         _psi_score = psi_score
         _ks_score = ks_score
         _alert_active = alert_active
+
     import app.storage as storage
     storage.update_drift_metrics(
         window_size=window_size,
@@ -257,13 +291,13 @@ def update_metrics_from_drift(
 def get_metrics_state() -> dict[str, Any]:
     """Get the current drift metrics state for the /metrics endpoint."""
     with _drift_lock:
-        if _window_end is None:
+        if _window_end is None or not STATS_AVAILABLE:
             return {
                 "drift_window_score": None,
                 "drift_alert_active": 0,
                 "drift_window_size": 0,
                 "drift_last_window_end": None,
-                "drift_status": "warming_up",
+                "drift_status": "warming_up" if STATS_AVAILABLE else "unavailable",
                 "ood_score_mean": None,
                 "ood_score_p95": None,
                 "ood_flag_rate": None,

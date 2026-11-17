@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "request_id": "req-mon-alert-7721",
+  "model_version": "hybrid-retriever-v1",
+  "window": "1h",
+  "generated_at": "2026-11-17T13:00:00Z",
+  "drift": {
+    "score": 0.584487,
+    "alert_active": true,
+    "method": "psi",
+    "status": "alert"
+  },
+  "escalation": {
+    "rate": 0.28,
+    "review_count": 28,
+    "total_count": 100
+  },
+  "latency_ms": {
+    "p50": 22,
+    "p95": 85,
+    "p99": 140
+  },
+  "ood": {
+    "flag_rate": 0.22,
+    "mean_score": 0.3125
+  }
+}

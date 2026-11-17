@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "request_id": "req-fallback-44a108e1",
+  "model_version": "hybrid-retriever-v1",
+  "query": "stainless washer m12",
+  "route": "review",
+  "reason": {
+    "code": "dependency_unavailable",
+    "text": "Search dependency is currently unavailable; falling back to catalog keyword search."
+  },
+  "timing_ms": {
+    "normalize": 1,
+    "retrieve": 10,
+    "rerank": 0,
+    "total": 11
+  },
+  "results": [
+    {
+      "sku": "WSH-M12-001-0988",
+      "description": "stainless steel washer M12",
+      "score": 0.55,
+      "confidence": {
+        "value": 0.55,
+        "level": "low",
+        "label": "Low confidence"
+      },
+      "evidence": [
+        {
+          "field": "description",
+          "query_value": "stainless washer m12",
+          "catalog_value": "stainless steel washer M12",
+          "match": "partial"
+        }
+      ]
+    }
+  ]
+}
