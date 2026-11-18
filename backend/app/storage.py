@@ -454,7 +454,7 @@ def get_catalog_facets(catalog_path: str = "data/catalog.json") -> dict:
     if not p.is_file():
         p = Path(__file__).resolve().parent.parent / "data" / "catalog.json"
     if not p.is_file():
-        p = Path(__file__).resolve().parents[3] / "data" / "catalog.json"
+        p = Path(__file__).resolve().parents[2] / "data" / "catalog.json"
     if not p.is_file():
         return {"categories": [], "brands": [], "materials": []}
 

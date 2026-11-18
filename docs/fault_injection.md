@@ -5,7 +5,7 @@ the timeout budget. Every injected fault below ends in a documented response:
 either a **validation error (`422`)** with a clear message, or a **`200`** with
 `route: "review"` and a `reason` a human can act on.
 
-Run the suite from `backend/parts-search`:
+Run the suite from `backend`:
 
 ```bash
 python -m pytest -v tests/fault          # fault suite only (CI step "Fault-injection suite (G9)")

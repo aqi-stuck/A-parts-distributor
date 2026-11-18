@@ -49,7 +49,7 @@ def _resolve_catalog_path(default_rel: str = "data/catalog.json") -> str:
     p_backend = Path(__file__).resolve().parent.parent / default_rel
     if p_backend.is_file():
         return str(p_backend)
-    p_repo = Path(__file__).resolve().parents[3] / "backend" / "parts-search" / default_rel
+    p_repo = Path(__file__).resolve().parents[2] / "backend" / default_rel
     if p_repo.is_file():
         return str(p_repo)
     return default_rel
@@ -58,11 +58,35 @@ def _resolve_catalog_path(default_rel: str = "data/catalog.json") -> str:
 service = SearchService(_resolve_catalog_path("data/catalog.json"))
 
 
+def build_endpoint_map() -> None:
+    """Generate ENDPOINTS list from FastAPI router definitions."""
+    global ENDPOINTS
+    ENDPOINTS.clear()
+    for r in app.routes:
+        if not getattr(r, "path", None) or not r.path.startswith("/"):
+            continue
+        methods = getattr(r, "methods", set())
+        for m in methods:
+            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
+                response_model = getattr(r, "response_model", None)
+                if response_model:
+                    response_name = getattr(response_model, "__name__", str(response_model))
+                else:
+                    response_name = None
+                ENDPOINTS.append({
+                    "name": getattr(r, "name", ""),
+                    "method": m,
+                    "path": r.path,
+                    "response_model": response_name,
+                })
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     storage.init_db()
     # Pre-cache facets
     storage.get_catalog_facets("data/catalog.json")
+    build_endpoint_map()
     yield
 
 
@@ -223,72 +247,14 @@ def metrics():
 # V1 API Routes
 
 # -------------------------------------------------
-
-# Populate endpoint metadata at startup for discovery
-@app.on_event("startup")
-def build_endpoint_map():
-    """Generate ENDPOINTS list from FastAPI router definitions."""
-    global ENDPOINTS
-    ENDPOINTS.clear()
-    for r in app.routes:
-        # FastAPI adds many internal routes; filter by path starting with '/'
-        if not getattr(r, "path", None) or not r.path.startswith("/"):
-            continue
-        methods = getattr(r, "methods", set())
-        for m in methods:
-            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
-                response_model = getattr(r, "response_model", None)
-                if response_model:
-                    # response_model may be a pydantic model class
-                    response_name = getattr(response_model, "__name__", str(response_model))
-                else:
-                    response_name = None
-                ENDPOINTS.append({
-                    "name": getattr(r, "name", ""),
-                    "method": m,
-                    "path": r.path,
-                    "response_model": response_name,
-                })
-
-# -------------------------------------------------
 # Discovery endpoint (GET /v1) – returns generated endpoint map
 # -------------------------------------------------
-
-# Populate endpoint metadata at startup for discovery
-@app.on_event("startup")
-def build_endpoint_map():
-    """Generate ENDPOINTS list from FastAPI router definitions."""
-    global ENDPOINTS
-    ENDPOINTS.clear()
-    for r in app.routes:
-        # FastAPI adds many internal routes; filter by path starting with '/'
-        if not getattr(r, "path", None) or not r.path.startswith("/"):
-            continue
-        methods = getattr(r, "methods", set())
-        for m in methods:
-            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
-                response_model = getattr(r, "response_model", None)
-                if response_model:
-                    # response_model may be a pydantic model class
-                    response_name = getattr(response_model, "__name__", str(response_model))
-                else:
-                    response_name = None
-                ENDPOINTS.append({
-                    "name": getattr(r, "name", ""),
-                    "method": m,
-                    "path": r.path,
-                    "response_model": response_name,
-                })
-
-# -------------------------------------------------
-from fastapi.responses import JSONResponse, StreamingResponse
-from app.routes import Route, ENDPOINTS, DISCOVERY
-from uuid import uuid4
+from fastapi.responses import StreamingResponse
 import json
 import asyncio
 from datetime import datetime, timezone
 from collections import deque
-from prometheus_client import Counter , Gauge
+from prometheus_client import Counter, Gauge
 
 # Metrics for event streaming
 event_publish_failures_total = Counter("event_publish_failures_total", "Count of failures when publishing SSE events")
@@ -336,63 +302,7 @@ async def discovery(request: Request):
     return JSONResponse(content=doc)
 
 # -------------------------------------------------
-
-# Populate endpoint metadata at startup for discovery
-@app.on_event("startup")
-def build_endpoint_map():
-    """Generate ENDPOINTS list from FastAPI router definitions."""
-    global ENDPOINTS
-    ENDPOINTS.clear()
-    for r in app.routes:
-        # FastAPI adds many internal routes; filter by path starting with '/'
-        if not getattr(r, "path", None) or not r.path.startswith("/"):
-            continue
-        methods = getattr(r, "methods", set())
-        for m in methods:
-            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
-                response_model = getattr(r, "response_model", None)
-                if response_model:
-                    # response_model may be a pydantic model class
-                    response_name = getattr(response_model, "__name__", str(response_model))
-                else:
-                    response_name = None
-                ENDPOINTS.append({
-                    "name": getattr(r, "name", ""),
-                    "method": m,
-                    "path": r.path,
-                    "response_model": response_name,
-                })
-
-# -------------------------------------------------
 # Server‑Sent Events endpoint
-# -------------------------------------------------
-
-# Populate endpoint metadata at startup for discovery
-@app.on_event("startup")
-def build_endpoint_map():
-    """Generate ENDPOINTS list from FastAPI router definitions."""
-    global ENDPOINTS
-    ENDPOINTS.clear()
-    for r in app.routes:
-        # FastAPI adds many internal routes; filter by path starting with '/'
-        if not getattr(r, "path", None) or not r.path.startswith("/"):
-            continue
-        methods = getattr(r, "methods", set())
-        for m in methods:
-            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
-                response_model = getattr(r, "response_model", None)
-                if response_model:
-                    # response_model may be a pydantic model class
-                    response_name = getattr(response_model, "__name__", str(response_model))
-                else:
-                    response_name = None
-                ENDPOINTS.append({
-                    "name": getattr(r, "name", ""),
-                    "method": m,
-                    "path": r.path,
-                    "response_model": response_name,
-                })
-
 # -------------------------------------------------
 @app.get(Route.EVENTS)
 async def events_stream(request: Request, types: Optional[str] = None):
@@ -471,63 +381,7 @@ async def events_stream(request: Request, types: Optional[str] = None):
         _current_subscribers = max(0, _current_subscribers - 1)
 
 # -------------------------------------------------
-
-# Populate endpoint metadata at startup for discovery
-@app.on_event("startup")
-def build_endpoint_map():
-    """Generate ENDPOINTS list from FastAPI router definitions."""
-    global ENDPOINTS
-    ENDPOINTS.clear()
-    for r in app.routes:
-        # FastAPI adds many internal routes; filter by path starting with '/'
-        if not getattr(r, "path", None) or not r.path.startswith("/"):
-            continue
-        methods = getattr(r, "methods", set())
-        for m in methods:
-            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
-                response_model = getattr(r, "response_model", None)
-                if response_model:
-                    # response_model may be a pydantic model class
-                    response_name = getattr(response_model, "__name__", str(response_model))
-                else:
-                    response_name = None
-                ENDPOINTS.append({
-                    "name": getattr(r, "name", ""),
-                    "method": m,
-                    "path": r.path,
-                    "response_model": response_name,
-                })
-
-# -------------------------------------------------
 # Hook publishing into existing actions (example: feedback)
-# -------------------------------------------------
-
-# Populate endpoint metadata at startup for discovery
-@app.on_event("startup")
-def build_endpoint_map():
-    """Generate ENDPOINTS list from FastAPI router definitions."""
-    global ENDPOINTS
-    ENDPOINTS.clear()
-    for r in app.routes:
-        # FastAPI adds many internal routes; filter by path starting with '/'
-        if not getattr(r, "path", None) or not r.path.startswith("/"):
-            continue
-        methods = getattr(r, "methods", set())
-        for m in methods:
-            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
-                response_model = getattr(r, "response_model", None)
-                if response_model:
-                    # response_model may be a pydantic model class
-                    response_name = getattr(response_model, "__name__", str(response_model))
-                else:
-                    response_name = None
-                ENDPOINTS.append({
-                    "name": getattr(r, "name", ""),
-                    "method": m,
-                    "path": r.path,
-                    "response_model": response_name,
-                })
-
 # -------------------------------------------------
 from app.schemas.events import FeedbackRecordedPayload
 
@@ -551,34 +405,6 @@ def feedback_v1(req: FeedbackRequestV1):
     ).model_dump(mode="json")
     publish_event("feedback.recorded", payload)
     return updated
-
-# -------------------------------------------------
-
-# Populate endpoint metadata at startup for discovery
-@app.on_event("startup")
-def build_endpoint_map():
-    """Generate ENDPOINTS list from FastAPI router definitions."""
-    global ENDPOINTS
-    ENDPOINTS.clear()
-    for r in app.routes:
-        # FastAPI adds many internal routes; filter by path starting with '/'
-        if not getattr(r, "path", None) or not r.path.startswith("/"):
-            continue
-        methods = getattr(r, "methods", set())
-        for m in methods:
-            if m in {"GET", "POST", "PUT", "DELETE", "PATCH"}:
-                response_model = getattr(r, "response_model", None)
-                if response_model:
-                    # response_model may be a pydantic model class
-                    response_name = getattr(response_model, "__name__", str(response_model))
-                else:
-                    response_name = None
-                ENDPOINTS.append({
-                    "name": getattr(r, "name", ""),
-                    "method": m,
-                    "path": r.path,
-                    "response_model": response_name,
-                })
 
 # -------------------------------------------------
 # Ensure other endpoints also publish when appropriate (search, review creation, drift updates, health changes)
@@ -639,20 +465,6 @@ def review_item_detail_v1(id: str):
     if not item:
         raise HTTPException(status_code=404, detail=f"Review item {id} not found")
     return item
-
-
-@app.post("/v1/feedback", response_model=ReviewItem)
-def feedback_v1(req: FeedbackRequestV1):
-    """Submit human feedback decision and return the updated review item."""
-    updated = storage.save_feedback_v1(
-        item_id=req.item_id,
-        action=req.action,
-        corrected_sku=req.corrected_sku,
-        reviewer=req.reviewer,
-    )
-    if not updated:
-        raise HTTPException(status_code=404, detail=f"Review item {req.item_id} not found")
-    return updated
 
 
 @app.get("/v1/monitoring/summary", response_model=MonitoringSummaryResponse)

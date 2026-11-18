@@ -8,6 +8,7 @@ from typing import Any
 from app.config import ENGINE, ENGINE_TIMEOUT_MS, DRIFT_THRESHOLD
 from app.routing import decide_route
 from app.fallback import keyword_fallback
+import app.storage as storage
 import app.drift_state as drift_state
 
 # The retrieval engine pulls in numpy/scipy/sklearn native extensions. On hosts
@@ -51,14 +52,13 @@ def _reference_catalog_paths():
     """Repository catalog.csv first, then the backend-bundled catalog.json (Docker)."""
     from pathlib import Path
 
-    # __file__ = backend/parts-search/app/search.py
+    # __file__ = backend/app/search.py
     backend_dir = Path(__file__).resolve().parents[1]
-    repo_root = backend_dir.parents[1]
+    repo_root = backend_dir.parent
     return repo_root / "data" / "catalog.csv", backend_dir / "data" / "catalog.json"
 
 
 def _get_retriever():
-<<<<<<< HEAD
     """Load the reference retriever from the repository catalog with a Docker fallback."""
     global _RETRIEVER
     if _RETRIEVER is not None:
@@ -70,7 +70,7 @@ def _get_retriever():
         if catalog_csv.is_file():
             _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
         elif catalog_json.is_file():
-            # Docker images ship only backend/parts-search/data/catalog.json.
+            # Docker images ship only backend/data/catalog.json.
             with open(catalog_json, "r", encoding="utf-8") as f:
                 _RETRIEVER = HybridPartsRetriever(json.load(f))
         else:
@@ -107,35 +107,6 @@ def _initialize_drift_tracker() -> None:
         retriever = _get_retriever()
         if retriever is None:
             logging.warning("Drift tracker disabled: reference catalog unavailable")
-=======
-    from pathlib import Path
-    from ml.improved_retrieval import HybridPartsRetriever
-    catalog_csv = Path(__file__).resolve().parents[3] / "data" / "catalog.csv"
-    global _RETRIEVER
-    if _RETRIEVER is None:
-        if catalog_csv.exists():
-            _RETRIEVER = HybridPartsRetriever.from_csv(str(catalog_csv))
-        else:
-            catalog_json = Path(__file__).resolve().parents[1] / "data" / "catalog.json"
-            if not catalog_json.exists():
-                return None
-            with catalog_json.open(encoding="utf-8") as file:
-                _RETRIEVER = HybridPartsRetriever(json.load(file))
-    return _RETRIEVER
-
-
-def _initialize_drift_tracker() -> None:
-    global _DRIFT_TRACKER, _REFERENCE_FEATURES
-    if _DRIFT_TRACKER is not None:
-        return
-    try:
-        from ml.improved_retrieval import normalize_query
-        from sklearn.metrics.pairwise import cosine_similarity
-        from ml.baseline_model import tokenize
-
-        retriever = _get_retriever()
-        if retriever is None:
->>>>>>> 4a004797877386bb42c90be30350757551a9e720
             return
 
         known_tokens = set(retriever.vectorizer.vocabulary_)

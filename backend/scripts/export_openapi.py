@@ -16,7 +16,7 @@ from app.main import app
 def export_openapi(output_path: Path | None = None) -> Path:
     if output_path is None:
         # Resolve docs/openapi.json in repo root
-        repo_root = backend_dir.parent.parent
+        repo_root = backend_dir.parent
         output_path = repo_root / "docs" / "openapi.json"
 
     output_path.parent.mkdir(parents=True, exist_ok=True)

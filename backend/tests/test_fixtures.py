@@ -10,7 +10,7 @@ from app.schemas.review import ReviewItem
 from app.schemas.search import SearchResponseV1
 
 
-EXAMPLES_DIR = Path(__file__).resolve().parents[3] / "docs" / "examples"
+EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "docs" / "examples"
 
 
 def test_fixture_directory_exists():

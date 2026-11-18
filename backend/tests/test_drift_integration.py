@@ -78,7 +78,7 @@ def test_drift_no_alert_on_in_distribution():
 
 
 def test_drift_uses_backend_catalog_when_repo_copy_is_absent(monkeypatch):
-    """Docker ships only backend/parts-search/data/catalog.json; drift must still start."""
+    """Docker ships only backend/data/catalog.json; drift must still start."""
     from app import search as search_module
 
     backend_json = Path(__file__).parent.parent / "data" / "catalog.json"

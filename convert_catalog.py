@@ -1,6 +1,6 @@
 import csv, json, os
 src = 'data/catalog.csv'
-dst = 'backend/parts-search/data/catalog.json'
+dst = 'backend/data/catalog.json'
 rows = list(csv.DictReader(open(src, encoding='utf-8')))
 out = []
 seen = set()
