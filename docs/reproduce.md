@@ -7,7 +7,7 @@ environment and install dependencies first:
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python -m pip install -r backend/parts-search/requirements.txt
+python -m pip install -r backend/requirements.txt
 ```
 
 ## Dataset and frozen benchmark
@@ -45,7 +45,7 @@ described in `docs/baseline.md`, `docs/model_card.md`, and
 ## Tests and application checks
 
 ```bash
-cd backend/parts-search
+cd backend
 python -m pytest -q
 cd ../..
 cd frontend
@@ -56,4 +56,4 @@ npm run build
 For a local end-to-end run, use `docker compose up --build` from the root and
 check `/health`, `/docs`, the search page, the review queue, and the monitoring
 panel. The backend load-test script records p50/p95/p99 latency in
-`backend/parts-search/results/latency.json`.
+`backend/results/latency.json`.

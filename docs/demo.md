@@ -31,7 +31,7 @@ accuracy.
   cannot establish real-world small-brand fairness.
 - **What is the latency?** The load-test report records p50/p95/p99 per stage;
   the current report is in
-  `backend/parts-search/results/latency.json`.
+  `backend/results/latency.json`.
 - **What if the service fails?** The API uses keyword fallback where possible,
   returns `route: "review"` with `reason: "system error"`, and the reviewer
   uses manual catalog search rather than a raw error.

@@ -1,0 +1,1443 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Parts Search API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "description": "Health check endpoint.",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "summary": "Search Legacy",
+        "description": "Search parts and log the query; legacy route.",
+        "operationId": "search_legacy_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "post": {
+        "summary": "Feedback Legacy",
+        "description": "Save human feedback for a query; legacy route.",
+        "operationId": "feedback_legacy_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/review-queue": {
+      "get": {
+        "summary": "Review Queue Legacy",
+        "description": "Get recent queries needing human review; legacy route.",
+        "operationId": "review_queue_legacy_review_queue_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Metrics",
+        "description": "Get basic usage metrics; legacy and v1 compatible.",
+        "operationId": "metrics_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search": {
+      "post": {
+        "summary": "Search V1",
+        "description": "Search parts with typed, display-ready response models and reason codes.",
+        "operationId": "search_v1_v1_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchRequestV1"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponseV1"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/review-queue": {
+      "get": {
+        "summary": "Review Queue V1",
+        "description": "Paginated review queue with cursor keyed on (priority, created_at, id).",
+        "operationId": "review_queue_v1_v1_review_queue_get",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Opaque base64 pagination cursor",
+              "title": "Cursor"
+            },
+            "description": "Opaque base64 pagination cursor"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Items per page (max 100)",
+              "default": 20,
+              "title": "Limit"
+            },
+            "description": "Items per page (max 100)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Paginated_ReviewItem_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/review-queue/{id}": {
+      "get": {
+        "summary": "Review Item Detail V1",
+        "description": "Fetch a single review item with complete audit trail history.",
+        "operationId": "review_item_detail_v1_v1_review_queue__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewItemDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/feedback": {
+      "post": {
+        "summary": "Feedback V1",
+        "description": "Submit human feedback decision and return the updated review item.",
+        "operationId": "feedback_v1_v1_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequestV1"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/monitoring/summary": {
+      "get": {
+        "summary": "Monitoring Summary V1",
+        "description": "Precomputed monitoring summary containing drift, escalation, latency, and OOD metrics.",
+        "operationId": "monitoring_summary_v1_v1_monitoring_summary_get",
+        "parameters": [
+          {
+            "name": "window",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Time window aggregation: 15m, 1h, or 24h",
+              "default": "1h",
+              "title": "Window"
+            },
+            "description": "Time window aggregation: 15m, 1h, or 24h"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MonitoringSummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/catalog/facets": {
+      "get": {
+        "summary": "Catalog Facets V1",
+        "description": "Cached catalog facet distributions for categories, brands, and materials.",
+        "operationId": "catalog_facets_v1_v1_catalog_facets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogFacetsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/config/public": {
+      "get": {
+        "summary": "Public Config V1",
+        "description": "Public thresholds and configuration parameters required by frontend.",
+        "operationId": "public_config_v1_v1_config_public_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health": {
+      "get": {
+        "summary": "Health V1",
+        "description": "Detailed health check including dependency status.",
+        "operationId": "health_v1_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponseV1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditEntry": {
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "reviewer": {
+            "type": "string",
+            "title": "Reviewer"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "output_sku": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Sku"
+          }
+        },
+        "type": "object",
+        "required": [
+          "timestamp",
+          "action",
+          "reviewer",
+          "model_version"
+        ],
+        "title": "AuditEntry"
+      },
+      "Candidate": {
+        "properties": {
+          "sku": {
+            "type": "string",
+            "title": "Sku"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "default": 0.0
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sku",
+          "description",
+          "score",
+          "evidence"
+        ],
+        "title": "Candidate"
+      },
+      "CatalogFacetsResponse": {
+        "properties": {
+          "categories": {
+            "items": {
+              "$ref": "#/components/schemas/FacetCount"
+            },
+            "type": "array",
+            "title": "Categories"
+          },
+          "brands": {
+            "items": {
+              "$ref": "#/components/schemas/FacetCount"
+            },
+            "type": "array",
+            "title": "Brands"
+          },
+          "materials": {
+            "items": {
+              "$ref": "#/components/schemas/FacetCount"
+            },
+            "type": "array",
+            "title": "Materials"
+          }
+        },
+        "type": "object",
+        "title": "CatalogFacetsResponse"
+      },
+      "Confidence": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Value"
+          },
+          "level": {
+            "$ref": "#/components/schemas/ConfidenceLevel"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "level",
+          "label"
+        ],
+        "title": "Confidence"
+      },
+      "ConfidenceLevel": {
+        "type": "string",
+        "enum": [
+          "high",
+          "medium",
+          "low"
+        ],
+        "title": "ConfidenceLevel"
+      },
+      "DependencyStatus": {
+        "properties": {
+          "index": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "down"
+            ],
+            "title": "Index"
+          },
+          "model": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "down"
+            ],
+            "title": "Model"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index",
+          "model"
+        ],
+        "title": "DependencyStatus"
+      },
+      "DriftSummary": {
+        "properties": {
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "alert_active": {
+            "type": "boolean",
+            "title": "Alert Active",
+            "default": false
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "psi",
+                  "ks"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "alert",
+              "warming_up"
+            ],
+            "title": "Status",
+            "default": "warming_up"
+          }
+        },
+        "type": "object",
+        "title": "DriftSummary"
+      },
+      "EscalationSummary": {
+        "properties": {
+          "rate": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Rate",
+            "default": 0.0
+          },
+          "review_count": {
+            "type": "integer",
+            "title": "Review Count",
+            "default": 0
+          },
+          "total_count": {
+            "type": "integer",
+            "title": "Total Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "EscalationSummary"
+      },
+      "Evidence": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "query_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query Value"
+          },
+          "catalog_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Catalog Value"
+          },
+          "match": {
+            "$ref": "#/components/schemas/EvidenceMatch"
+          }
+        },
+        "type": "object",
+        "required": [
+          "field",
+          "match"
+        ],
+        "title": "Evidence"
+      },
+      "EvidenceMatch": {
+        "type": "string",
+        "enum": [
+          "exact",
+          "partial",
+          "mismatch",
+          "missing"
+        ],
+        "title": "EvidenceMatch"
+      },
+      "FacetCount": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "count"
+        ],
+        "title": "FacetCount"
+      },
+      "FeedbackRequest": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "sku": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sku"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "correct",
+              "reject"
+            ],
+            "title": "Decision"
+          },
+          "reviewer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer"
+          },
+          "query_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query",
+          "decision"
+        ],
+        "title": "FeedbackRequest"
+      },
+      "FeedbackRequestV1": {
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "title": "Item Id"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "approve",
+              "correct",
+              "reject"
+            ],
+            "title": "Action"
+          },
+          "corrected_sku": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Corrected Sku"
+          },
+          "reviewer": {
+            "type": "string",
+            "title": "Reviewer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "item_id",
+          "action",
+          "reviewer"
+        ],
+        "title": "FeedbackRequestV1"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponseV1": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "degraded"
+            ],
+            "title": "Status"
+          },
+          "dependencies": {
+            "$ref": "#/components/schemas/DependencyStatus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "model_version",
+          "status",
+          "dependencies"
+        ],
+        "title": "HealthResponseV1"
+      },
+      "ItemStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "approved",
+          "corrected",
+          "rejected"
+        ],
+        "title": "ItemStatus"
+      },
+      "LatencySummary": {
+        "properties": {
+          "p50": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50"
+          },
+          "p95": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95"
+          },
+          "p99": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P99"
+          }
+        },
+        "type": "object",
+        "title": "LatencySummary"
+      },
+      "MonitoringSummaryResponse": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "window": {
+            "type": "string",
+            "enum": [
+              "15m",
+              "1h",
+              "24h"
+            ],
+            "title": "Window",
+            "default": "1h"
+          },
+          "generated_at": {
+            "type": "string",
+            "title": "Generated At"
+          },
+          "drift": {
+            "$ref": "#/components/schemas/DriftSummary"
+          },
+          "escalation": {
+            "$ref": "#/components/schemas/EscalationSummary"
+          },
+          "latency_ms": {
+            "$ref": "#/components/schemas/LatencySummary"
+          },
+          "ood": {
+            "$ref": "#/components/schemas/OodSummary"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "model_version",
+          "generated_at",
+          "drift",
+          "escalation",
+          "latency_ms",
+          "ood"
+        ],
+        "title": "MonitoringSummaryResponse"
+      },
+      "OodSummary": {
+        "properties": {
+          "flag_rate": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Flag Rate",
+            "default": 0.0
+          },
+          "mean_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Score"
+          }
+        },
+        "type": "object",
+        "title": "OodSummary"
+      },
+      "PageSizeDefaults": {
+        "properties": {
+          "default_limit": {
+            "type": "integer",
+            "title": "Default Limit",
+            "default": 20
+          },
+          "max_limit": {
+            "type": "integer",
+            "title": "Max Limit",
+            "default": 100
+          }
+        },
+        "type": "object",
+        "title": "PageSizeDefaults"
+      },
+      "Paginated_ReviewItem_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor"
+          },
+          "total_estimate": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Estimate"
+          }
+        },
+        "type": "object",
+        "title": "Paginated[ReviewItem]"
+      },
+      "PublicConfigResponse": {
+        "properties": {
+          "confidence_thresholds": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Confidence Thresholds"
+          },
+          "too_close_margin": {
+            "type": "number",
+            "title": "Too Close Margin"
+          },
+          "drift_threshold": {
+            "type": "number",
+            "title": "Drift Threshold"
+          },
+          "window_options": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Window Options"
+          },
+          "page_size_defaults": {
+            "$ref": "#/components/schemas/PageSizeDefaults"
+          }
+        },
+        "type": "object",
+        "required": [
+          "confidence_thresholds",
+          "too_close_margin",
+          "drift_threshold",
+          "window_options",
+          "page_size_defaults"
+        ],
+        "title": "PublicConfigResponse"
+      },
+      "Reason": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "text"
+        ],
+        "title": "Reason"
+      },
+      "Result": {
+        "properties": {
+          "sku": {
+            "type": "string",
+            "title": "Sku"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "score": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Score"
+          },
+          "confidence": {
+            "$ref": "#/components/schemas/Confidence"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "type": "array",
+            "title": "Evidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sku",
+          "description",
+          "score",
+          "confidence"
+        ],
+        "title": "Result"
+      },
+      "ReviewItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ItemStatus"
+          },
+          "priority": {
+            "type": "integer",
+            "title": "Priority"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/Result"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "audit_count": {
+            "type": "integer",
+            "title": "Audit Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "query",
+          "created_at",
+          "status",
+          "priority"
+        ],
+        "title": "ReviewItem"
+      },
+      "ReviewItemDetail": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ItemStatus"
+          },
+          "priority": {
+            "type": "integer",
+            "title": "Priority"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/Result"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "audit_count": {
+            "type": "integer",
+            "title": "Audit Count",
+            "default": 0
+          },
+          "audit": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            },
+            "type": "array",
+            "title": "Audit"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "query",
+          "created_at",
+          "status",
+          "priority"
+        ],
+        "title": "ReviewItemDetail"
+      },
+      "Route": {
+        "type": "string",
+        "enum": [
+          "auto",
+          "review"
+        ],
+        "title": "Route"
+      },
+      "SearchRequest": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Query"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "title": "SearchRequest"
+      },
+      "SearchRequestV1": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 500,
+            "title": "Query",
+            "description": "Messy part query description"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "title": "SearchRequestV1"
+      },
+      "SearchResponse": {
+        "properties": {
+          "route": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "review"
+            ],
+            "title": "Route"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/Candidate"
+            },
+            "type": "array",
+            "title": "Results"
+          },
+          "latency_ms": {
+            "type": "number",
+            "title": "Latency Ms"
+          },
+          "timing_ms": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timing Ms"
+          },
+          "engine": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine"
+          }
+        },
+        "type": "object",
+        "required": [
+          "route",
+          "results",
+          "latency_ms"
+        ],
+        "title": "SearchResponse"
+      },
+      "SearchResponseV1": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "model_version": {
+            "type": "string",
+            "title": "Model Version"
+          },
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "route": {
+            "$ref": "#/components/schemas/Route"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/Reason"
+          },
+          "timing_ms": {
+            "$ref": "#/components/schemas/SearchTiming"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/Result"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "model_version",
+          "query",
+          "route",
+          "reason",
+          "timing_ms"
+        ],
+        "title": "SearchResponseV1"
+      },
+      "SearchTiming": {
+        "properties": {
+          "normalize": {
+            "type": "integer",
+            "title": "Normalize",
+            "default": 0
+          },
+          "retrieve": {
+            "type": "integer",
+            "title": "Retrieve",
+            "default": 0
+          },
+          "rerank": {
+            "type": "integer",
+            "title": "Rerank",
+            "default": 0
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "SearchTiming"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

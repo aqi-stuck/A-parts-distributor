@@ -79,15 +79,19 @@ dependencies:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r backend/parts-search/requirements.txt
+python -m pip install -r backend/requirements.txt
 ```
 
 In one terminal, start the API:
 
 ```bash
-cd backend/parts-search
+cd backend
 python -m uvicorn app.main:app --reload
 ```
+
+On Windows, double-click `backend/Start-Backend.bat`. It selects the
+`backend/venv` (or `backend/.venv`) environment, installs the backend
+requirements when they are missing, and starts the API with reload enabled.
 
 In a second terminal, install the frontend dependencies and start Vite:
 
@@ -103,7 +107,7 @@ is available at <http://localhost:8000>.
 ## Project layout
 
 - `frontend/`: React and Vite warehouse interface
-- `backend/parts-search/`: FastAPI search API and catalog
+- `backend/`: FastAPI search API and catalog
 - `compose.yaml`: local multi-container setup
 - `.github/workflows/ci.yml`: backend tests, frontend build, and Docker image build
 - `docs/contract.md`: versioned API contract

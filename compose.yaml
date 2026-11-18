@@ -1,7 +1,7 @@
 services:
   backend:
     build:
-      context: ./backend/parts-search
+      context: ./backend
     environment:
       PARTS_DB_PATH: /var/lib/parts-search/app.db
     ports:

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "request_id": "req-auto-8a1f29b0",
+  "model_version": "hybrid-retriever-v1",
+  "query": "zinc hex bolt m8 x 30",
+  "route": "auto",
+  "reason": {
+    "code": "high_margin",
+    "text": "Clear top match with distinct confidence margin."
+  },
+  "timing_ms": {
+    "normalize": 1,
+    "retrieve": 14,
+    "rerank": 2,
+    "total": 17
+  },
+  "results": [
+    {
+      "sku": "BOL-M8-030-0042",
+      "description": "zinc steel hex bolt M8 x 30 mm",
+      "score": 0.96,
+      "confidence": {
+        "value": 0.96,
+        "level": "high",
+        "label": "High confidence"
+      },
+      "evidence": [
+        {
+          "field": "thread",
+          "query_value": "M8",
+          "catalog_value": "M8",
+          "match": "exact"
+        },
+        {
+          "field": "finish",
+          "query_value": "zinc",
+          "catalog_value": "zinc",
+          "match": "exact"
+        },
+        {
+          "field": "length_mm",
+          "query_value": "30",
+          "catalog_value": "30",
+          "match": "exact"
+        }
+      ]
+    },
+    {
+      "sku": "BOL-M8-035-0043",
+      "description": "zinc steel hex bolt M8 x 35 mm",
+      "score": 0.74,
+      "confidence": {
+        "value": 0.74,
+        "level": "medium",
+        "label": "Medium confidence"
+      },
+      "evidence": [
+        {
+          "field": "thread",
+          "query_value": "M8",
+          "catalog_value": "M8",
+          "match": "exact"
+        },
+        {
+          "field": "length_mm",
+          "query_value": "30",
+          "catalog_value": "35",
+          "match": "mismatch"
+        }
+      ]
+    }
+  ]
+}

@@ -13,7 +13,7 @@ Return `route: "auto"` only when:
 - the top candidate is not within `0.05` score of the second candidate.
 
 The thresholds are versioned in
-[`backend/parts-search/config/thresholds.json`](../backend/parts-search/config/thresholds.json).
+[`backend/config/thresholds.json`](../backend/config/thresholds.json).
 
 ## Human review
 

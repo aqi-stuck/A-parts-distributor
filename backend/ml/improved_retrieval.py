@@ -1,7 +1,9 @@
 """Normalized, hybrid, attribute-aware retrieval for catalog queries."""
 
+import csv
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -126,6 +128,11 @@ class HybridPartsRetriever:
             for field, value in attributes.values.items()
         )
         return matches / len(attributes.values)
+
+    @classmethod
+    def from_csv(cls, path: str | Path) -> "HybridPartsRetriever":
+        with Path(path).open(encoding="utf-8", newline="") as f:
+            return cls(list(csv.DictReader(f)))
 
     def search(self, query: str, limit: int = 5, candidate_limit: int = 50) -> list[dict[str, Any]]:
         normalized = normalize_query(query)
