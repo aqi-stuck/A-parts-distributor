@@ -1,4 +1,3 @@
-"""Run G1-G4 evaluation checks for retrieval quality and grounding."""
 
 import csv
 import json

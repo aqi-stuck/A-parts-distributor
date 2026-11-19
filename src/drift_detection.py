@@ -1,5 +1,3 @@
-"""Per-query OOD and window-level drift detection for parts queries."""
-
 from collections import Counter
 from typing import Any
 
@@ -12,7 +10,6 @@ from src.baseline import tokenize
 
 
 class DriftDetector:
-    """Detect query distribution shifts against a fixed reference window."""
 
     def __init__(
         self,

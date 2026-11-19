@@ -1,4 +1,3 @@
-"""Evaluate bias slices, escalation, calibration, and noise robustness."""
 
 import csv
 import json

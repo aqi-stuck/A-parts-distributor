@@ -1,4 +1,3 @@
-"""Generate labeled distribution-shift queries from validation queries."""
 
 import csv
 from pathlib import Path

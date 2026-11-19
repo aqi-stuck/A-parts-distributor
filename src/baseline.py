@@ -1,5 +1,3 @@
-"""Sparse retrieval baseline for messy parts queries."""
-
 import csv
 import re
 from pathlib import Path
@@ -19,7 +17,6 @@ def tokenize(text: str) -> list[str]:
 
 
 class PartsBaseline:
-    """BM25 + TF-IDF + fuzzy matching baseline over a parts catalog."""
 
     def __init__(self, catalog: list[dict[str, str]]) -> None:
         if not catalog:

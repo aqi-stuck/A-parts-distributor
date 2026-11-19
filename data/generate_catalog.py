@@ -1,4 +1,3 @@
-"""Generate the reproducible synthetic catalog used for the search baseline."""
 
 from csv import DictWriter
 from itertools import product

@@ -1,4 +1,3 @@
-"""Fit and report validation-set confidence calibration."""
 
 import csv
 import json

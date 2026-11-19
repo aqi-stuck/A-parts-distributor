@@ -1,4 +1,3 @@
-"""Measure accuracy versus auto-answer coverage at confidence thresholds."""
 
 import csv
 import json

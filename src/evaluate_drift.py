@@ -1,4 +1,3 @@
-"""Evaluate OOD detection and window drift on simulated shifts."""
 
 import csv
 import json

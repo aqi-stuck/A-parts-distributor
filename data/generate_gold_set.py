@@ -1,4 +1,3 @@
-"""Create a deterministic, frozen gold set from generated labeled queries."""
 
 import csv
 from collections import defaultdict

@@ -1,4 +1,3 @@
-"""Generate deterministic messy search queries linked to catalog SKUs."""
 
 import csv
 import random

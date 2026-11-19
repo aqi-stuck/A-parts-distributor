@@ -1,4 +1,3 @@
-"""Assign evaluation slices to the frozen gold queries."""
 
 import csv
 from pathlib import Path

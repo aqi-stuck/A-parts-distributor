@@ -1,4 +1,3 @@
-"""Create and verify the checksum manifest for the frozen gold set."""
 
 import hashlib
 import json

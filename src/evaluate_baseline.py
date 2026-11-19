@@ -1,4 +1,3 @@
-"""Evaluate the retrieval baseline against the frozen tagged gold set."""
 
 import csv
 import json

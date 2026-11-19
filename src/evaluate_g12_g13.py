@@ -1,4 +1,3 @@
-"""Create the G12 headline comparison and G13 error analysis reports."""
 
 import csv
 import json

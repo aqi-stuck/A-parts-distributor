@@ -1,5 +1,3 @@
-"""Normalized, hybrid, attribute-aware retrieval for catalog queries."""
-
 import csv
 import re
 from dataclasses import dataclass
@@ -72,12 +70,10 @@ def correct_vocabulary(query: str) -> str:
 
 
 def detect_prompt_injection(query: str) -> bool:
-    """Flag instruction-like text while keeping the entire query data-only."""
     return any(re.search(pattern, query, flags=re.IGNORECASE) for pattern in INSTRUCTION_PATTERNS)
 
 
 def normalize_query(query: str) -> str:
-    """Canonicalize units, fractions, abbreviations, and common separators."""
     normalized = query.lower().strip()
     for pattern, replacement in UNIT_REPLACEMENTS.items():
         normalized = re.sub(pattern, replacement, normalized)
@@ -94,8 +90,6 @@ class ExtractedAttributes:
 
 
 class AttributeExtractor:
-    """Extract catalog attributes that can constrain candidate ranking."""
-
     fields = ("material", "thread", "finish", "brand", "category", "length_mm")
 
     @staticmethod
@@ -125,8 +119,6 @@ class AttributeExtractor:
 
 
 class HybridPartsRetriever:
-    """Combine lexical retrieval with dense TF-IDF projection embeddings."""
-
     def __init__(self, catalog: list[dict[str, str]]) -> None:
         self.baseline = PartsBaseline(catalog)
         self.catalog = catalog
@@ -282,7 +274,6 @@ class HybridPartsRetriever:
         limit: int = 5,
         min_confidence: float = 0.9,
     ) -> dict[str, Any]:
-        """Return grounded results or a safe not-found response."""
         results = self.search(query, limit=limit)
         confidence = results[0]["confidence"] if results else 0.0
         if not results or confidence < min_confidence:
