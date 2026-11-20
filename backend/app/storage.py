@@ -108,6 +108,24 @@ def save_feedback(query, sku, decision, reviewer=None, query_id=None):
         )
 
 
+def get_feedback_training_examples() -> list[tuple[str, str]]:
+    """Return approved/corrected query-SKU pairs for retriever retraining."""
+    with sqlite3.connect(DB_PATH) as conn:
+        rows = conn.execute(
+            """
+            SELECT query, sku
+            FROM feedback
+            WHERE decision IN ('approve', 'correct')
+              AND query IS NOT NULL
+              AND TRIM(query) <> ''
+              AND sku IS NOT NULL
+              AND TRIM(sku) <> ''
+            ORDER BY id ASC
+            """
+        ).fetchall()
+    return [(str(query), str(sku)) for query, sku in rows]
+
+
 def review_queue(limit=50):
     """Return recent review queries ordered newest first."""
     with sqlite3.connect(DB_PATH) as conn:

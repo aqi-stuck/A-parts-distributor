@@ -152,6 +152,22 @@ def test_review_queue_includes_candidates_and_can_be_resolved():
         assert all(entry["id"] != item["id"] for entry in remaining)
 
 
+def test_corrected_feedback_updates_model_for_next_search():
+    """A valid corrected query-SKU pair affects the in-process retriever."""
+    alias = "hexagonal alias for training test"
+    with TestClient(app) as client:
+        response = client.post(
+            "/feedback",
+            json={"query": alias, "sku": "BOL-M6-020-0001", "decision": "correct"},
+        )
+        assert response.status_code == 200
+        search_response = client.post("/search", json={"query": alias})
+        assert search_response.status_code == 200
+        results = search_response.json()["results"]
+        assert results
+        assert results[0]["sku"] == "BOL-M6-020-0001"
+
+
 def test_metrics_shape():
     """Metrics endpoint returns required keys."""
     with TestClient(app) as client:
