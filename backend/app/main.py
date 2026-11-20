@@ -84,6 +84,9 @@ def build_endpoint_map() -> None:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     storage.init_db()
+    examples = storage.get_feedback_training_examples()
+    if hasattr(service.engine, "reload_feedback"):
+        service.engine.reload_feedback(examples)
     # Pre-cache facets
     storage.get_catalog_facets("data/catalog.json")
     build_endpoint_map()
@@ -218,6 +221,9 @@ def feedback_legacy(req: FeedbackRequestV0):
     """Save human feedback for a query; legacy route."""
     try:
         storage.save_feedback(req.query, req.sku, req.decision, req.reviewer, req.query_id)
+        if req.decision in {"approve", "correct"} and req.sku:
+            if hasattr(service.engine, "record_feedback"):
+                service.engine.record_feedback(req.query, req.sku)
     except Exception:
         storage.record_log_failure()
         logging.exception("feedback save failed")
@@ -395,6 +401,12 @@ def feedback_v1(req: FeedbackRequestV1):
     )
     if not updated:
         raise HTTPException(status_code=404, detail=f"Review item {req.item_id} not found")
+    if req.action in {"approve", "correct"}:
+        feedback_sku = req.corrected_sku or (
+            updated.candidates[0].sku if updated.candidates else None
+        )
+        if feedback_sku and hasattr(service.engine, "record_feedback"):
+            service.engine.record_feedback(updated.query, feedback_sku)
     # Publish event after successful feedback
     payload = FeedbackRecordedPayload(
         query=updated.query,
