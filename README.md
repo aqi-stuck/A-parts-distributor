@@ -6,6 +6,8 @@ queries for human review.
 
 See [Checklist.md](Checklist.md) for project roles and remaining work.
 
+Live demo: <https://a-parts-distributor-s6rd.vercel.app/>
+
 ## Scope and success criteria
 
 The task is: **turn a messy warehouse part description into ranked catalog
